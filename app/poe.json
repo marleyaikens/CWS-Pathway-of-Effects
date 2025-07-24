@@ -1,0 +1,5309 @@
+{
+    "Terrestrial and Semi-Aquatic SAR": {
+        "name": "Terrestrial and Semi-Aquatic SAR",
+        "nodes": [
+            {
+                "id": "2",
+                "label": "Terrestrial and Semi-Aquatic SAR\n",
+                "x": 39.6473,
+                "y": 18.2877,
+                "width": 8.24,
+                "height": 0.8531,
+                "fillcolor": "#88bde9",
+                "color": null,
+                "linewidth": 0.08333333333333333
+            },
+            {
+                "id": "3",
+                "label": "Direct Habitat Destruction or Degradation\n",
+                "x": 15.08840118143299,
+                "y": 14.52540587179742,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "4",
+                "label": "Introduction of Invasive/Non-native species\n",
+                "x": 22.21811456725975,
+                "y": 14.52540587179742,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "5",
+                "label": "Direct Injury or Mortality\n",
+                "x": 9.621014567259756,
+                "y": 12.79570587179742,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f06c6c",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "6",
+                "label": "Damage or Destruction of Nests or Dens\n",
+                "x": 12.25160118143299,
+                "y": 12.74610587179742,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f06c6c",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "7",
+                "label": "Change in Vegetation Community Composition and Structure\n",
+                "x": 22.33451456725975,
+                "y": 9.832005871797419,
+                "width": 1.971724409448819,
+                "height": 0.968273228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "13",
+                "label": "Increase in Edge Habitat\n",
+                "x": 17.51241456725975,
+                "y": 12.79560587179742,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "14",
+                "label": "Fragmentation of Habitat\n",
+                "x": 14.88201456725975,
+                "y": 12.79570587179742,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "15",
+                "label": "Loss of Habitat\n",
+                "x": 20.14281456725976,
+                "y": 12.79570587179742,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "22",
+                "label": "Creation of Early Seral Stage Habitat\n",
+                "x": 16.04741456725976,
+                "y": 11.45970587179742,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "24",
+                "label": "Change in Predator and/or Prey Abundance\n",
+                "x": 16.04741456725976,
+                "y": 10.25320587179742,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "26",
+                "label": "Increase in Predation Risk\n",
+                "x": 16.04741456725976,
+                "y": 9.04680587179742,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "29",
+                "label": "Decrease in Food Availability\n",
+                "x": 18.86791456725975,
+                "y": 11.45990587179742,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "30",
+                "label": "Change in Soil and Terrain\n",
+                "x": 21.18441456725974,
+                "y": 11.46000587179742,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "33",
+                "label": "Decrease in Landscape Connectivity\n",
+                "x": 13.82311456725975,
+                "y": 11.45980587179742,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "47",
+                "label": "Increased Access\n",
+                "x": 27.9187,
+                "y": 14.509,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "48",
+                "label": "Increase in Predation Risk\n",
+                "x": 24.6785,
+                "y": 11.4603,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "50",
+                "label": "Increase in Public Access\n",
+                "x": 29.9395,
+                "y": 12.7596,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "51",
+                "label": "Increase in Predator Access\n",
+                "x": 24.6786,
+                "y": 12.7957,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "52",
+                "label": "Creation of Linear Barriers to Movement\n",
+                "x": 27.3091,
+                "y": 12.7596,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "56",
+                "label": "Increase in Illegal Trapping and/or Harvesting\n",
+                "x": 28.7144,
+                "y": 11.4602,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "58",
+                "label": "Change in Movement and Behaviour\n",
+                "x": 26.6963,
+                "y": 11.4596,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "61",
+                "label": "Increase in Adverse Human-Wildlife Interactions\n",
+                "x": 30.7326,
+                "y": 11.4601,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "69",
+                "label": "Sensory Disturbance\n",
+                "x": 34.2742,
+                "y": 14.5159,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "70",
+                "label": "Avoidance of Habitat\n",
+                "x": 32.98679996051178,
+                "y": 12.73890001024562,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "71",
+                "label": "Change in Movement and Behaviour\n",
+                "x": 35.39229996051178,
+                "y": 12.73880001024562,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "72",
+                "label": "Increase in Predation Risk\n",
+                "x": 35.39229996051178,
+                "y": 11.4602,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "83",
+                "label": "Change in Air Quality\n",
+                "x": 38.7364,
+                "y": 14.5158,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "84",
+                "label": "Deposition of Dust and Particulate Matter\n",
+                "x": 38.7363,
+                "y": 12.7959,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "86",
+                "label": "Inhalation and/or ingestion of COPCs\n",
+                "x": 37.61669996051178,
+                "y": 11.4604,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "87",
+                "label": "Habitat Availability and Distribution\n",
+                "x": 35.90239996051178,
+                "y": 5.107850010245619,
+                "width": 1.738924409448819,
+                "height": 0.7235732283464567,
+                "fillcolor": "#9dbb61",
+                "color": null,
+                "linewidth": 0.01041666666666667
+            },
+            {
+                "id": "88",
+                "label": "Fitness, Reproduction, and Mortality\n",
+                "x": 42.65659996051178,
+                "y": 5.107850010245619,
+                "width": 1.738924409448819,
+                "height": 0.7235732283464567,
+                "fillcolor": "#f59d56",
+                "color": null,
+                "linewidth": 0.01041666666666667
+            },
+            {
+                "id": "93",
+                "label": "Population Abundance and Distribution\n",
+                "x": 39.13053779527559,
+                "y": 3.611786614173228,
+                "width": 1.738924409448819,
+                "height": 0.7235732283464567,
+                "fillcolor": "#7e649e",
+                "color": null,
+                "linewidth": 0.01041666666666667
+            },
+            {
+                "id": "96",
+                "label": "Change in Groundwater Quality\n",
+                "x": 47.02405000633291,
+                "y": 14.50827834678731,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "97",
+                "label": "Change in Surface Water Quantity\n",
+                "x": 50.04975000633291,
+                "y": 14.50827834678731,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "100",
+                "label": "Change in Surface Water Quality\n",
+                "x": 53.07545000633292,
+                "y": 14.50837834678731,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "103",
+                "label": "Change in Groundwater Quantity\n",
+                "x": 43.99815000633291,
+                "y": 14.50817834678731,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "104",
+                "label": "Decrease in Flows to Wetlands\n",
+                "x": 42.1805,
+                "y": 12.796,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "106",
+                "label": "Change in Vegetation Species Composition and Structure\n",
+                "x": 42.1805,
+                "y": 9.34525,
+                "width": 1.738924409448819,
+                "height": 0.853073228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "107",
+                "label": "Change in Soil Quality\n",
+                "x": 45.17,
+                "y": 10.5221,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "108",
+                "label": "Ingestion of Constitutents of Potential Concern (COPCs)\n",
+                "x": 45.16990000633292,
+                "y": 9.409928346787305,
+                "width": 1.738824409448819,
+                "height": 0.853073228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "109",
+                "label": "Increased Sediment in Runoff\n",
+                "x": 47.6098,
+                "y": 11.373,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "110",
+                "label": "Change in Flows and/or water level\n",
+                "x": 50.0495,
+                "y": 12.796,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "111",
+                "label": "Increase in Soil Erosion\n",
+                "x": 50.0496,
+                "y": 11.373,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "112",
+                "label": "Change in Habitat Quality\n",
+                "x": 50.04965000633293,
+                "y": 10.34757834678731,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "131",
+                "label": "Release of Site Contact Water and Treated Effluent\n",
+                "x": 56.0019,
+                "y": 14.5147,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "132",
+                "label": "Decrease in Soil and Water Quality\n",
+                "x": 56.0019,
+                "y": 12.7959,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "135",
+                "label": "Change in Upland, Wetland, and Riparian Ecosystems\n",
+                "x": 54.7058,
+                "y": 11.4605,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "138",
+                "label": "Ingestion of Constituents of Potential Concern (COPCs)\n",
+                "x": 57.3538,
+                "y": 11.4605,
+                "width": 1.738924409448819,
+                "height": 0.853373228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "144",
+                "label": "Introduction of Hazardous and/or Chemical Materials\n",
+                "x": 66.4668,
+                "y": 14.5086,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "148",
+                "label": "Improper Disposal of Food Waste",
+                "x": 61.7683,
+                "y": 14.5084,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "150",
+                "label": "Attraction of Carnivores and Scavengers \n",
+                "x": 61.7684,
+                "y": 12.7959,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "152",
+                "label": "Increase in Local Predator Abundance\n",
+                "x": 60.1989,
+                "y": 11.4606,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "153",
+                "label": "Increase in Adverse Human-Wildlife Interactions\n",
+                "x": 62.3886,
+                "y": 11.4605,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "158",
+                "label": "Direct Ingestion\n",
+                "x": 65.0568,
+                "y": 12.7959,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "160",
+                "label": "Decrease in Soil and Water Quality\n",
+                "x": 68.3452,
+                "y": 12.7958,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "162",
+                "label": "Chronic Health Effects\n",
+                "x": 64.3473,
+                "y": 11.4607,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "164",
+                "label": "Acute Toxicity\n",
+                "x": 66.3159,
+                "y": 11.4605,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "165",
+                "label": "Change in Upland, Wetland, and Riparian Ecosystems\n",
+                "x": 68.3453,
+                "y": 11.4607,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "174",
+                "label": "Failure of Water Management Structures\n",
+                "x": 73.2299,
+                "y": 14.6655,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "175",
+                "label": "Flooding\n",
+                "x": 73.22986163317198,
+                "y": 13.07507502049123,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "176",
+                "label": "Increase in Sedimentation\n",
+                "x": 70.4514,
+                "y": 11.4607,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "177",
+                "label": "Increase in Constituents of Potential Concern (COPCs)\n",
+                "x": 72.5575,
+                "y": 11.5253,
+                "width": 1.738924409448819,
+                "height": 0.853073228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "178",
+                "label": "Change in or Loss of Riperian Zone Availability\n",
+                "x": 74.7472,
+                "y": 11.4608,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "179",
+                "label": "Damage or Destruction of Nests or Dens\n",
+                "x": 76.937,
+                "y": 11.4607,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f06c6c",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "202",
+                "label": "",
+                "x": 24.8035,
+                "y": 11.94708661417323,
+                "width": 0.25,
+                "height": 0.25,
+                "fillcolor": null,
+                "color": null,
+                "linewidth": null
+            },
+            {
+                "id": "203",
+                "label": "",
+                "x": 24.8035,
+                "y": 11.94708661417323,
+                "width": 0.25,
+                "height": 0.25,
+                "fillcolor": null,
+                "color": null,
+                "linewidth": null
+            },
+            {
+                "id": "206",
+                "label": "",
+                "x": 26.8213,
+                "y": 11.94638661417323,
+                "width": 0.25,
+                "height": 0.25,
+                "fillcolor": null,
+                "color": null,
+                "linewidth": null
+            }
+        ],
+        "edges": [
+            {
+                "id": "75",
+                "from": "69",
+                "to": "70"
+            },
+            {
+                "id": "94",
+                "from": "88",
+                "to": "93"
+            },
+            {
+                "id": "113",
+                "from": "104",
+                "to": "106"
+            },
+            {
+                "id": "114",
+                "from": "107",
+                "to": "108"
+            },
+            {
+                "id": "169",
+                "from": "164",
+                "to": "88"
+            },
+            {
+                "id": "184",
+                "from": "175",
+                "to": "178"
+            },
+            {
+                "id": "89",
+                "from": "83",
+                "to": "84"
+            },
+            {
+                "id": "95",
+                "from": "87",
+                "to": "93"
+            },
+            {
+                "id": "92",
+                "from": "84",
+                "to": "86"
+            },
+            {
+                "id": "180",
+                "from": "174",
+                "to": "175"
+            },
+            {
+                "id": "141",
+                "from": "138",
+                "to": "88"
+            },
+            {
+                "id": "11",
+                "from": "3",
+                "to": "6"
+            },
+            {
+                "id": "151",
+                "from": "148",
+                "to": "150"
+            },
+            {
+                "id": "54",
+                "from": "47",
+                "to": "51"
+            },
+            {
+                "id": "118",
+                "from": "112",
+                "to": "87"
+            },
+            {
+                "id": "170",
+                "from": "165",
+                "to": "87"
+            },
+            {
+                "id": "192",
+                "from": "2",
+                "to": "69"
+            },
+            {
+                "id": "195",
+                "from": "2",
+                "to": "148"
+            },
+            {
+                "id": "77",
+                "from": "71",
+                "to": "72"
+            },
+            {
+                "id": "31",
+                "from": "15",
+                "to": "29"
+            },
+            {
+                "id": "34",
+                "from": "33",
+                "to": "87"
+            },
+            {
+                "id": "156",
+                "from": "152",
+                "to": "88"
+            },
+            {
+                "id": "10",
+                "from": "3",
+                "to": "5"
+            },
+            {
+                "id": "20",
+                "from": "7",
+                "to": "87"
+            },
+            {
+                "id": "19",
+                "from": "4",
+                "to": "7"
+            },
+            {
+                "id": "55",
+                "from": "47",
+                "to": "52"
+            },
+            {
+                "id": "137",
+                "from": "132",
+                "to": "135"
+            },
+            {
+                "id": "200",
+                "from": "2",
+                "to": "96"
+            },
+            {
+                "id": "105",
+                "from": "103",
+                "to": "104"
+            },
+            {
+                "id": "196",
+                "from": "2",
+                "to": "144"
+            },
+            {
+                "id": "36",
+                "from": "3",
+                "to": "15"
+            },
+            {
+                "id": "27",
+                "from": "24",
+                "to": "26"
+            },
+            {
+                "id": "188",
+                "from": "179",
+                "to": "88"
+            },
+            {
+                "id": "119",
+                "from": "110",
+                "to": "111"
+            },
+            {
+                "id": "21",
+                "from": "5",
+                "to": "88"
+            },
+            {
+                "id": "142",
+                "from": "135",
+                "to": "87"
+            },
+            {
+                "id": "17",
+                "from": "3",
+                "to": "14"
+            },
+            {
+                "id": "207",
+                "from": "106",
+                "to": "87"
+            },
+            {
+                "id": "166",
+                "from": "158",
+                "to": "164"
+            },
+            {
+                "id": "39",
+                "from": "22",
+                "to": "7"
+            },
+            {
+                "id": "155",
+                "from": "150",
+                "to": "152"
+            },
+            {
+                "id": "187",
+                "from": "178",
+                "to": "87"
+            },
+            {
+                "id": "38",
+                "from": "29",
+                "to": "88"
+            },
+            {
+                "id": "79",
+                "from": "70",
+                "to": "87"
+            },
+            {
+                "id": "182",
+                "from": "175",
+                "to": "177"
+            },
+            {
+                "id": "190",
+                "from": "2",
+                "to": "4"
+            },
+            {
+                "id": "78",
+                "from": "72",
+                "to": "88"
+            },
+            {
+                "id": "25",
+                "from": "22",
+                "to": "24"
+            },
+            {
+                "id": "18",
+                "from": "6",
+                "to": "88"
+            },
+            {
+                "id": "28",
+                "from": "26",
+                "to": "88"
+            },
+            {
+                "id": "163",
+                "from": "158",
+                "to": "162"
+            },
+            {
+                "id": "198",
+                "from": "2",
+                "to": "100"
+            },
+            {
+                "id": "76",
+                "from": "69",
+                "to": "71"
+            },
+            {
+                "id": "49",
+                "from": "48",
+                "to": "88"
+            },
+            {
+                "id": "191",
+                "from": "2",
+                "to": "47"
+            },
+            {
+                "id": "185",
+                "from": "176",
+                "to": "87"
+            },
+            {
+                "id": "115",
+                "from": "107",
+                "to": "106"
+            },
+            {
+                "id": "16",
+                "from": "3",
+                "to": "13"
+            },
+            {
+                "id": "183",
+                "from": "175",
+                "to": "179"
+            },
+            {
+                "id": "120",
+                "from": "96",
+                "to": "107"
+            },
+            {
+                "id": "204",
+                "from": "47",
+                "to": "50"
+            },
+            {
+                "id": "57",
+                "from": "50",
+                "to": "56"
+            },
+            {
+                "id": "161",
+                "from": "162",
+                "to": "88"
+            },
+            {
+                "id": "159",
+                "from": "144",
+                "to": "158"
+            },
+            {
+                "id": "23",
+                "from": "13",
+                "to": "22"
+            },
+            {
+                "id": "194",
+                "from": "2",
+                "to": "103"
+            },
+            {
+                "id": "139",
+                "from": "132",
+                "to": "138"
+            },
+            {
+                "id": "189",
+                "from": "2",
+                "to": "3"
+            },
+            {
+                "id": "168",
+                "from": "160",
+                "to": "165"
+            },
+            {
+                "id": "157",
+                "from": "153",
+                "to": "88"
+            },
+            {
+                "id": "201",
+                "from": "2",
+                "to": "174"
+            },
+            {
+                "id": "186",
+                "from": "177",
+                "to": "88"
+            },
+            {
+                "id": "116",
+                "from": "109",
+                "to": "107"
+            },
+            {
+                "id": "123",
+                "from": "111",
+                "to": "112"
+            },
+            {
+                "id": "199",
+                "from": "2",
+                "to": "97"
+            },
+            {
+                "id": "117",
+                "from": "97",
+                "to": "110"
+            },
+            {
+                "id": "136",
+                "from": "131",
+                "to": "132"
+            },
+            {
+                "id": "35",
+                "from": "14",
+                "to": "33"
+            },
+            {
+                "id": "63",
+                "from": "61",
+                "to": "88"
+            },
+            {
+                "id": "37",
+                "from": "33",
+                "to": "88"
+            },
+            {
+                "id": "59",
+                "from": "52",
+                "to": "58"
+            },
+            {
+                "id": "167",
+                "from": "144",
+                "to": "160"
+            },
+            {
+                "id": "193",
+                "from": "2",
+                "to": "83"
+            },
+            {
+                "id": "65",
+                "from": "51",
+                "to": "48"
+            },
+            {
+                "id": "60",
+                "from": "58",
+                "to": "88"
+            },
+            {
+                "id": "91",
+                "from": "86",
+                "to": "88"
+            },
+            {
+                "id": "154",
+                "from": "150",
+                "to": "153"
+            },
+            {
+                "id": "32",
+                "from": "15",
+                "to": "30"
+            },
+            {
+                "id": "64",
+                "from": "56",
+                "to": "88"
+            },
+            {
+                "id": "121",
+                "from": "110",
+                "to": "109"
+            },
+            {
+                "id": "181",
+                "from": "175",
+                "to": "176"
+            },
+            {
+                "id": "62",
+                "from": "50",
+                "to": "61"
+            },
+            {
+                "id": "124",
+                "from": "100",
+                "to": "108"
+            },
+            {
+                "id": "130",
+                "from": "108",
+                "to": "88"
+            },
+            {
+                "id": "197",
+                "from": "2",
+                "to": "131"
+            },
+            {
+                "id": "125",
+                "from": "100",
+                "to": "112"
+            },
+            {
+                "id": "40",
+                "from": "30",
+                "to": "7"
+            }
+        ]
+    },
+    "Migratory Birds and Bird SAR": {
+        "name": "Migratory Birds and Bird SAR",
+        "nodes": [
+            {
+                "id": "47",
+                "label": "Direct Habitat Destruction or Degradation\n",
+                "x": 13.52703968722659,
+                "y": 15.65282007907078,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "48",
+                "label": "Introduction of Invasive/Non-native species\n",
+                "x": 20.65675307305336,
+                "y": 15.70222007907078,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "49",
+                "label": "Damage or Destruction of Nests \n",
+                "x": 10.69023968722659,
+                "y": 13.87352007907078,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f06c6c",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "50",
+                "label": "Change in Vegetation Community Composition and Structure\n",
+                "x": 20.61086220472441,
+                "y": 10.60913661417323,
+                "width": 1.971724409448819,
+                "height": 0.968273228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "55",
+                "label": "Increase in Edge Habitat\n",
+                "x": 15.95105307305336,
+                "y": 13.92302007907077,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "56",
+                "label": "Fragmentation of Habitat\n",
+                "x": 13.32065307305336,
+                "y": 13.92312007907077,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "57",
+                "label": "Loss of Habitat\n",
+                "x": 18.58145307305336,
+                "y": 13.92312007907077,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "63",
+                "label": "Creation of Early Seral Stage Habitat\n",
+                "x": 14.38053779527559,
+                "y": 12.58732007907078,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "64",
+                "label": "Change in Predator and/or Prey Abundance\n",
+                "x": 14.48605307305336,
+                "y": 11.38062007907077,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "66",
+                "label": "Increase in Predation Risk\n",
+                "x": 14.48605307305336,
+                "y": 10.17422007907078,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "69",
+                "label": "Increase in Perching Opportunities\n",
+                "x": 17.50553779527559,
+                "y": 12.11178661417323,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "70",
+                "label": "Change in Soil and Terrain\n",
+                "x": 19.62305307305336,
+                "y": 12.58742007907078,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "73",
+                "label": "Decrease in Landscape Connectivity\n",
+                "x": 11.91455307305336,
+                "y": 12.58732007907078,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "88",
+                "label": "",
+                "x": 15.48051527777777,
+                "y": 10.29922007907078,
+                "width": 0.25,
+                "height": 0.25,
+                "fillcolor": null,
+                "color": null,
+                "linewidth": null
+            },
+            {
+                "id": "91",
+                "label": "Increased Access\n",
+                "x": 24.61389996051178,
+                "y": 15.70220001024562,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "92",
+                "label": "Increase in Predation Risk\n",
+                "x": 23.12649996051178,
+                "y": 12.57260001024561,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "94",
+                "label": "Increase in Public Access\n",
+                "x": 26.09359996051178,
+                "y": 13.90860001024562,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "95",
+                "label": "Increase in Predator Access\n",
+                "x": 23.12659996051178,
+                "y": 13.90870001024562,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "98",
+                "label": "Increase in Bird Harvest\n",
+                "x": 25.20729996051178,
+                "y": 12.57260001024561,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "100",
+                "label": "Increase in Disturbance\n",
+                "x": 27.28809996051178,
+                "y": 12.57260001024561,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "108",
+                "label": "Sensory Disturbance\n",
+                "x": 32.72630138357268,
+                "y": 15.70230001024562,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "109",
+                "label": "Avoidance of Habitat\n",
+                "x": 29.2339,
+                "y": 13.9232,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "110",
+                "label": "Change in Movement and Behaviour\n",
+                "x": 32.72620138357268,
+                "y": 13.9087,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "111",
+                "label": "Increase in Predation Risk\n",
+                "x": 34.0366,
+                "y": 12.5877,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "119",
+                "label": "Abandonment of Nests\n",
+                "x": 36.2186,
+                "y": 13.9087,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "120",
+                "label": "Mortality of Young\n",
+                "x": 36.2186,
+                "y": 12.5467,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f06c6c",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "123",
+                "label": "Increase in Energetic Costs\n",
+                "x": 31.4586,
+                "y": 12.5877,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "130",
+                "label": "Change in Air Quality\n",
+                "x": 39.63469996051178,
+                "y": 15.70240001024562,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "131",
+                "label": "Deposition of Dust and Particulate Matter\n",
+                "x": 39.63469996051178,
+                "y": 13.9088,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "133",
+                "label": "Inhalation and Ingestion of Constituents of Potential Concern (COPCs)\n",
+                "x": 38.4004,
+                "y": 12.5467,
+                "width": 1.738924409448819,
+                "height": 1.115573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "134",
+                "label": "Habitat Availability and Distribution\n",
+                "x": 41.74989996051178,
+                "y": 7.809600010245617,
+                "width": 1.738924409448819,
+                "height": 0.7235732283464567,
+                "fillcolor": "#9dbb61",
+                "color": null,
+                "linewidth": 0.01041666666666667
+            },
+            {
+                "id": "135",
+                "label": "Fitness, Reproduction, and Mortality\n",
+                "x": 49.46409996051178,
+                "y": 7.809600010245617,
+                "width": 1.738924409448819,
+                "height": 0.7235732283464567,
+                "fillcolor": "#f59d56",
+                "color": null,
+                "linewidth": 0.01041666666666667
+            },
+            {
+                "id": "140",
+                "label": "Population Abundance and Distribution\n",
+                "x": 45.63053815290346,
+                "y": 6.624999776482577,
+                "width": 1.738924409448819,
+                "height": 0.7235732283464567,
+                "fillcolor": "#7e649e",
+                "color": null,
+                "linewidth": 0.01041666666666667
+            },
+            {
+                "id": "170",
+                "label": "Presence of pit lakes and Water Management ponds\n",
+                "x": 50.18105001266585,
+                "y": 15.78370001024562,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "172",
+                "label": "Electrocution\n",
+                "x": 46.74485001266585,
+                "y": 15.71900001024562,
+                "width": 1.738924409448819,
+                "height": 0.853173228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "175",
+                "label": "Increase in Aircraft, Vehicles and Infrastructure presence\n",
+                "x": 43.07145001266585,
+                "y": 15.67000001024562,
+                "width": 1.738924409448819,
+                "height": 0.951173228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "177",
+                "label": "Decrease in Water Quality\n",
+                "x": 50.1812,
+                "y": 13.9233,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "179",
+                "label": "Increase in Collisions\n",
+                "x": 41.9471,
+                "y": 13.9087,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "184",
+                "label": "Nest Destruction or Damage\n",
+                "x": 44.2596,
+                "y": 13.9233,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f06c6c",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "186",
+                "label": "Mortality of Young\n",
+                "x": 44.2596,
+                "y": 12.5468,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f06c6c",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "188",
+                "label": "Oil on Plumage\n",
+                "x": 48.9574,
+                "y": 12.5876,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "189",
+                "label": "Ingestion of Constituents of Potential Concern (COPCs)\n",
+                "x": 51.2634,
+                "y": 12.5727,
+                "width": 1.738924409448819,
+                "height": 0.951173228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "195",
+                "label": "Change in Groundwater Quality and Quantity\n",
+                "x": 56.38760138357267,
+                "y": 15.73890001024562,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "196",
+                "label": "Change in Surface water Quality and Quantity\n",
+                "x": 59.14318799774591,
+                "y": 15.78360001024561,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "197",
+                "label": "Release of Site Contact Water and Treated Effluent\n",
+                "x": 53.36170138357268,
+                "y": 15.73880001024562,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "199",
+                "label": "Change in Soil and Water Quality\n",
+                "x": 53.3619,
+                "y": 13.9087,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "200",
+                "label": "Ingestion of Constitutents of Potential Concern (COPCs)\n",
+                "x": 53.3618,
+                "y": 12.5466,
+                "width": 1.738824409448819,
+                "height": 0.853073228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "210",
+                "label": "Change in Vegetation Species Composition and Structure\n",
+                "x": 57.7959,
+                "y": 12.3941,
+                "width": 1.738924409448819,
+                "height": 0.853173228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "215",
+                "label": "Introduction of Hazardous and/or Chemical Materials\n",
+                "x": 66.3811,
+                "y": 15.8396,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "219",
+                "label": "Improper Disposal of Food Waste and Petroleum Products\n",
+                "x": 61.25535001266584,
+                "y": 15.75952007907078,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "221",
+                "label": "Attraction of Carnivores and Scavengers \n",
+                "x": 61.2554,
+                "y": 14.0097,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "223",
+                "label": "Increase in Local Predator Abundance\n",
+                "x": 61.265,
+                "y": 12.5467,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "226",
+                "label": "Direct Ingestion\n",
+                "x": 64.4362,
+                "y": 14.0098,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "228",
+                "label": "Decrease in Soil and Water Quality\n",
+                "x": 67.6816,
+                "y": 14.0097,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "230",
+                "label": "Chronic Health Effects\n",
+                "x": 63.3635,
+                "y": 12.5467,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "232",
+                "label": "Acute Toxicity\n",
+                "x": 65.5206,
+                "y": 12.5466,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "233",
+                "label": "Change in Upland, Wetland, and Riparian Ecosystems\n",
+                "x": 67.6905,
+                "y": 12.5467,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "237",
+                "label": "Ingestion of Constituents of Potential Concern (COPCs)\n",
+                "x": 69.867,
+                "y": 12.612,
+                "width": 1.738924409448819,
+                "height": 0.9839732283464571,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "245",
+                "label": "Oil on Plumage\n",
+                "x": 70.9271,
+                "y": 14.0099,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "248",
+                "label": "Flooding\n",
+                "x": 74.7444,
+                "y": 14.01,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "249",
+                "label": "Increase in Sedimentation\n",
+                "x": 72.0467,
+                "y": 12.5727,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "250",
+                "label": "Ingestion of Constituents of Potential Concern (COPCs)\n",
+                "x": 74.3528,
+                "y": 12.5466,
+                "width": 1.738924409448819,
+                "height": 0.853073228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "251",
+                "label": "Change in or Loss of Riparian Zone Availability\n",
+                "x": 76.4512,
+                "y": 12.5465,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "256",
+                "label": "Damage or Destruction of Nests\n",
+                "x": 78.6309,
+                "y": 12.5467,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f06c6c",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "258",
+                "label": "Mortality of Young\n",
+                "x": 78.6308,
+                "y": 11.0317,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f06c6c",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "260",
+                "label": "Failure of Water Management Structures\n",
+                "x": 74.7444,
+                "y": 15.7996,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "266",
+                "label": "Migratory Birds and Bird SAR\n",
+                "x": 44.87000011444092,
+                "y": 19.25999999909401,
+                "width": 8.24,
+                "height": 0.8531,
+                "fillcolor": "#88bde9",
+                "color": "#000000",
+                "linewidth": 0.08333333333333333
+            }
+        ],
+        "edges": [
+            {
+                "id": "227",
+                "from": "215",
+                "to": "226"
+            },
+            {
+                "id": "259",
+                "from": "256",
+                "to": "258"
+            },
+            {
+                "id": "136",
+                "from": "130",
+                "to": "131"
+            },
+            {
+                "id": "129",
+                "from": "123",
+                "to": "135"
+            },
+            {
+                "id": "65",
+                "from": "63",
+                "to": "64"
+            },
+            {
+                "id": "222",
+                "from": "219",
+                "to": "221"
+            },
+            {
+                "id": "142",
+                "from": "134",
+                "to": "140"
+            },
+            {
+                "id": "212",
+                "from": "195",
+                "to": "210"
+            },
+            {
+                "id": "254",
+                "from": "260",
+                "to": "248"
+            },
+            {
+                "id": "273",
+                "from": "266",
+                "to": "197"
+            },
+            {
+                "id": "58",
+                "from": "47",
+                "to": "55"
+            },
+            {
+                "id": "247",
+                "from": "215",
+                "to": "245"
+            },
+            {
+                "id": "178",
+                "from": "170",
+                "to": "177"
+            },
+            {
+                "id": "236",
+                "from": "228",
+                "to": "233"
+            },
+            {
+                "id": "229",
+                "from": "230",
+                "to": "135"
+            },
+            {
+                "id": "255",
+                "from": "248",
+                "to": "250"
+            },
+            {
+                "id": "76",
+                "from": "47",
+                "to": "57"
+            },
+            {
+                "id": "187",
+                "from": "184",
+                "to": "186"
+            },
+            {
+                "id": "277",
+                "from": "210",
+                "to": "134"
+            },
+            {
+                "id": "60",
+                "from": "49",
+                "to": "135"
+            },
+            {
+                "id": "224",
+                "from": "221",
+                "to": "223"
+            },
+            {
+                "id": "274",
+                "from": "266",
+                "to": "170"
+            },
+            {
+                "id": "53",
+                "from": "47",
+                "to": "49"
+            },
+            {
+                "id": "125",
+                "from": "109",
+                "to": "134"
+            },
+            {
+                "id": "257",
+                "from": "248",
+                "to": "256"
+            },
+            {
+                "id": "77",
+                "from": "69",
+                "to": "134"
+            },
+            {
+                "id": "240",
+                "from": "232",
+                "to": "135"
+            },
+            {
+                "id": "59",
+                "from": "47",
+                "to": "56"
+            },
+            {
+                "id": "139",
+                "from": "131",
+                "to": "133"
+            },
+            {
+                "id": "193",
+                "from": "189",
+                "to": "135"
+            },
+            {
+                "id": "269",
+                "from": "266",
+                "to": "130"
+            },
+            {
+                "id": "201",
+                "from": "199",
+                "to": "200"
+            },
+            {
+                "id": "180",
+                "from": "175",
+                "to": "179"
+            },
+            {
+                "id": "192",
+                "from": "188",
+                "to": "135"
+            },
+            {
+                "id": "138",
+                "from": "133",
+                "to": "135"
+            },
+            {
+                "id": "71",
+                "from": "55",
+                "to": "69"
+            },
+            {
+                "id": "126",
+                "from": "108",
+                "to": "119"
+            },
+            {
+                "id": "75",
+                "from": "56",
+                "to": "73"
+            },
+            {
+                "id": "265",
+                "from": "258",
+                "to": "135"
+            },
+            {
+                "id": "93",
+                "from": "92",
+                "to": "135"
+            },
+            {
+                "id": "72",
+                "from": "57",
+                "to": "70"
+            },
+            {
+                "id": "190",
+                "from": "177",
+                "to": "189"
+            },
+            {
+                "id": "79",
+                "from": "70",
+                "to": "50"
+            },
+            {
+                "id": "211",
+                "from": "196",
+                "to": "210"
+            },
+            {
+                "id": "128",
+                "from": "108",
+                "to": "109"
+            },
+            {
+                "id": "68",
+                "from": "66",
+                "to": "135"
+            },
+            {
+                "id": "253",
+                "from": "248",
+                "to": "251"
+            },
+            {
+                "id": "220",
+                "from": "266",
+                "to": "219"
+            },
+            {
+                "id": "276",
+                "from": "266",
+                "to": "47"
+            },
+            {
+                "id": "218",
+                "from": "266",
+                "to": "215"
+            },
+            {
+                "id": "78",
+                "from": "55",
+                "to": "50"
+            },
+            {
+                "id": "241",
+                "from": "233",
+                "to": "134"
+            },
+            {
+                "id": "141",
+                "from": "135",
+                "to": "140"
+            },
+            {
+                "id": "115",
+                "from": "111",
+                "to": "135"
+            },
+            {
+                "id": "207",
+                "from": "197",
+                "to": "199"
+            },
+            {
+                "id": "101",
+                "from": "94",
+                "to": "100"
+            },
+            {
+                "id": "264",
+                "from": "251",
+                "to": "134"
+            },
+            {
+                "id": "239",
+                "from": "237",
+                "to": "135"
+            },
+            {
+                "id": "262",
+                "from": "249",
+                "to": "134"
+            },
+            {
+                "id": "86",
+                "from": "55",
+                "to": "63"
+            },
+            {
+                "id": "99",
+                "from": "94",
+                "to": "98"
+            },
+            {
+                "id": "205",
+                "from": "200",
+                "to": "135"
+            },
+            {
+                "id": "102",
+                "from": "100",
+                "to": "135"
+            },
+            {
+                "id": "267",
+                "from": "266",
+                "to": "91"
+            },
+            {
+                "id": "67",
+                "from": "64",
+                "to": "66"
+            },
+            {
+                "id": "103",
+                "from": "98",
+                "to": "135"
+            },
+            {
+                "id": "191",
+                "from": "177",
+                "to": "188"
+            },
+            {
+                "id": "80",
+                "from": "266",
+                "to": "48"
+            },
+            {
+                "id": "271",
+                "from": "266",
+                "to": "196"
+            },
+            {
+                "id": "275",
+                "from": "266",
+                "to": "172"
+            },
+            {
+                "id": "181",
+                "from": "179",
+                "to": "135"
+            },
+            {
+                "id": "124",
+                "from": "110",
+                "to": "123"
+            },
+            {
+                "id": "268",
+                "from": "266",
+                "to": "108"
+            },
+            {
+                "id": "231",
+                "from": "226",
+                "to": "230"
+            },
+            {
+                "id": "121",
+                "from": "119",
+                "to": "120"
+            },
+            {
+                "id": "122",
+                "from": "120",
+                "to": "135"
+            },
+            {
+                "id": "272",
+                "from": "266",
+                "to": "195"
+            },
+            {
+                "id": "62",
+                "from": "50",
+                "to": "134"
+            },
+            {
+                "id": "85",
+                "from": "56",
+                "to": "63"
+            },
+            {
+                "id": "270",
+                "from": "266",
+                "to": "175"
+            },
+            {
+                "id": "213",
+                "from": "199",
+                "to": "210"
+            },
+            {
+                "id": "74",
+                "from": "73",
+                "to": "134"
+            },
+            {
+                "id": "261",
+                "from": "266",
+                "to": "260"
+            },
+            {
+                "id": "96",
+                "from": "91",
+                "to": "94"
+            },
+            {
+                "id": "235",
+                "from": "215",
+                "to": "228"
+            },
+            {
+                "id": "263",
+                "from": "250",
+                "to": "135"
+            },
+            {
+                "id": "238",
+                "from": "228",
+                "to": "237"
+            },
+            {
+                "id": "114",
+                "from": "110",
+                "to": "111"
+            },
+            {
+                "id": "127",
+                "from": "108",
+                "to": "110"
+            },
+            {
+                "id": "246",
+                "from": "245",
+                "to": "135"
+            },
+            {
+                "id": "61",
+                "from": "48",
+                "to": "50"
+            },
+            {
+                "id": "234",
+                "from": "226",
+                "to": "232"
+            },
+            {
+                "id": "252",
+                "from": "248",
+                "to": "249"
+            },
+            {
+                "id": "97",
+                "from": "91",
+                "to": "95"
+            },
+            {
+                "id": "87",
+                "from": "69",
+                "to": "66"
+            },
+            {
+                "id": "185",
+                "from": "175",
+                "to": "184"
+            },
+            {
+                "id": "194",
+                "from": "172",
+                "to": "135"
+            },
+            {
+                "id": "225",
+                "from": "223",
+                "to": "135"
+            },
+            {
+                "id": "104",
+                "from": "95",
+                "to": "92"
+            }
+        ]
+    },
+    "Marine Birds": {
+        "name": "Marine Birds",
+        "nodes": [
+            {
+                "id": "2",
+                "label": "Marine Birds\n",
+                "x": 39.9197,
+                "y": 17.1981,
+                "width": 8.24,
+                "height": 0.8531,
+                "fillcolor": "#88bde9",
+                "color": "#000000",
+                "linewidth": 0.08333333333333333
+            },
+            {
+                "id": "3",
+                "label": "Direct Habitat Destruction or Degradation\n",
+                "x": 12.81739331975246,
+                "y": 14.10535587179742,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "4",
+                "label": "Introduction of Invasive/Non-native species\n",
+                "x": 19.94710670557924,
+                "y": 14.15475587179742,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "5",
+                "label": "Damage or Destruction of Nests\n",
+                "x": 9.9802,
+                "y": 12.5922,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f06c6c",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "6",
+                "label": "Change in Composition and Structure of Forage Species\n",
+                "x": 19.9471,
+                "y": 12.5923,
+                "width": 1.971724409448819,
+                "height": 0.968273228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "11",
+                "label": "Fragmentation of Habitat\n",
+                "x": 12.6109,
+                "y": 12.5992,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "12",
+                "label": "Loss of Habitat\n",
+                "x": 15.2415,
+                "y": 12.5922,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "17",
+                "label": "Loss or Change in Polynas\n",
+                "x": 15.0437,
+                "y": 11.3299,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "18",
+                "label": "Loss of Offshore Foraging Areas\n",
+                "x": 17.0249,
+                "y": 11.3298,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "21",
+                "label": "Change in Habitat Arrangement\n",
+                "x": 12.6108,
+                "y": 11.3297,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "28",
+                "label": "Decrease in Population Connectivity\n",
+                "x": 12.61090670557923,
+                "y": 9.810355871797421,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "30",
+                "label": "Increase in Predation Risk\n",
+                "x": 22.01930670557923,
+                "y": 12.5922,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "37",
+                "label": "Loss of Nesting Areas\n",
+                "x": 18.89110670557924,
+                "y": 11.3298,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "41",
+                "label": "Sensory Disturbance\n",
+                "x": 26.63495001266585,
+                "y": 14.39115001024562,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "42",
+                "label": "Avoidance of Habitat\n",
+                "x": 26.03045001266585,
+                "y": 11.32965001024562,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "46",
+                "label": "Change in Movement and Behaviour\n",
+                "x": 26.6085,
+                "y": 12.5923,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "47",
+                "label": "Abandonment of Nests\n",
+                "x": 28.9934,
+                "y": 12.5923,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "50",
+                "label": "Increase in Collision and Stranding Risk\n",
+                "x": 23.1588,
+                "y": 9.8104,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "52",
+                "label": "Increase in Predation Risk\n",
+                "x": 28.01155001266585,
+                "y": 11.32965001024562,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "57",
+                "label": "Increase in Energy Expenditure and Decrease in Foraging Time\n",
+                "x": 24.99,
+                "y": 9.8103,
+                "width": 1.738924409448819,
+                "height": 0.901473228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "59",
+                "label": "Attraction to Light, Structures, and Vessels\n",
+                "x": 24.04935001266585,
+                "y": 11.32965001024562,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "61",
+                "label": "Mortality of Young\n",
+                "x": 29.99245001266585,
+                "y": 11.32965001024562,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f06c6c",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "68",
+                "label": "Decrease in Prey Abundance\n",
+                "x": 30.06305001266585,
+                "y": 14.39125001024562,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "69",
+                "label": "Change in Foraging Behaviour\n",
+                "x": 31.2219,
+                "y": 12.5922,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "75",
+                "label": "Habitat Availability and Distribution\n",
+                "x": 37.90255001266585,
+                "y": 6.532300010245614,
+                "width": 1.738924409448819,
+                "height": 0.7235732283464567,
+                "fillcolor": "#9dbb61",
+                "color": null,
+                "linewidth": 0.01041666666666667
+            },
+            {
+                "id": "76",
+                "label": "Fitness, Reproduction, and Mortality\n",
+                "x": 43.51515001266584,
+                "y": 6.532500010245614,
+                "width": 1.738924409448819,
+                "height": 0.7235732283464567,
+                "fillcolor": "#f59d56",
+                "color": null,
+                "linewidth": 0.01041666666666667
+            },
+            {
+                "id": "77",
+                "label": "Increase in Underwater Explosions and Construction\n",
+                "x": 41.33683662683908,
+                "y": 13.96660001024562,
+                "width": 1.738924409448819,
+                "height": 0.853173228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "79",
+                "label": "Increase in Vessel Traffic\n",
+                "x": 36.81595001266585,
+                "y": 13.91750001024562,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "82",
+                "label": "Increase in Ship Wake\n",
+                "x": 35.3836,
+                "y": 12.5993,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "83",
+                "label": "Increase in Garbage and Plastic Pollution\n",
+                "x": 37.5427,
+                "y": 12.5923,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "89",
+                "label": "Injury or Mortality from Ship Strikes\n",
+                "x": 33.2246,
+                "y": 12.5922,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f06c6c",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "91",
+                "label": "Change in Habitat Arrangement\n",
+                "x": 39.5454,
+                "y": 12.5994,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "93",
+                "label": "Damage or Destruction of Nesting Habitat\n",
+                "x": 34.2116,
+                "y": 11.3297,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "95",
+                "label": "Ingestion or Choking\n",
+                "x": 38.0423,
+                "y": 11.3297,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "99",
+                "label": "Population Abundance and Distribution\n",
+                "x": 40.5,
+                "y": 5.388213385826771,
+                "width": 1.738924409448819,
+                "height": 0.7235732283464567,
+                "fillcolor": "#7e649e",
+                "color": null,
+                "linewidth": 0.01041666666666667
+            },
+            {
+                "id": "102",
+                "label": "Injury or Mortality \n",
+                "x": 41.7046,
+                "y": 12.5924,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f06c6c",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "105",
+                "label": "Destruction of Nests\n",
+                "x": 36.1269,
+                "y": 11.3297,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "109",
+                "label": "Introduction of Hazardous and/or Chemical Materials\n",
+                "x": 52.97250001266584,
+                "y": 14.00895001024562,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "113",
+                "label": "Improper Disposal of Vessel Wastes\n",
+                "x": 47.40450001266584,
+                "y": 14.00905001024561,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "115",
+                "label": "Decrease in Sediment and Water Quality\n",
+                "x": 47.40450001266584,
+                "y": 12.5993,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "117",
+                "label": "Ingestion of Constituents of Potential Concern (COPCs)\n",
+                "x": 46.3203,
+                "y": 11.3163,
+                "width": 1.738924409448819,
+                "height": 0.978373228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "118",
+                "label": "Degradation of Habitat\n",
+                "x": 48.6026,
+                "y": 11.3162,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "123",
+                "label": "Direct Ingestion\n",
+                "x": 54.5101,
+                "y": 12.5996,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "126",
+                "label": "Chronic Health Effects\n",
+                "x": 52.97240001266584,
+                "y": 11.3298,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "128",
+                "label": "Acute Toxicity\n",
+                "x": 56.0568,
+                "y": 11.3163,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "131",
+                "label": "Oil on Plumage\n",
+                "x": 51.70880001266584,
+                "y": 12.5995,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "133",
+                "label": "Drowning or Starvation\n",
+                "x": 50.78760001266584,
+                "y": 11.3163,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f06c6c",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "143",
+                "label": "Release of Site Contact Water and Treated Effluent\n",
+                "x": 60.55780001266584,
+                "y": 14.00860001024561,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "145",
+                "label": "Decrease in Sediment and Water Quality\n",
+                "x": 58.2086,
+                "y": 12.5996,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "146",
+                "label": "Ingestion of Constituents of Potential Concern (COPCs)\n",
+                "x": 62.90670001266584,
+                "y": 11.3298,
+                "width": 1.738924409448819,
+                "height": 0.978373228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "147",
+                "label": "Degradation of Habitat\n",
+                "x": 58.2086,
+                "y": 11.3162,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "151",
+                "label": "Increase in Sediment in Runoff\n",
+                "x": 62.90670001266584,
+                "y": 12.5997,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            }
+        ],
+        "edges": [
+            {
+                "id": "39",
+                "from": "4",
+                "to": "37"
+            },
+            {
+                "id": "106",
+                "from": "82",
+                "to": "105"
+            },
+            {
+                "id": "84",
+                "from": "79",
+                "to": "82"
+            },
+            {
+                "id": "135",
+                "from": "133",
+                "to": "76"
+            },
+            {
+                "id": "56",
+                "from": "50",
+                "to": "76"
+            },
+            {
+                "id": "15",
+                "from": "4",
+                "to": "6"
+            },
+            {
+                "id": "48",
+                "from": "41",
+                "to": "46"
+            },
+            {
+                "id": "152",
+                "from": "143",
+                "to": "151"
+            },
+            {
+                "id": "153",
+                "from": "143",
+                "to": "145"
+            },
+            {
+                "id": "107",
+                "from": "105",
+                "to": "76"
+            },
+            {
+                "id": "162",
+                "from": "147",
+                "to": "75"
+            },
+            {
+                "id": "116",
+                "from": "113",
+                "to": "115"
+            },
+            {
+                "id": "63",
+                "from": "61",
+                "to": "76"
+            },
+            {
+                "id": "23",
+                "from": "11",
+                "to": "21"
+            },
+            {
+                "id": "94",
+                "from": "82",
+                "to": "93"
+            },
+            {
+                "id": "85",
+                "from": "93",
+                "to": "75"
+            },
+            {
+                "id": "163",
+                "from": "146",
+                "to": "76"
+            },
+            {
+                "id": "45",
+                "from": "2",
+                "to": "41"
+            },
+            {
+                "id": "62",
+                "from": "47",
+                "to": "61"
+            },
+            {
+                "id": "97",
+                "from": "91",
+                "to": "75"
+            },
+            {
+                "id": "120",
+                "from": "115",
+                "to": "117"
+            },
+            {
+                "id": "160",
+                "from": "2",
+                "to": "143"
+            },
+            {
+                "id": "58",
+                "from": "59",
+                "to": "57"
+            },
+            {
+                "id": "73",
+                "from": "69",
+                "to": "76"
+            },
+            {
+                "id": "96",
+                "from": "83",
+                "to": "95"
+            },
+            {
+                "id": "112",
+                "from": "2",
+                "to": "109"
+            },
+            {
+                "id": "60",
+                "from": "46",
+                "to": "59"
+            },
+            {
+                "id": "27",
+                "from": "2",
+                "to": "4"
+            },
+            {
+                "id": "25",
+                "from": "28",
+                "to": "76"
+            },
+            {
+                "id": "32",
+                "from": "30",
+                "to": "76"
+            },
+            {
+                "id": "78",
+                "from": "2",
+                "to": "77"
+            },
+            {
+                "id": "90",
+                "from": "79",
+                "to": "89"
+            },
+            {
+                "id": "51",
+                "from": "59",
+                "to": "50"
+            },
+            {
+                "id": "54",
+                "from": "46",
+                "to": "52"
+            },
+            {
+                "id": "80",
+                "from": "2",
+                "to": "79"
+            },
+            {
+                "id": "100",
+                "from": "75",
+                "to": "99"
+            },
+            {
+                "id": "72",
+                "from": "57",
+                "to": "76"
+            },
+            {
+                "id": "81",
+                "from": "79",
+                "to": "83"
+            },
+            {
+                "id": "9",
+                "from": "3",
+                "to": "5"
+            },
+            {
+                "id": "134",
+                "from": "131",
+                "to": "133"
+            },
+            {
+                "id": "14",
+                "from": "5",
+                "to": "76"
+            },
+            {
+                "id": "86",
+                "from": "95",
+                "to": "76"
+            },
+            {
+                "id": "124",
+                "from": "109",
+                "to": "123"
+            },
+            {
+                "id": "67",
+                "from": "46",
+                "to": "42"
+            },
+            {
+                "id": "26",
+                "from": "17",
+                "to": "76"
+            },
+            {
+                "id": "130",
+                "from": "128",
+                "to": "76"
+            },
+            {
+                "id": "53",
+                "from": "52",
+                "to": "76"
+            },
+            {
+                "id": "98",
+                "from": "89",
+                "to": "76"
+            },
+            {
+                "id": "20",
+                "from": "12",
+                "to": "18"
+            },
+            {
+                "id": "71",
+                "from": "68",
+                "to": "69"
+            },
+            {
+                "id": "31",
+                "from": "4",
+                "to": "30"
+            },
+            {
+                "id": "101",
+                "from": "76",
+                "to": "99"
+            },
+            {
+                "id": "114",
+                "from": "2",
+                "to": "113"
+            },
+            {
+                "id": "127",
+                "from": "123",
+                "to": "126"
+            },
+            {
+                "id": "10",
+                "from": "2",
+                "to": "3"
+            },
+            {
+                "id": "13",
+                "from": "3",
+                "to": "11"
+            },
+            {
+                "id": "122",
+                "from": "118",
+                "to": "75"
+            },
+            {
+                "id": "22",
+                "from": "21",
+                "to": "75"
+            },
+            {
+                "id": "132",
+                "from": "109",
+                "to": "131"
+            },
+            {
+                "id": "36",
+                "from": "18",
+                "to": "75"
+            },
+            {
+                "id": "129",
+                "from": "123",
+                "to": "128"
+            },
+            {
+                "id": "55",
+                "from": "41",
+                "to": "47"
+            },
+            {
+                "id": "29",
+                "from": "21",
+                "to": "28"
+            },
+            {
+                "id": "139",
+                "from": "109",
+                "to": "118"
+            },
+            {
+                "id": "103",
+                "from": "77",
+                "to": "102"
+            },
+            {
+                "id": "38",
+                "from": "12",
+                "to": "37"
+            },
+            {
+                "id": "24",
+                "from": "3",
+                "to": "12"
+            },
+            {
+                "id": "49",
+                "from": "42",
+                "to": "75"
+            },
+            {
+                "id": "16",
+                "from": "6",
+                "to": "75"
+            },
+            {
+                "id": "121",
+                "from": "117",
+                "to": "76"
+            },
+            {
+                "id": "92",
+                "from": "79",
+                "to": "91"
+            },
+            {
+                "id": "148",
+                "from": "145",
+                "to": "147"
+            },
+            {
+                "id": "19",
+                "from": "12",
+                "to": "17"
+            },
+            {
+                "id": "104",
+                "from": "102",
+                "to": "76"
+            },
+            {
+                "id": "125",
+                "from": "126",
+                "to": "76"
+            },
+            {
+                "id": "158",
+                "from": "151",
+                "to": "146"
+            },
+            {
+                "id": "119",
+                "from": "115",
+                "to": "118"
+            },
+            {
+                "id": "70",
+                "from": "2",
+                "to": "68"
+            },
+            {
+                "id": "154",
+                "from": "151",
+                "to": "147"
+            }
+        ]
+    },
+    "Plant SAR": {
+        "name": "Plant SAR",
+        "nodes": [
+            {
+                "id": "2",
+                "label": "Plant SAR\n",
+                "x": 31.8296,
+                "y": 17.152,
+                "width": 8.24,
+                "height": 0.8531,
+                "fillcolor": "#88bde9",
+                "color": "#000000",
+                "linewidth": 0.08333333333333333
+            },
+            {
+                "id": "3",
+                "label": "Direct Habitat Destruction or Degradation\n",
+                "x": 13.85354331975246,
+                "y": 14.18540587179742,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "4",
+                "label": "Introduction of Invasive/Non-native species\n",
+                "x": 20.98325670557923,
+                "y": 14.23480587179742,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "5",
+                "label": "Direct Destruction of Plants\n",
+                "x": 11.01674331975247,
+                "y": 12.40610587179742,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f06c6c",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "6",
+                "label": "Change in Vegetation Community Composition and Structure\n",
+                "x": 18.7915,
+                "y": 9.7367,
+                "width": 1.971724409448819,
+                "height": 0.968273228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "11",
+                "label": "Increase in Edge Habitat\n",
+                "x": 16.27755670557923,
+                "y": 12.45560587179742,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "12",
+                "label": "Fragmentation of Habitat\n",
+                "x": 13.64715670557923,
+                "y": 12.45570587179742,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "13",
+                "label": "Loss of Habitat\n",
+                "x": 18.7915,
+                "y": 12.4558,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "18",
+                "label": "Change in Soil and Terrain\n",
+                "x": 18.7914,
+                "y": 11.1849,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "20",
+                "label": "Decrease in Population Connectivity\n",
+                "x": 13.64705670557923,
+                "y": 11.12010587179742,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "32",
+                "label": "Change in Air Quality\n",
+                "x": 25.52820138357268,
+                "y": 14.17786654567869,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "34",
+                "label": "Deposition of Dust and Particulate Matter\n",
+                "x": 25.52830138357268,
+                "y": 12.47975001024562,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "35",
+                "label": "Blocking Stomata\n",
+                "x": 28.3499,
+                "y": 11.1853,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "36",
+                "label": "Changes in Soil and Water Quality\n",
+                "x": 24.1898,
+                "y": 11.1852,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "46",
+                "label": "Change in Species Composition and Structure\n",
+                "x": 21.33330138357268,
+                "y": 9.614550010245617,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "48",
+                "label": "Chlorosis\n",
+                "x": 24.18990138357268,
+                "y": 9.614250020491232,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "50",
+                "label": "Absorption of Constituents of Potential Concern (COPCs)\n",
+                "x": 26.96120138357268,
+                "y": 9.487650020491232,
+                "width": 1.738924409448819,
+                "height": 0.9771732283464569,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "56",
+                "label": "Change in Groundwater Quality\n",
+                "x": 37.66715670557923,
+                "y": 14.15435827796215,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "57",
+                "label": "Change in Surface Water Quantity\n",
+                "x": 40.69285670557924,
+                "y": 14.15435827796215,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "58",
+                "label": "Habitat Availability and Distribution\n",
+                "x": 29.83375670557923,
+                "y": 6.747841742529081,
+                "width": 1.738924409448819,
+                "height": 0.7235732283464567,
+                "fillcolor": "#9dbb61",
+                "color": null,
+                "linewidth": 0.01041666666666667
+            },
+            {
+                "id": "60",
+                "label": "Change in Surface Water Quality\n",
+                "x": 43.71855670557923,
+                "y": 14.15445827796215,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "63",
+                "label": "Change in Groundwater Quantity\n",
+                "x": 34.64125670557923,
+                "y": 14.15425827796215,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "64",
+                "label": "Change in Subsurface Flow\n",
+                "x": 34.6413,
+                "y": 12.4558,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "67",
+                "label": "Change in Species Composition and Structure\n",
+                "x": 35.8128,
+                "y": 9.4504,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "68",
+                "label": "Increased Sediment in Runoff\n",
+                "x": 37.8385,
+                "y": 11.1849,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "69",
+                "label": "Change in Flows and/or water level\n",
+                "x": 40.25775670557924,
+                "y": 12.69355827796215,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "70",
+                "label": "Increase in Desiccation or Inundation\n",
+                "x": 40.2577,
+                "y": 11.1849,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "71",
+                "label": "Change in Habitat Quality\n",
+                "x": 43.7185,
+                "y": 9.4503,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "79",
+                "label": "Population Abundance and Distribution\n",
+                "x": 32.36946220472441,
+                "y": 5.63821338582677,
+                "width": 1.738924409448819,
+                "height": 0.7235732283464567,
+                "fillcolor": "#7e649e",
+                "color": null,
+                "linewidth": 0.01041666666666667
+            },
+            {
+                "id": "81",
+                "label": "Fitness, Reproduction, and Mortality\n",
+                "x": 34.45935666609102,
+                "y": 6.748058277962151,
+                "width": 1.738924409448819,
+                "height": 0.7235732283464567,
+                "fillcolor": "#f59d56",
+                "color": null,
+                "linewidth": 0.01041666666666667
+            },
+            {
+                "id": "83",
+                "label": "Change in Availability of Nutrients\n",
+                "x": 35.8128,
+                "y": 10.4289,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "90",
+                "label": "Increase in Soil Erosion\n",
+                "x": 42.5915,
+                "y": 11.1849,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "95",
+                "label": "Release of Site Contact Water and Treated Effluent\n",
+                "x": 31.96414331975246,
+                "y": 14.15465827796215,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "96",
+                "label": "Decrease in Soil and Water Quality\n",
+                "x": 31.9641,
+                "y": 12.4798,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "98",
+                "label": "Uptake of Constituents of Potential Concern (COPCs)\n",
+                "x": 30.517,
+                "y": 11.1849,
+                "width": 1.738924409448819,
+                "height": 0.853173228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "105",
+                "label": "Introduction of Hazardous and/or Chemical Materials\n",
+                "x": 48.58685001266585,
+                "y": 13.85280001024562,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "109",
+                "label": "Acute and Sublethal Effects to Plants\n",
+                "x": 47.39415001266585,
+                "y": 12.56720001024562,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "111",
+                "label": "Decrease in Soil and Water Quality\n",
+                "x": 49.71935001266584,
+                "y": 12.56730001024562,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "120",
+                "label": "Uptake of Constituents of Potential Concern (COPCs)\n",
+                "x": 49.7194,
+                "y": 11.1204,
+                "width": 1.738924409448819,
+                "height": 0.853173228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "123",
+                "label": "Failure of Water Management Structures\n",
+                "x": 54.17685001266585,
+                "y": 13.85280001024562,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "124",
+                "label": "Flooding\n",
+                "x": 54.1768,
+                "y": 12.5672,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "125",
+                "label": "Submergence and Waterlogging\n",
+                "x": 54.1768,
+                "y": 11.1524,
+                "width": 1.738924409448819,
+                "height": 0.853073228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            }
+        ],
+        "edges": [
+            {
+                "id": "42",
+                "from": "34",
+                "to": "36"
+            },
+            {
+                "id": "53",
+                "from": "48",
+                "to": "81"
+            },
+            {
+                "id": "47",
+                "from": "36",
+                "to": "46"
+            },
+            {
+                "id": "30",
+                "from": "4",
+                "to": "6"
+            },
+            {
+                "id": "54",
+                "from": "50",
+                "to": "81"
+            },
+            {
+                "id": "100",
+                "from": "2",
+                "to": "95"
+            },
+            {
+                "id": "9",
+                "from": "3",
+                "to": "5"
+            },
+            {
+                "id": "121",
+                "from": "111",
+                "to": "120"
+            },
+            {
+                "id": "74",
+                "from": "57",
+                "to": "69"
+            },
+            {
+                "id": "78",
+                "from": "60",
+                "to": "71"
+            },
+            {
+                "id": "126",
+                "from": "123",
+                "to": "124"
+            },
+            {
+                "id": "128",
+                "from": "2",
+                "to": "123"
+            },
+            {
+                "id": "110",
+                "from": "105",
+                "to": "109"
+            },
+            {
+                "id": "103",
+                "from": "96",
+                "to": "58"
+            },
+            {
+                "id": "29",
+                "from": "11",
+                "to": "6"
+            },
+            {
+                "id": "113",
+                "from": "105",
+                "to": "111"
+            },
+            {
+                "id": "62",
+                "from": "2",
+                "to": "57"
+            },
+            {
+                "id": "86",
+                "from": "69",
+                "to": "68"
+            },
+            {
+                "id": "88",
+                "from": "70",
+                "to": "81"
+            },
+            {
+                "id": "80",
+                "from": "58",
+                "to": "79"
+            },
+            {
+                "id": "51",
+                "from": "36",
+                "to": "50"
+            },
+            {
+                "id": "16",
+                "from": "5",
+                "to": "81"
+            },
+            {
+                "id": "89",
+                "from": "67",
+                "to": "81"
+            },
+            {
+                "id": "87",
+                "from": "68",
+                "to": "83"
+            },
+            {
+                "id": "122",
+                "from": "120",
+                "to": "81"
+            },
+            {
+                "id": "119",
+                "from": "111",
+                "to": "58"
+            },
+            {
+                "id": "41",
+                "from": "46",
+                "to": "58"
+            },
+            {
+                "id": "14",
+                "from": "3",
+                "to": "11"
+            },
+            {
+                "id": "39",
+                "from": "32",
+                "to": "34"
+            },
+            {
+                "id": "75",
+                "from": "71",
+                "to": "58"
+            },
+            {
+                "id": "25",
+                "from": "2",
+                "to": "4"
+            },
+            {
+                "id": "102",
+                "from": "98",
+                "to": "81"
+            },
+            {
+                "id": "10",
+                "from": "2",
+                "to": "3"
+            },
+            {
+                "id": "134",
+                "from": "64",
+                "to": "83"
+            },
+            {
+                "id": "59",
+                "from": "2",
+                "to": "56"
+            },
+            {
+                "id": "65",
+                "from": "63",
+                "to": "64"
+            },
+            {
+                "id": "97",
+                "from": "95",
+                "to": "96"
+            },
+            {
+                "id": "136",
+                "from": "96",
+                "to": "83"
+            },
+            {
+                "id": "85",
+                "from": "83",
+                "to": "67"
+            },
+            {
+                "id": "76",
+                "from": "69",
+                "to": "70"
+            },
+            {
+                "id": "24",
+                "from": "18",
+                "to": "6"
+            },
+            {
+                "id": "117",
+                "from": "109",
+                "to": "81"
+            },
+            {
+                "id": "132",
+                "from": "2",
+                "to": "32"
+            },
+            {
+                "id": "92",
+                "from": "90",
+                "to": "71"
+            },
+            {
+                "id": "77",
+                "from": "2",
+                "to": "63"
+            },
+            {
+                "id": "22",
+                "from": "3",
+                "to": "13"
+            },
+            {
+                "id": "52",
+                "from": "35",
+                "to": "81"
+            },
+            {
+                "id": "23",
+                "from": "20",
+                "to": "81"
+            },
+            {
+                "id": "15",
+                "from": "3",
+                "to": "12"
+            },
+            {
+                "id": "49",
+                "from": "36",
+                "to": "48"
+            },
+            {
+                "id": "21",
+                "from": "12",
+                "to": "20"
+            },
+            {
+                "id": "19",
+                "from": "13",
+                "to": "18"
+            },
+            {
+                "id": "82",
+                "from": "81",
+                "to": "79"
+            },
+            {
+                "id": "99",
+                "from": "96",
+                "to": "98"
+            },
+            {
+                "id": "130",
+                "from": "125",
+                "to": "81"
+            },
+            {
+                "id": "91",
+                "from": "69",
+                "to": "90"
+            },
+            {
+                "id": "17",
+                "from": "6",
+                "to": "58"
+            },
+            {
+                "id": "61",
+                "from": "2",
+                "to": "60"
+            },
+            {
+                "id": "40",
+                "from": "34",
+                "to": "35"
+            },
+            {
+                "id": "127",
+                "from": "124",
+                "to": "125"
+            },
+            {
+                "id": "108",
+                "from": "2",
+                "to": "105"
+            },
+            {
+                "id": "84",
+                "from": "56",
+                "to": "83"
+            }
+        ]
+    },
+    "Wetlands": {
+        "name": "Wetlands",
+        "nodes": [
+            {
+                "id": "2",
+                "label": "Wetlands\n",
+                "x": 35.6148,
+                "y": 18.0145,
+                "width": 8.24,
+                "height": 0.8531,
+                "fillcolor": "#88bde9",
+                "color": "#000000",
+                "linewidth": 0.08333333333333333
+            },
+            {
+                "id": "3",
+                "label": "Direct Habitat Destruction or Degradation\n",
+                "x": 11.44559331975246,
+                "y": 14.74520587179742,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "4",
+                "label": "Introduction of Invasive/Non-native species\n",
+                "x": 7.913306705579233,
+                "y": 14.74528933636435,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "5",
+                "label": "Loss of Habitat\n",
+                "x": 10.26810670557923,
+                "y": 12.96588933636435,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "6",
+                "label": "Change in Vegetation Community Composition and Structure\n",
+                "x": 11.44559331975246,
+                "y": 8.92060587179742,
+                "width": 1.971724409448819,
+                "height": 0.968273228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "11",
+                "label": "Increase in Edge Habitat\n",
+                "x": 14.32789331975246,
+                "y": 11.37610587179742,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "12",
+                "label": "Fragmentation of Habitat\n",
+                "x": 12.78360670557924,
+                "y": 12.96588933636435,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "13",
+                "label": "Change in Vegetation Composition\n",
+                "x": 20.80389331975246,
+                "y": 12.88060587179742,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "17",
+                "label": "Change in Light and Moisture Regimes\n",
+                "x": 19.74999331975246,
+                "y": 11.37530587179742,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#000000",
+                "linewidth": 0.0
+            },
+            {
+                "id": "19",
+                "label": "Change in Wetland Arrangement and Available Habitat\n",
+                "x": 11.44539331975246,
+                "y": 11.37630587179742,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "27",
+                "label": "Change in Terrain and Soil\n",
+                "x": 21.04210670557923,
+                "y": 14.65980587179742,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "30",
+                "label": "Change in Light and Moisture Regimes\n",
+                "x": 14.32789331975246,
+                "y": 10.08720587179742,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "34",
+                "label": "Change in Slopes and Shorelines\n",
+                "x": 24.08669331975247,
+                "y": 12.88070588204304,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "35",
+                "label": "Change in Land Drainage Patterns\n",
+                "x": 18.45579331975246,
+                "y": 12.88050587179742,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "36",
+                "label": "Decrease in Soil and Water Quality\n",
+                "x": 16.37379331975246,
+                "y": 12.88040587179742,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "40",
+                "label": "Change in Habitat Structure and Composition\n",
+                "x": 17.43289331975246,
+                "y": 11.37610587179742,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "44",
+                "label": "Bank and Slope Instability and Exposed Soils\n",
+                "x": 24.08659331975247,
+                "y": 11.37640587179742,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "46",
+                "label": "Increase in Erosion\n",
+                "x": 24.08669331975247,
+                "y": 10.08740587179742,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "48",
+                "label": "Deposit of Contaminants and Sediment\n",
+                "x": 24.08659331975247,
+                "y": 8.92070587179742,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "51",
+                "label": "Change in Water Temperature\n",
+                "x": 19.74969331975246,
+                "y": 10.08740587179742,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#000000",
+                "linewidth": 0.0
+            },
+            {
+                "id": "53",
+                "label": "Decrease in Primary Productivity\n",
+                "x": 21.87659331975246,
+                "y": 10.08740587179742,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#000000",
+                "linewidth": 0.0
+            },
+            {
+                "id": "54",
+                "label": "Decrease in Habitat Availability for Wildlife\n",
+                "x": 21.87639331975246,
+                "y": 8.92070587179742,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#000000",
+                "linewidth": 0.0
+            },
+            {
+                "id": "57",
+                "label": "Change in Organic Structure and Nutrient Concentration\n",
+                "x": 21.87649331975246,
+                "y": 11.37660587179742,
+                "width": 1.738924409448819,
+                "height": 0.968273228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#000000",
+                "linewidth": 0.0
+            },
+            {
+                "id": "64",
+                "label": "Change in Surface Water Quality\n",
+                "x": 31.82383169924631,
+                "y": 14.88680000954686,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "65",
+                "label": "Change in Groundwater Quantity\n",
+                "x": 34.84953169924631,
+                "y": 14.88680000954686,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "67",
+                "label": "Change in Groundwater Quality\n",
+                "x": 37.87523169924631,
+                "y": 14.88690000954686,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "70",
+                "label": "Change in Surface Water Quantity\n",
+                "x": 28.5069,
+                "y": 14.8871,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "71",
+                "label": "Change in Flows and Water Levels\n",
+                "x": 28.5068,
+                "y": 12.8808,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "73",
+                "label": "Decrease in Subsurface Flows\n",
+                "x": 34.8494,
+                "y": 12.9659,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "74",
+                "label": "Change in Vegetation Species Composition and Structure\n",
+                "x": 34.8496,
+                "y": 8.9208,
+                "width": 1.738924409448819,
+                "height": 0.853073228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "75",
+                "label": "Change in Availability of Nutrients\n",
+                "x": 37.8752,
+                "y": 12.966,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "80",
+                "label": "Change in Wetland Quality\n",
+                "x": 31.8236,
+                "y": 12.8808,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "84",
+                "label": "Increase in Erosion\n",
+                "x": 26.2967,
+                "y": 11.3766,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "85",
+                "label": "Increase in Desiccation or Inundation\n",
+                "x": 28.5069,
+                "y": 11.3752,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "86",
+                "label": "Change in Soil Quality\n",
+                "x": 30.6335,
+                "y": 11.3766,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "88",
+                "label": "Increase in Invasive and Non-native Species\n",
+                "x": 30.6335,
+                "y": 10.1114,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "95",
+                "label": "Wetland Abundance and Distrubtion\n",
+                "x": 33.09943165975808,
+                "y": 6.985400010944374,
+                "width": 1.738924409448819,
+                "height": 0.7235732283464567,
+                "fillcolor": "#9dbb61",
+                "color": null,
+                "linewidth": 0.01041666666666667
+            },
+            {
+                "id": "96",
+                "label": "Wetland Quality and Function\n",
+                "x": 40.27983165975809,
+                "y": 6.985300010944374,
+                "width": 1.738924409448819,
+                "height": 0.7235732283464567,
+                "fillcolor": "#f59d56",
+                "color": null,
+                "linewidth": 0.01041666666666667
+            },
+            {
+                "id": "97",
+                "label": "Population Abundance and Distribution\n",
+                "x": 36.63053732760837,
+                "y": 5.861785981446997,
+                "width": 1.738924409448819,
+                "height": 0.7235732283464567,
+                "fillcolor": "#7e649e",
+                "color": null,
+                "linewidth": 0.01041666666666667
+            },
+            {
+                "id": "105",
+                "label": "Release of Site Contact Water and Treated Effluent\n",
+                "x": 42.47041831341954,
+                "y": 14.88700000954685,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "106",
+                "label": "Thermal Loading\n",
+                "x": 44.8135,
+                "y": 12.966,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "108",
+                "label": "Nutrient Loading\n",
+                "x": 42.4706,
+                "y": 12.9661,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "110",
+                "label": "Increase in Algae Biomass\n",
+                "x": 42.4703,
+                "y": 11.3768,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "111",
+                "label": "Increase in Sedimentation and Constituents of Potential Concern (COPCs)\n",
+                "x": 39.9037,
+                "y": 12.9659,
+                "width": 1.738924409448819,
+                "height": 1.192373228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "113",
+                "label": "Decrease in Dissolved Oxygen\n",
+                "x": 44.8135,
+                "y": 10.0355,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "116",
+                "label": "Change in Water Quality\n",
+                "x": 39.9036,
+                "y": 11.3771,
+                "width": 1.738924409448819,
+                "height": 0.7235732283464571,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "123",
+                "label": "Change in Air Quality\n",
+                "x": 49.98679996051178,
+                "y": 14.79734999899226,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "125",
+                "label": "Deposition of Dust and Particulate Matter\n",
+                "x": 49.98679996051178,
+                "y": 12.9661,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "126",
+                "label": "Change in Water Quality\n",
+                "x": 52.3663,
+                "y": 11.377,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "127",
+                "label": "Change in Upland Soil Quality\n",
+                "x": 47.7199,
+                "y": 11.3751,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "131",
+                "label": "Change in Species Composition and Structure\n",
+                "x": 50.0431,
+                "y": 11.3769,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "142",
+                "label": "Failure of Water Management Structures\n",
+                "x": 55.54848659442913,
+                "y": 14.66800000954686,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "144",
+                "label": "Introduction of Hazardous and/or Chemical Materials\n",
+                "x": 59.29639998025589,
+                "y": 14.67230000954686,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#fee599",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "146",
+                "label": "Flooding\n",
+                "x": 55.5485,
+                "y": 12.8809,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "148",
+                "label": "Increase in Sedimentation and Constituents of Potential Concern (COPCs)\n",
+                "x": 55.5485,
+                "y": 11.377,
+                "width": 1.738924409448819,
+                "height": 1.192373228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "150",
+                "label": "Change in Water Quality\n",
+                "x": 55.54849998025589,
+                "y": 10.1727,
+                "width": 1.738924409448819,
+                "height": 0.7235732283464571,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "156",
+                "label": "Lethal and Sublethal Effects to Wetland Species\n",
+                "x": 58.83409998025589,
+                "y": 12.9659,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            },
+            {
+                "id": "157",
+                "label": "Decrease in Soil and Water Quality\n",
+                "x": 61.177,
+                "y": 12.9662,
+                "width": 1.738924409448819,
+                "height": 0.723573228346457,
+                "fillcolor": "#f2f2f2",
+                "color": "#0b0b0b",
+                "linewidth": 0.0
+            }
+        ],
+        "edges": [
+            {
+                "id": "29",
+                "from": "5",
+                "to": "19"
+            },
+            {
+                "id": "161",
+                "from": "157",
+                "to": "96"
+            },
+            {
+                "id": "82",
+                "from": "75",
+                "to": "74"
+            },
+            {
+                "id": "149",
+                "from": "146",
+                "to": "148"
+            },
+            {
+                "id": "92",
+                "from": "85",
+                "to": "74"
+            },
+            {
+                "id": "93",
+                "from": "86",
+                "to": "88"
+            },
+            {
+                "id": "15",
+                "from": "3",
+                "to": "12"
+            },
+            {
+                "id": "121",
+                "from": "116",
+                "to": "96"
+            },
+            {
+                "id": "140",
+                "from": "127",
+                "to": "96"
+            },
+            {
+                "id": "43",
+                "from": "40",
+                "to": "6"
+            },
+            {
+                "id": "160",
+                "from": "156",
+                "to": "96"
+            },
+            {
+                "id": "147",
+                "from": "142",
+                "to": "146"
+            },
+            {
+                "id": "33",
+                "from": "19",
+                "to": "6"
+            },
+            {
+                "id": "14",
+                "from": "12",
+                "to": "11"
+            },
+            {
+                "id": "103",
+                "from": "80",
+                "to": "86"
+            },
+            {
+                "id": "101",
+                "from": "88",
+                "to": "96"
+            },
+            {
+                "id": "164",
+                "from": "2",
+                "to": "123"
+            },
+            {
+                "id": "76",
+                "from": "65",
+                "to": "73"
+            },
+            {
+                "id": "117",
+                "from": "111",
+                "to": "116"
+            },
+            {
+                "id": "9",
+                "from": "3",
+                "to": "5"
+            },
+            {
+                "id": "166",
+                "from": "125",
+                "to": "126"
+            },
+            {
+                "id": "59",
+                "from": "57",
+                "to": "53"
+            },
+            {
+                "id": "55",
+                "from": "51",
+                "to": "54"
+            },
+            {
+                "id": "62",
+                "from": "5",
+                "to": "95"
+            },
+            {
+                "id": "109",
+                "from": "105",
+                "to": "108"
+            },
+            {
+                "id": "115",
+                "from": "106",
+                "to": "113"
+            },
+            {
+                "id": "112",
+                "from": "108",
+                "to": "110"
+            },
+            {
+                "id": "159",
+                "from": "144",
+                "to": "157"
+            },
+            {
+                "id": "139",
+                "from": "131",
+                "to": "96"
+            },
+            {
+                "id": "119",
+                "from": "2",
+                "to": "105"
+            },
+            {
+                "id": "72",
+                "from": "70",
+                "to": "71"
+            },
+            {
+                "id": "155",
+                "from": "150",
+                "to": "96"
+            },
+            {
+                "id": "31",
+                "from": "11",
+                "to": "30"
+            },
+            {
+                "id": "21",
+                "from": "27",
+                "to": "13"
+            },
+            {
+                "id": "90",
+                "from": "71",
+                "to": "84"
+            },
+            {
+                "id": "37",
+                "from": "27",
+                "to": "34"
+            },
+            {
+                "id": "107",
+                "from": "105",
+                "to": "106"
+            },
+            {
+                "id": "99",
+                "from": "95",
+                "to": "97"
+            },
+            {
+                "id": "89",
+                "from": "71",
+                "to": "86"
+            },
+            {
+                "id": "78",
+                "from": "2",
+                "to": "70"
+            },
+            {
+                "id": "104",
+                "from": "86",
+                "to": "95"
+            },
+            {
+                "id": "56",
+                "from": "54",
+                "to": "95"
+            },
+            {
+                "id": "130",
+                "from": "125",
+                "to": "127"
+            },
+            {
+                "id": "45",
+                "from": "34",
+                "to": "44"
+            },
+            {
+                "id": "128",
+                "from": "123",
+                "to": "125"
+            },
+            {
+                "id": "143",
+                "from": "2",
+                "to": "142"
+            },
+            {
+                "id": "120",
+                "from": "113",
+                "to": "96"
+            },
+            {
+                "id": "94",
+                "from": "88",
+                "to": "74"
+            },
+            {
+                "id": "52",
+                "from": "17",
+                "to": "51"
+            },
+            {
+                "id": "20",
+                "from": "12",
+                "to": "19"
+            },
+            {
+                "id": "91",
+                "from": "71",
+                "to": "85"
+            },
+            {
+                "id": "77",
+                "from": "73",
+                "to": "74"
+            },
+            {
+                "id": "32",
+                "from": "30",
+                "to": "6"
+            },
+            {
+                "id": "100",
+                "from": "74",
+                "to": "96"
+            },
+            {
+                "id": "132",
+                "from": "125",
+                "to": "131"
+            },
+            {
+                "id": "28",
+                "from": "2",
+                "to": "27"
+            },
+            {
+                "id": "158",
+                "from": "144",
+                "to": "156"
+            },
+            {
+                "id": "83",
+                "from": "80",
+                "to": "74"
+            },
+            {
+                "id": "138",
+                "from": "126",
+                "to": "96"
+            },
+            {
+                "id": "50",
+                "from": "48",
+                "to": "96"
+            },
+            {
+                "id": "79",
+                "from": "67",
+                "to": "75"
+            },
+            {
+                "id": "81",
+                "from": "64",
+                "to": "80"
+            },
+            {
+                "id": "60",
+                "from": "53",
+                "to": "54"
+            },
+            {
+                "id": "145",
+                "from": "2",
+                "to": "144"
+            },
+            {
+                "id": "118",
+                "from": "105",
+                "to": "111"
+            },
+            {
+                "id": "114",
+                "from": "110",
+                "to": "113"
+            },
+            {
+                "id": "102",
+                "from": "84",
+                "to": "95"
+            },
+            {
+                "id": "47",
+                "from": "44",
+                "to": "46"
+            },
+            {
+                "id": "61",
+                "from": "96",
+                "to": null
+            },
+            {
+                "id": "151",
+                "from": "148",
+                "to": "150"
+            },
+            {
+                "id": "68",
+                "from": "2",
+                "to": "67"
+            },
+            {
+                "id": "87",
+                "from": "86",
+                "to": "74"
+            },
+            {
+                "id": "39",
+                "from": "27",
+                "to": "36"
+            },
+            {
+                "id": "66",
+                "from": "2",
+                "to": "64"
+            },
+            {
+                "id": "16",
+                "from": "6",
+                "to": "95"
+            },
+            {
+                "id": "49",
+                "from": "46",
+                "to": "48"
+            },
+            {
+                "id": "18",
+                "from": "13",
+                "to": "17"
+            },
+            {
+                "id": "38",
+                "from": "27",
+                "to": "35"
+            },
+            {
+                "id": "58",
+                "from": "13",
+                "to": "57"
+            },
+            {
+                "id": "41",
+                "from": "36",
+                "to": "40"
+            },
+            {
+                "id": "26",
+                "from": "4",
+                "to": "6"
+            },
+            {
+                "id": "10",
+                "from": "2",
+                "to": "3"
+            },
+            {
+                "id": "69",
+                "from": "2",
+                "to": "65"
+            },
+            {
+                "id": "42",
+                "from": "35",
+                "to": "40"
+            },
+            {
+                "id": "98",
+                "from": "96",
+                "to": "97"
+            },
+            {
+                "id": "22",
+                "from": "2",
+                "to": "4"
+            }
+        ]
+    }
+}
