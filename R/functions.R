@@ -80,7 +80,7 @@ make_poe_legend <- function(id, colors, labels, size) {
 #
 # @param ... - list of items from make_legend_item
 make_legend <- function(...) {
-  shiny::tags$div(
+  tags$div(
     # id = "tree-legend",
     style = "height: 50px; width: 100%;",
     class = "d-flex align-items-center justify-content-around",
@@ -92,9 +92,9 @@ make_legend <- function(...) {
 # @param text - text label
 # @param ... - named arguments to pass to text div
 make_legend_item <- function(size, color, text, ...) {
-  shiny::tags$div(
+  tags$div(
     class = "d-flex align-items-center",
-    shiny::tags$div(
+    tags$div(
       class = "me-2 rounded",
       style = sprintf(
         "height: %1$spx; width: %1$spx; background-color: %2$s",
@@ -102,7 +102,7 @@ make_legend_item <- function(size, color, text, ...) {
         color
       )
     ),
-    shiny::tags$div(text, class = "h6 m-0 p-0", ...)
+    tags$div(text, class = "h6 m-0 p-0", ...)
   )
 }
 # Converts visNetwork data format to DOT language

@@ -9,7 +9,7 @@
 # @param act2Pres - activity to pressures lookup table
 # @param htmlLabels - named vector with element IDs as names & labels as values
 poeUI <- function(id, act2Pres, htmlLabels, legColors, legText, legSize) {
-  ns <- shiny::NS(id)
+  ns <- NS(id)
   js <- "
   $( document ).ready(function() {
     Shiny.addCustomMessageHandler('toggleDisable', function(toggle) {
@@ -34,31 +34,32 @@ poeUI <- function(id, act2Pres, htmlLabels, legColors, legText, legSize) {
   "
   list(
     tags$style(HTML(css)),
-    shiny::tags$script(shiny::HTML(js)),
-    shiny::includeScript("www/svg-pan-zoom.min.js"),
-    shiny::tags$div(
+    tags$script(HTML(js)),
+    includeScript("www/svg-pan-zoom.min.js"),
+    tags$div(
       class = "card bslib-card card-header d-flex 
     justify-content-between align-items-center flex-row",
-      shiny::tags$div(
+      tags$div(
         "Pathways of Effect",
         id = ns("dbTitle"),
         style = "font-size: 2rem; font-weight: bold;"
       ),
-      shiny::radioButtons(
+      radioButtons(
         inputId = ns("lang"),
         label = "",
         choices = c("English" = "en", "French" = "fr"),
         inline = TRUE
       )
     ),
-    bslib::layout_columns(
+    layout_columns(
       col_widths = c(3, 9),
       class = "p-1",
-      bslib::card(
+
+      card(
         full_screen = TRUE,
-        bslib::card_header(shiny::tags$div("Inputs", id = ns("cardTitle1"))),
-        bslib::card_body(
-          shiny::selectInput(
+        card_header(tags$div("Inputs", id = ns("cardTitle1"))),
+        card_body(
+          selectInput(
             inputId = ns("valuedComponent"),
             label = htmlLabels[["valuedComponent-label"]],
             choices = unique(act2Pres$valued_component),
@@ -67,18 +68,18 @@ poeUI <- function(id, act2Pres, htmlLabels, legColors, legText, legSize) {
             selectize = TRUE,
             width = "100%"
           ),
-          shiny::uiOutput(outputId = ns("activitiesUi")),
-          shiny::actionButton(
+          uiOutput(outputId = ns("activitiesUi")),
+          actionButton(
             ns("apply"),
             htmlLabels[["apply"]],
             class = "btn-primary"
           )
         )
       ),
-      bslib::navset_card_tab(
+      navset_card_tab(
         full_screen = TRUE,
-        bslib::nav_panel(
-          title = shiny::tags$div("Interactive View", id = ns("cardTitle2")),
+        nav_panel(
+          title = tags$div("Interactive View", id = ns("cardTitle2")),
           visNetwork::visNetworkOutput(
             ns("pathwayInteractive"),
             width = "100%",
@@ -91,8 +92,8 @@ poeUI <- function(id, act2Pres, htmlLabels, legColors, legText, legSize) {
             size = legSize
           )
         ),
-        bslib::nav_panel(
-          title = shiny::tags$div("Flowchart View", id = ns("cardTitle3")),
+        nav_panel(
+          title = tags$div("Flowchart View", id = ns("cardTitle3")),
           DiagrammeR::DiagrammeROutput(
             ns("pathwayFlowchart"),
             width = "100%",
@@ -105,8 +106,8 @@ poeUI <- function(id, act2Pres, htmlLabels, legColors, legText, legSize) {
             size = legSize
           )
         ),
-        bslib::nav_panel(
-          title = shiny::tags$div("Orthogonal View", id = ns("cardTitle4")),
+        nav_panel(
+          title = tags$div("Orthogonal View", id = ns("cardTitle4")),
           DiagrammeR::grVizOutput(
             ns("pathwayOrthogonal"),
             width = "100%",
@@ -130,18 +131,21 @@ poeUI <- function(id, act2Pres, htmlLabels, legColors, legText, legSize) {
 # @param pathways - JSON of all pathways
 # @param htmlLabels - named vector with element IDs as names & labels as values
 poeServer <- function(id, act2Pres, pathways, htmlLabels) {
-  shiny::moduleServer(id, function(input, output, session) {
+  moduleServer(id, function(input, output, session) {
     ns <- session$ns
     htmlLabels <- stats::setNames(htmlLabels, ns(names(htmlLabels)))
+
     ###########################################################################
     #                                                                         #
     # Data                                                                    #
     #                                                                         #
     ###########################################################################
+
     # start with no pathway
-    pathway <- shiny::reactiveVal(NULL)
+    pathway <- reactiveVal(NULL)
+
     # prune selected value component pathway by selected activities
-    shiny::observeEvent(input$apply, {
+    observeEvent(input$apply, {
       tree <- pathways[[input$valuedComponent]] |>
         prep_visnetwork()
       stressors <- act2Pres[["stressors"]][
@@ -170,17 +174,18 @@ poeServer <- function(id, act2Pres, pathways, htmlLabels) {
       # update pathway
       pathway(pruned)
     })
+
     ###########################################################################
     #                                                                         #
     # User Interactions                                                       #
     #                                                                         #
     ###########################################################################
-    output$activitiesUi <- shiny::renderUI({
+    output$activitiesUi <- renderUI({
       choices <- act2Pres[["activities"]][
         act2Pres[["valued_component"]] %in% input$valuedComponent
       ] |>
         unique()
-      shiny::checkboxGroupInput(
+      checkboxGroupInput(
         inputId = ns("activities"),
         label = htmlLabels[[ns("activities-label")]] |>
           translate_text(lang = input$lang),
@@ -190,21 +195,21 @@ poeServer <- function(id, act2Pres, pathways, htmlLabels) {
         ),
         width = "100%"
       ) |>
-        shiny::tagAppendAttributes(
+        tagAppendAttributes(
           style = "
           display: flex;
           justify-content: space-between;
           ",
           .cssSelector = "label"
         ) |>
-        shiny::tagAppendAttributes(
+        tagAppendAttributes(
           style = "
           width: 1em;
           margin-right: 1em;
           ",
           .cssSelector = "input"
         ) |>
-        shiny::tagAppendAttributes(
+        tagAppendAttributes(
           style = "
           width: calc(100% - 1em);
           ",
@@ -212,8 +217,8 @@ poeServer <- function(id, act2Pres, pathways, htmlLabels) {
         )
     })
     # translations
-    shiny::observeEvent(input$lang, {
-      shiny::updateSelectInput(
+    observeEvent(input$lang, {
+      updateSelectInput(
         session = session,
         inputId = "valuedComponent",
         choices = stats::setNames(
@@ -231,7 +236,7 @@ poeServer <- function(id, act2Pres, pathways, htmlLabels) {
       )
     })
     # used to disable apply button if activities are not selected
-    shiny::observeEvent(
+    observeEvent(
       input$activities,
       {
         btnId <- "apply"
@@ -252,7 +257,7 @@ poeServer <- function(id, act2Pres, pathways, htmlLabels) {
     # Interactive View
     # visNetwork
     output$pathwayInteractive <- visNetwork::renderVisNetwork({
-      shiny::req(pathway())
+      req(pathway())
       visNetwork::visNetwork(
         nodes = pathway()[["nodes"]],
         edges = pathway()[["edges"]]
@@ -272,7 +277,7 @@ poeServer <- function(id, act2Pres, pathways, htmlLabels) {
     # Flowchart View
     # mermaid
     output$pathwayFlowchart <- DiagrammeR::renderDiagrammeR({
-      shiny::req(pathway())
+      req(pathway())
       flowchart <- convert_mermaid_flowchart(data.table::copy(pathway()))
       flowchart |>
         DiagrammeR::DiagrammeR() |>
@@ -281,7 +286,7 @@ poeServer <- function(id, act2Pres, pathways, htmlLabels) {
     # Orthogonal View
     # DiagrammR
     output$pathwayOrthogonal <- DiagrammeR::renderGrViz({
-      shiny::req(pathway())
+      req(pathway())
       dot <- convert_to_dot(visNet = data.table::copy(pathway()))
       DiagrammeR::create_graph(
         nodes_df = dot[["nodes"]],

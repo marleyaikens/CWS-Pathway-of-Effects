@@ -1,5 +1,6 @@
 # Load Packages --------------------------------------------------------
 library(shiny)
+library(bslib)
 
 # Load functions -------------------------------------------------------
 list.files("R", full.names = TRUE) |> lapply(source)
@@ -51,9 +52,9 @@ htmlLabels <- list(
 )
 
 # App structure -------------------------------------------------------
-ui <- bslib::page_fillable(
+ui <- page_fillable(
   title = "CWS",
-  theme = bslib::bs_theme(version = 5, bootswatch = "materia"),
+  theme = bs_theme(version = 5, bootswatch = "materia"),
   # main application, add modules below in future to expand
   poeUI(
     id = "poe",
