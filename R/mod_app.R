@@ -124,6 +124,7 @@ poeUI <- function(id, act2Pres, htmlLabels, legColors, legText, legSize) {
     )
   )
 }
+
 # Server module for pathways of effects
 #
 # @param id - module id
@@ -137,7 +138,7 @@ poeServer <- function(id, act2Pres, pathways, htmlLabels, enFr) {
 
     ###########################################################################
     #                                                                         #
-    # Data                                                                    #
+    # Data --------------------------------------------------------------------
     #                                                                         #
     ###########################################################################
 
@@ -177,7 +178,7 @@ poeServer <- function(id, act2Pres, pathways, htmlLabels, enFr) {
 
     ###########################################################################
     #                                                                         #
-    # User Interactions                                                       #
+    # User Interactions -------------------------------------------------------
     #                                                                         #
     ###########################################################################
     output$activitiesUi <- renderUI({
@@ -216,7 +217,8 @@ poeServer <- function(id, act2Pres, pathways, htmlLabels, enFr) {
           .cssSelector = "span"
         )
     })
-    # translations
+
+    # Translations ------------------------------------------------------
     observeEvent(input$lang, {
       updateSelectInput(
         session = session,
@@ -235,6 +237,7 @@ poeServer <- function(id, act2Pres, pathways, htmlLabels, enFr) {
           lapply(identity)
       )
     })
+
     # used to disable apply button if activities are not selected
     observeEvent(
       input$activities,
@@ -249,13 +252,15 @@ poeServer <- function(id, act2Pres, pathways, htmlLabels, enFr) {
       },
       ignoreNULL = FALSE
     )
+
     ###########################################################################
     #                                                                         #
-    # Diagrams                                                                #
+    # Diagrams --------------------------------------------------------------
     #                                                                         #
     ###########################################################################
+
     # Interactive View
-    # visNetwork
+    ## visNetwork ------------------------------------------------------------
     output$pathwayInteractive <- visNetwork::renderVisNetwork({
       req(pathway())
       visNetwork::visNetwork(
@@ -274,8 +279,9 @@ poeServer <- function(id, act2Pres, pathways, htmlLabels, enFr) {
           )
         )
     })
+
     # Flowchart View
-    # mermaid
+    ## mermaid ----------------------------------------------------------------
     output$pathwayFlowchart <- DiagrammeR::renderDiagrammeR({
       req(pathway())
       flowchart <- convert_mermaid_flowchart(data.table::copy(pathway()))
@@ -283,8 +289,9 @@ poeServer <- function(id, act2Pres, pathways, htmlLabels, enFr) {
         DiagrammeR::DiagrammeR() |>
         add_zoom(id = ns("pathwayFlowchart"))
     })
+
     # Orthogonal View
-    # DiagrammR
+    ## DiagrammR --------------------------------------------------------------
     output$pathwayOrthogonal <- DiagrammeR::renderGrViz({
       req(pathway())
       dot <- convert_to_dot(visNet = data.table::copy(pathway()))
