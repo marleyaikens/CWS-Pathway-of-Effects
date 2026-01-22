@@ -8,7 +8,7 @@
 # @param id - module id
 # @param act2Pres - activity to pressures lookup table
 # @param htmlLabels - named vector with element IDs as names & labels as values
-poeUI <- function(id, act2Pres, htmlLabels) {
+poeUI <- function(id, act2Pres, htmlLabels, legColors, legText, legSize) {
   ns <- shiny::NS(id)
   js <- "
   $( document ).ready(function() {
@@ -35,7 +35,7 @@ poeUI <- function(id, act2Pres, htmlLabels) {
   list(
     tags$style(HTML(css)),
     shiny::tags$script(shiny::HTML(js)),
-    shiny::includeScript("svg-pan-zoom.min.js"),
+    shiny::includeScript("www/svg-pan-zoom.min.js"),
     shiny::tags$div(
       class = "card bslib-card card-header d-flex 
     justify-content-between align-items-center flex-row",

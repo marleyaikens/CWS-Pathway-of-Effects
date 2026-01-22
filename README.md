@@ -65,7 +65,7 @@ Navigate to the CWS-Pathway-of-Effects folder and open an R terminal.
 Run the following:
 
 ```
-shiny::runApp("app")
+shiny::runApp()
 ```
 
 ### Configure Open in Browser (Optional)
@@ -75,13 +75,13 @@ Click the down arrow next to Run App button in the top right and check the
 
 # File Descriptions
 
-  * app/global.R
-    + Contains code/functions/shiny modules for running the application
-  * app/ui.R
-    + "Main" user interface file
-  * app/server.R
-    + "Main" server file that is the backend for the application
-  * app/svg-pan-zoom.min.js
+  * app.R
+    + Contains code for running the application
+  * R/functions.R
+    + Contains functions for running the application
+  * R/mod_app.R
+    + Contains user interface and server (backend) functions for the application
+  * www/svg-pan-zoom.min.js
     + Javascript file for adding pan & zoom to diagrams
   * data/poe.json
     + JSON file of nodes/edges that is pulled from Visio diagrams
@@ -91,16 +91,16 @@ Click the down arrow next to Run App button in the top right and check the
     + R file to prepare data-raw/act2Pres.rds file from the excel file in data folder
   * parse-visio.py
     + Python file to prepare data/poe.json file from the vsdx file in data
+  * data/en-fr-table.csv
+    + Two column table of English and French text for translation.
+  * data-raw/collect-text.R
+    + Used to collect all text for translation. Does not need to be re-run.
   * README.md
     + Guide to installing software and setting up the app
   * cws-poe.Rproj
     + RStudio project file that when double-clicked opens up the project
   * .gitignore
-    + Ignore this file, unless using git version control
-  * data/en-fr-table.csv
-    + Two column table of English and French text for translation.
-  * data-raw/collect-text.R
-    + Used to collect all text for translation. Does not need to be re-run.
+    + Files to be omitted from Git and GitHub
 
 # Update Datasets (Advanced Users)
 
