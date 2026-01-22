@@ -46,10 +46,10 @@ install.packages(c("shiny", "bslib", "jsonlite", "data.table", "visNetwork", "Di
 
 ### RStudio
 
-Navigate to the cws-poe folder and double-click cws-poe.Rproj or open the 
+Navigate to the CWS-Pathway-of-Effects folder and double-click `cws-poe.Rproj` or open the 
 project in Rstudio (top right corner).
 
-Open the app/global.R file in the editor. Click the run app button that is at 
+Open the `app/global.R` file in the editor. Click the run app button that is at 
 the top right of the open file.
 
 Note: Click the "Open in Browser" button in the top right pop-up window in 
@@ -60,7 +60,7 @@ the R Console window.
 
 ### Command Line (Command Prompt/Powershell/Shell etc.)
 
-Navigate to the cws-poe folder and open an R terminal.
+Navigate to the CWS-Pathway-of-Effects folder and open an R terminal.
 
 Run the following:
 
