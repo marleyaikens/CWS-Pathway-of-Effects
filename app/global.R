@@ -1,5 +1,5 @@
 ###########################################################################
-#                                                                         #   
+#                                                                         #
 # App Data                                                                #
 #                                                                         #
 ###########################################################################
@@ -10,16 +10,21 @@ list.files("../R", full.names = TRUE) |> lapply(source)
 # Module ID
 modId <- "poe"
 # Activities to Stressors/Pressures Crosswalk
-act2Pres <- readRDS("../data/act2Pres.rds") |> 
+act2Pres <- readRDS("../data/act2Pres.rds") |>
   as.data.frame()
 # Parsed Visio Diagrams Data
-pathways <- jsonlite::read_json(path = "../data/poe.json", simplifyVector = FALSE)
-# Translation Table 
+pathways <- jsonlite::read_json(
+  path = "../data/poe.json",
+  simplifyVector = FALSE
+)
+# Translation Table
 enFr <- data.table::fread("../data/en-fr-table.csv")
 # legend text labels and colors
-legText <- c("Valued Component",
+legText <- c(
+  "Valued Component",
   "Stressors/pressures associated with Activities/Components selected by user",
-  "Potential Contravention of Legislation and/or Regulations")
+  "Potential Contravention of Legislation and/or Regulations"
+)
 legColors <- c("#88bde9", "#fee599", "#f06c6c")
 legSize <- 40
 # headers/labels that need to be translated later
