@@ -130,7 +130,7 @@ poeUI <- function(id, act2Pres, htmlLabels, legColors, legText, legSize) {
 # @param act2Pres - activity to pressures lookup table
 # @param pathways - JSON of all pathways
 # @param htmlLabels - named vector with element IDs as names & labels as values
-poeServer <- function(id, act2Pres, pathways, htmlLabels) {
+poeServer <- function(id, act2Pres, pathways, htmlLabels, enFr) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
     htmlLabels <- stats::setNames(htmlLabels, ns(names(htmlLabels)))
@@ -169,7 +169,7 @@ poeServer <- function(id, act2Pres, pathways, htmlLabels) {
       ]
       pruned <- prune_branches(ids = ids, tree = tree, pruned = topBranch)
       pruned$nodes$label <- pruned$nodes$label |>
-        translate_text(lang = input$lang) |>
+        translate_text(input$lang, enFr) |>
         stringr::str_wrap(width = 15)
       # update pathway
       pathway(pruned)
@@ -188,10 +188,10 @@ poeServer <- function(id, act2Pres, pathways, htmlLabels) {
       checkboxGroupInput(
         inputId = ns("activities"),
         label = htmlLabels[[ns("activities-label")]] |>
-          translate_text(lang = input$lang),
+          translate_text(input$lang, enFr),
         choices = stats::setNames(
           choices,
-          choices |> translate_text(lang = input$lang)
+          choices |> translate_text(input$lang, enFr)
         ),
         width = "100%"
       ) |>
@@ -224,13 +224,13 @@ poeServer <- function(id, act2Pres, pathways, htmlLabels) {
         choices = stats::setNames(
           unique(act2Pres$valued_component),
           unique(act2Pres$valued_component) |>
-            translate_text(lang = input$lang)
+            translate_text(input$lang, enFr)
         )
       )
       session$sendCustomMessage(
         "translateLabels",
         htmlLabels |>
-          translate_text(lang = input$lang) |>
+          translate_text(input$lang, enFr) |>
           # convert to list for conversion to JSON object
           lapply(identity)
       )

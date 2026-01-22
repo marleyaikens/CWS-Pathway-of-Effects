@@ -72,7 +72,8 @@ server <- function(input, output, session) {
     id = "poe",
     act2Pres = act2Pres,
     pathways = pathways,
-    htmlLabels = htmlLabels
+    htmlLabels = htmlLabels,
+    enFr = enFr
   )
 }
 

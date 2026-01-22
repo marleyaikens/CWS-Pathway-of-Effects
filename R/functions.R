@@ -163,7 +163,7 @@ translate_text <- function(x, lang = "en", translations = enFr) {
   if (lang == "en") {
     x
   } else if (lang == "fr") {
-    french <- enFr[["fr"]][match(x, enFr[["en"]])]
+    french <- translations[["french"]][match(x, translations[["english"]])]
     if (!is.null(names(x))) {
       french <- stats::setNames(french, names(x))
     }
