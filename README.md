@@ -83,25 +83,23 @@ Click the down arrow next to Run App button in the top right and check the
     + "Main" server file that is the backend for the application
   * app/svg-pan-zoom.min.js
     + Javascript file for adding pan & zoom to diagrams
-  * app/poe.json
+  * data/poe.json
     + JSON file of nodes/edges that is pulled from Visio diagrams
-  * app/act2Pres.rds
+  * data/act2Pres.rds
     + R data file for mapping Activities to Pressures
-  * data-prep.R
-    + R file to prepare act2Pres.rds file from the excel file in data folder
+  * data-raw/data-prep.R
+    + R file to prepare data-raw/act2Pres.rds file from the excel file in data folder
   * parse-visio.py
-    + Python file to prepare poe.json file from the vsdx file in data
+    + Python file to prepare data/poe.json file from the vsdx file in data
   * README.md
-    + Markdown file to create README.html
-  * README.html
     + Guide to installing software and setting up the app
   * cws-poe.Rproj
     + RStudio project file that when double-clicked opens up the project
   * .gitignore
     + Ignore this file, unless using git version control
-  * app/en-fr-table.csv
+  * data/en-fr-table.csv
     + Two column table of English and French text for translation.
-  * collect-text.R
+  * data-raw/collect-text.R
     + Used to collect all text for translation. Does not need to be re-run.
 
 # Update Datasets (Advanced Users)
@@ -170,14 +168,14 @@ tables are modified.
 
 ### Update Activities to Stressors
 
-1. Change the first line of the `data-prep.R` script to point to the new file 
+1. Change the first line of the `data-raw/data-prep.R` script to point to the new file 
 (if different). 
-2. In Rstudio, open the `data-prep.R` script and click the "Source" button. 
+2. In Rstudio, open the `data-raw/data-prep.R` script and click the "Source" button. 
 Alternatively, you can run line-by-line. OR
 From the command line:
 
 ```r
-source("data-prep.R")
+source("data-raw/data-prep.R")
 ```
 
 ### Update Diagram Data
@@ -188,7 +186,7 @@ From the command line (you can also use terminal in Rstudio), navigate to the
 Run the following:
 
 ```
-python .\parse-visio.py "data/AmalgamatedPoE_23-Jan-2024_Update.vsdx" -o "app/poe.json"
+python .\parse-visio.py "data-raw/AmalgamatedPoE_23-Jan-2024_Update.vsdx" -o "data/poe.json"
 ```
 
 ### Update Translations

@@ -26,4 +26,4 @@ data.table::data.table(
   english,
   french = sprintf("french-%03d", seq_along(english))
 ) |> 
-  data.table::fwrite("app/en-fr-table.csv")
+  data.table::fwrite("../data/en-fr-table.csv")

@@ -1,5 +1,5 @@
 # update this file name
-filePath <- "data/Activities_pressures_cross_check_forContractor (003).xlsx"
+filePath <- "Activities_pressures_cross_check_forContractor (003).xlsx"
 get_vc_names <- function(filePath) {
   sheets <- readxl::excel_sheets(filePath)
   vapply(X = sheets, FUN = function(sheet) {
@@ -45,4 +45,4 @@ act2Pres <- act2Pres[ , lapply(.SD, trimws, whitespace = "[\\h\\v]")]
 # test
 stopifnot(!anyNA(act2Pres))
 # save into app for use
-saveRDS(act2Pres, file = "app/act2Pres.rds")
+saveRDS(act2Pres, file = "../data/act2Pres.rds")

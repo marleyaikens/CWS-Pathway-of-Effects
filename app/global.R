@@ -6,12 +6,12 @@
 # Module ID
 modId <- "poe"
 # Activities to Stressors/Pressures Crosswalk
-act2Pres <- readRDS("act2Pres.rds") |> 
+act2Pres <- readRDS("../data/act2Pres.rds") |> 
   as.data.frame()
 # Parsed Visio Diagrams Data
-pathways <- jsonlite::read_json(path = "poe.json", simplifyVector = FALSE)
+pathways <- jsonlite::read_json(path = "../data/poe.json", simplifyVector = FALSE)
 # Translation Table 
-enFr <- data.table::fread("en-fr-table.csv")
+enFr <- data.table::fread("../data/en-fr-table.csv")
 # legend text labels and colors
 legText <- c("Valued Component",
   "Stressors/pressures associated with Activities/Components selected by user",
