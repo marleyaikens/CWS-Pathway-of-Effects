@@ -1,0 +1,18 @@
+Package: poe
+Title: CWS Shiny Explorer for Pathways of Effects Diagram models
+Version: 0.2.0
+Authors@R: c(
+    person("Steffi", "LaZerte", email = "sel@steffilazerte.ca", role = c("aut", "cre")),
+    person("Thomas", "Roh", email = "thomas.roh@delveds.com", role = c("aut")),
+    person("Canadian Wildlife Service", role = "cph")
+    )
+Description: Interactive explorer for Pathways of Effects diagram models developed by CWS to visually represent cause and effect relationships between project develpments and environmental components.
+Encoding: UTF-8
+Imports:
+    shiny (>= 1.7.0),
+    bslib (>= 0.8.0),
+    visNetwork,
+    jsonlite,
+    dplyr,
+    htmlwidgets,
+    DiagrammeR
