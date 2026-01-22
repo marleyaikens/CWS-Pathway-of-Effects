@@ -12,13 +12,15 @@ ui <- c(
   "Potential Contravention of Legislation and/or Regulations",
   "Select Language"
 )
-labels <- jsonlite::read_json("app/poe.json") |>
+
+labels <- jsonlite::read_json("data/poe.json") |>
   lapply(function(vc) {
     sapply(vc[["nodes"]], getElement, "label") |> trimws()
   }) |>
   unlist(use.names = FALSE)
 labels <- labels[labels != ""]
-crosswalk <- readRDS("app/act2Pres.rds") |>
+
+crosswalk <- readRDS("data/act2Pres.rds") |>
   unlist(use.names = FALSE)
 english <- c(ui, labels, crosswalk) |>
   unique()
