@@ -13,6 +13,8 @@ Imports:
     bslib (>= 0.8.0),
     visNetwork,
     jsonlite,
-    dplyr,
     htmlwidgets,
-    DiagrammeR
+    DiagrammeR,
+    data.table,
+    readxl
+RoxygenNote: 7.3.2
