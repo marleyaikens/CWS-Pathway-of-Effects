@@ -8,7 +8,15 @@
 # @param id - module id
 # @param act2Pres - activity to pressures lookup table
 # @param htmlLabels - named vector with element IDs as names & labels as values
-poeUI <- function(id, act2Pres, htmlLabels, legColors, legText, legSize) {
+poeUI <- function(
+  id,
+  act2Pres,
+  htmlLabels,
+  legColors,
+  legText,
+  legSize
+) {
+  # Setup -----------------------------------------------------------------
   ns <- NS(id)
   js <- "
   $( document ).ready(function() {
@@ -31,7 +39,17 @@ poeUI <- function(id, act2Pres, htmlLabels, legColors, legText, legSize) {
   g > .node {
     text-align: center;
   }
-  "
+  div.checkbox label {
+    display: flex; 
+    justify-content: space-between;
+  }
+  input[type='checkbox'] {
+    width: 1em;
+    margin-right: 1em;
+  }
+  div.checkbox span {
+    width: calc(100% - 1em);
+  }"
   list(
     tags$style(HTML(css)),
     tags$script(HTML(js)),
@@ -55,24 +73,52 @@ poeUI <- function(id, act2Pres, htmlLabels, legColors, legText, legSize) {
       col_widths = c(3, 9),
       class = "p-1",
 
+      # Inputs ----------------------------------------------------
       card(
         full_screen = TRUE,
         card_header(tags$div("Inputs", id = ns("cardTitle1"))),
-        card_body(
-          selectInput(
-            inputId = ns("valuedComponent"),
-            label = htmlLabels[["valuedComponent-label"]],
-            choices = unique(act2Pres$valued_component),
-            selected = "",
-            multiple = FALSE,
-            selectize = TRUE,
-            width = "100%"
+
+        accordion(
+          open = htmlLabels[["valuedComponent"]],
+
+          accordion_panel(
+            span(
+              id = ns("valuedComponent"),
+              htmlLabels[["valuedComponent"]]
+            ),
+            value = "a1", # By default is the title, but doesn't like span(...)
+
+            # Valued Components ----------------------------------------
+            selectInput(
+              inputId = ns("valuedComponent"),
+              label = NULL,
+              choices = unique(act2Pres$valued_component),
+              selected = "",
+              multiple = FALSE,
+              selectize = TRUE,
+              width = "100%"
+            ),
+            # Activities ---------------------------------------------
+            uiOutput(outputId = ns("activitiesUi")),
+            actionButton(
+              ns("applyActivities"),
+              htmlLabels[["applyActivities"]],
+              class = "btn-primary"
+            )
           ),
-          uiOutput(outputId = ns("activitiesUi")),
-          actionButton(
-            ns("apply"),
-            htmlLabels[["apply"]],
-            class = "btn-primary"
+          accordion_panel(
+            span(
+              id = ns("mitigationMeasures"),
+              htmlLabels[["mitigationMeasures"]]
+            ),
+            value = "a2",
+            # Mitigation Measures ----------------------------------------
+            uiOutput(ns("mitigationsUi")),
+            actionButton(
+              ns("applyMitigations"),
+              htmlLabels[["applyMitigations"]],
+              class = "btn-primary"
+            )
           )
         )
       ),
@@ -131,7 +177,7 @@ poeUI <- function(id, act2Pres, htmlLabels, legColors, legText, legSize) {
 # @param act2Pres - activity to pressures lookup table
 # @param pathways - JSON of all pathways
 # @param htmlLabels - named vector with element IDs as names & labels as values
-poeServer <- function(id, act2Pres, pathways, htmlLabels, enFr) {
+poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
     htmlLabels <- stats::setNames(htmlLabels, ns(names(htmlLabels)))
@@ -146,7 +192,7 @@ poeServer <- function(id, act2Pres, pathways, htmlLabels, enFr) {
     pathway <- reactiveVal(NULL)
 
     # prune selected value component pathway by selected activities
-    observeEvent(input$apply, {
+    observe({
       tree <- pathways[[input$valuedComponent]] |>
         prep_visnetwork()
       stressors <- act2Pres[["stressors"]][
@@ -170,79 +216,120 @@ poeServer <- function(id, act2Pres, pathways, htmlLabels, enFr) {
       ]
       pruned <- prune_branches(ids = ids, tree = tree, pruned = topBranch)
       pruned$nodes$label <- pruned$nodes$label |>
-        translate_text(input$lang, enFr) |>
+        translate_text(input$lang) |>
         stringr::str_wrap(width = 15)
       # update pathway
       pathway(pruned)
-    })
+    }) |>
+      bindEvent(input$applyActivities, input$lang)
 
     ###########################################################################
     #                                                                         #
     # User Interactions -------------------------------------------------------
     #                                                                         #
     ###########################################################################
-    output$activitiesUi <- renderUI({
+
+    ## Activities -------------------------------------
+    choices_activities <- reactive({
       choices <- act2Pres[["activities"]][
         act2Pres[["valued_component"]] %in% input$valuedComponent
       ] |>
         unique()
+
+      choices
+    })
+
+    output$activitiesUi <- renderUI({
+      choices <- choices_activities()
       checkboxGroupInput(
         inputId = ns("activities"),
         label = htmlLabels[[ns("activities-label")]] |>
-          translate_text(input$lang, enFr),
-        choices = stats::setNames(
-          choices,
-          choices |> translate_text(input$lang, enFr)
-        ),
+          translate_text(isolate(input$lang)),
+        choices = named_choices(choices, lang = isolate(input$lang)),
         width = "100%"
-      ) |>
-        tagAppendAttributes(
-          style = "
-          display: flex;
-          justify-content: space-between;
-          ",
-          .cssSelector = "label"
-        ) |>
-        tagAppendAttributes(
-          style = "
-          width: 1em;
-          margin-right: 1em;
-          ",
-          .cssSelector = "input"
-        ) |>
-        tagAppendAttributes(
-          style = "
-          width: calc(100% - 1em);
-          ",
-          .cssSelector = "span"
-        )
+      )
+    })
+
+    ## Mitigations ------------------------------------------------------
+    choices_mitigations <- reactive({
+      req(pathway())
+
+      # Only show mitigations with start/end or edge on the diagram
+      nodes <- pathway()$nodes$id
+      edges <- pathway()$edges$id
+      choices <- mitigations$short_en[
+        (mitigations$start_node %in% nodes & mitigations$end_node %in% nodes) |
+          mitigations$edge %in% edges
+      ]
+
+      choices
+    })
+
+    output$mitigationsUi <- renderUI({
+      choices <- choices_mitigations()
+
+      # TODO: Translate Validates
+      validate(need(
+        length(choices) > 0,
+        "No mitigation measures apply to these activities"
+      ))
+
+      validate(need(
+        length(choices) == length(unique(choices)),
+        "There are duplicate short names in Mitigations. These should be unique."
+      ))
+
+      checkboxGroupInput(
+        inputId = ns("mitigations"),
+        label = htmlLabels[[ns("mitigations-label")]] |>
+          translate_text(isolate(input$lang)),
+        choices = named_choices(choices, lang = isolate(input$lang)),
+        width = "100%"
+      )
     })
 
     # Translations ------------------------------------------------------
-    observeEvent(input$lang, {
+    observe({
+      # Update UI Inputs
       updateSelectInput(
         session = session,
         inputId = "valuedComponent",
-        choices = stats::setNames(
+        choices = named_choices(
           unique(act2Pres$valued_component),
-          unique(act2Pres$valued_component) |>
-            translate_text(input$lang, enFr)
-        )
+          lang = input$lang
+        ),
+        selected = input$valuedComponent
       )
+      updateCheckboxGroupInput(
+        session = session,
+        inputId = "activities",
+        choices = named_choices(choices_activities(), lang = input$lang),
+        selected = input$activities
+      )
+      updateCheckboxGroupInput(
+        session = session,
+        inputId = "mitigations",
+        choices = named_choices(choices_mitigations(), lang = input$lang),
+        selected = input$mitigations
+      )
+
+      # Update other elements with JS
+
       session$sendCustomMessage(
         "translateLabels",
         htmlLabels |>
-          translate_text(input$lang, enFr) |>
+          translate_text(input$lang) |>
           # convert to list for conversion to JSON object
           lapply(identity)
       )
-    })
+    }) |>
+      bindEvent(input$lang, ignoreInit = TRUE)
 
     # used to disable apply button if activities are not selected
     observeEvent(
       input$activities,
       {
-        btnId <- "apply"
+        btnId <- "applyActivities"
         if (length(input$activities) > 0) {
           session$sendCustomMessage("toggleDisable", list(ns(btnId), FALSE))
         } else {

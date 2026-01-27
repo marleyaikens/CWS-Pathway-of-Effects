@@ -11,14 +11,27 @@ list.files("R", full.names = TRUE) |> lapply(source)
 act2Pres <- readRDS("data/act2Pres.rds") |>
   as.data.frame()
 
+# Mitigations - Ensuring unique ids
+mitigations <- readxl::read_excel("data/mitigations.xlsx")
+nodes <- read.csv("data/node_ids.csv")
+
 # Parsed Visio Diagrams Data
 pathways <- jsonlite::read_json(
   path = "data/poe.json",
   simplifyVector = FALSE
 )
 
-# Translation Table
+# Translation Table (with mitigations)
 enFr <- data.table::fread("data/en-fr-table.csv")
+enFr <- rbind(enFr, mitigations[, c("short_en", "short_fr")], use.names = FALSE)
+enFr <- rbind(enFr, mitigations[, c("long_en", "long_fr")], use.names = FALSE)
+enFr <- unique(enFr)
+
+# Replace NAs with placeholders strings (prevents app from breaking on missing translations)
+n <- as.numeric(max(substr(enFr$french, 8, 10), na.rm = TRUE)) # Get last French translation
+enFr[is.na(french), french := paste0("french-", n + seq_len(.N))]
+
+options("poe.dict" = enFr)
 
 # Legends -------------------------------------------------------------
 
@@ -30,15 +43,33 @@ legText <- c(
 )
 legColors <- c("#88bde9", "#fee599", "#f06c6c")
 legSize <- 40
-# headers/labels that need to be translated later
+
+# Headers/labels that need to be translated later
+# - The name refers to the element id, hence the two 'applies'
+
 htmlLabels <- list(
-  "valuedComponent-label" = "Valued Component",
-  apply = "Apply",
+  # App title
   dbTitle = "Pathways of Effect",
+
+  # Accordion titles
+  "valuedComponent" = "Valued Component",
+  "mitigationMeasures" = "Mitigation Measures",
+
+  # Buttons
+  applyActivities = "Apply",
+  applyMitigations = "Apply",
+
+  # Cards
   cardTitle1 = "Inputs",
   cardTitle2 = "Interactive View",
   cardTitle3 = "Flowchart View",
   cardTitle4 = "Orthogonal View",
+
+  # Inputs
+  "activities-label" = "Select all Activities/Components that apply:",
+  "mitigations-label" = "Select all Mitigations that apply:",
+
+  # Legends
   leg1Text1 = legText[1],
   leg1Text2 = legText[2],
   leg1Text3 = legText[3],
@@ -47,8 +78,7 @@ htmlLabels <- list(
   leg2Text3 = legText[3],
   leg3Text1 = legText[1],
   leg3Text2 = legText[2],
-  leg3Text3 = legText[3],
-  "activities-label" = "Select all Activities/Components that apply:"
+  leg3Text3 = legText[3]
 )
 
 # App structure -------------------------------------------------------
@@ -71,9 +101,9 @@ server <- function(input, output, session) {
   poeServer(
     id = "poe",
     act2Pres = act2Pres,
+    mitigations = mitigations,
     pathways = pathways,
-    htmlLabels = htmlLabels,
-    enFr = enFr
+    htmlLabels = htmlLabels
   )
 }
 

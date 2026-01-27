@@ -154,16 +154,26 @@ add_zoom <- function(x, id) {
     )
   )
 }
-# Translates text from english to french
-#
-# @param x - english text to translate
-# @param lang - one of "en" or "fr"
-# @param translations - dataframe with columns "en" and "fr" for translations
-translate_text <- function(x, lang = "en", translations = enFr) {
+
+#' Translates text from english to french
+#'
+#' @param x Character. English text to translate
+#' @param lang Character. One of "en" or "fr"
+#' @param translations Data.frame. with columns "en" and "fr" for translations
+#'
+#' @returns
+#'
+#' @examples
+#' enFr <- read.csv("data/en-fr-table.csv")
+#' translate_text("Increase in Edge Habitat", "fr", dict = enFr)
+
+translate_text <- function(x, lang = "en", dict = NULL) {
+  dict <- dict %||% getOption("poe.dict")
+
   if (lang == "en") {
     x
   } else if (lang == "fr") {
-    french <- translations[["french"]][match(x, translations[["english"]])]
+    french <- dict[["french"]][match(x, dict[["english"]])]
     if (!is.null(names(x))) {
       french <- stats::setNames(french, names(x))
     }
@@ -171,4 +181,16 @@ translate_text <- function(x, lang = "en", translations = enFr) {
   } else {
     stop("Only English and French are supported.")
   }
+}
+named_choices <- function(
+  value,
+  name = value,
+  lang = "en",
+  dict = NULL
+) {
+  dict <- dict %||% getOption("poe.dict")
+  stats::setNames(
+    value,
+    translate_text(name, isolate(lang), dict)
+  )
 }
