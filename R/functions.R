@@ -93,8 +93,14 @@ prep_visnetwork <- function(pathway) {
   nodes[["color.background"]][is.na(nodes[["color.background"]])] <- "#ffffff"
   nodes[["level"]] <- round(nodes[["y"]], 1)
   edges <- pathway |> getElement("edges") |> data.table::rbindlist(fill = TRUE)
+
+  # Prepare edges for mitigations
+  edges$disabled <- edges$label <- NA
+
   # only keep nodes that have edges
   nodes <- nodes[nodes[["id"]] %in% unique(c(edges[["from"]], edges[["to"]])), ]
+  nodes[["y"]] <- NULL
+  nodes[["x"]] <- NULL
   list(nodes = nodes, edges = edges)
 }
 # Recursive function:
@@ -237,6 +243,8 @@ convert_to_dot <- function(visNet) {
   visNet[["edges"]][["from"]] <- as.integer(visNet[["edges"]][["from"]])
   visNet[["edges"]][["to"]] <- as.integer(visNet[["edges"]][["to"]])
   visNet[["edges"]][["id"]] <- NULL
+  visNet[["edges"]][["disabled"]] <- NULL
+  visNet[["edges"]][["label"]] <- NULL
   visNet
 }
 # Converts visNetwork data format to mermaid js graph specification
@@ -303,6 +311,96 @@ translate_text <- function(x, lang = "en", dict = NULL) {
     stop("Only English and French are supported.")
   }
 }
+
+#' Add mitigations to pathways
+#'
+#' Disables nodes and edges downstream of a mitigation (disabled edge) which are
+#' not maintained by alternate pathways.
+#'
+#' @param pathway List. Current set of diagram pathways.
+#' @param mitigations Data frame. Master list of mitigation metadata.
+#' @param m Character vector. Currently selected mitigations (refer to
+#' `short_en` in `mitigations`) to add to the pathway.
+#' @param lang Character. Language for display, "en" (English) or "fr" (French).
+#'
+#' @returns
+#'
+#' @export
+#' @examples
+#' pathways <- jsonlite::read_json(
+#'  path = "data/poe.json",
+#'  simplifyVector = FALSE
+#' )
+#' mitigations <- readxl::read_excel("data/mitigations.xlsx")
+#' ref <- readRDS("data/act2Pres.rds") |>
+#'   as.data.frame()
+#'
+#' p <- prep_pathways(
+#'   pathways,
+#'   ref,
+#'   vc = "Terrestrial and Semi-Aquatic SAR",
+#'   a = "Shoreline / Bank stabilization"
+#' )
+#'
+#' make_visnetwork(p)
+#' p1 <- add_mitigation(p, mitigations, "Selective work")
+#' make_visnetwork(p1)
+
+add_mitigation <- function(pathway, mitigations, m, lang = "en") {
+  req(pathway)
+
+  e <- pathway[["edges"]]
+  n <- pathway[["nodes"]]
+
+  m <- mitigations[mitigations$short_en %in% m, ]
+
+  # Which mitigated/disabled - Edges
+  for (i in seq_len(nrow(m))) {
+    ii <- which(e$from == m$start_node[i] & e$to == m$end_node[i])
+    e$disabled[ii] <- TRUE
+    e$label[ii] <- m$short_en[i]
+  }
+
+  # Which mitigated/disabled - Nodes
+  m <- m$end_node
+
+  # Get remaining active pathways
+  # (i.e. those not travelling through mitigations/disabled edges)
+  na <- get_children(
+    # Start with highest level node that is not directly mitigated
+    node_start = n$id[!n$id %in% m][1],
+    # All non-mitigated/disabled pathways
+    edges = e[is.na(e$disabled), ]
+  )
+
+  # Get potentially disabled downstream nodes
+  # - downstream of mitigations AND not maintained by other pathways
+  nd <- get_children(m, e)
+  nd <- nd[!nd %in% na]
+
+  # Disable all nodes without alternate paths
+  n$disabled[n$id %in% nd] <- TRUE
+
+  # Format disabled nodes/edges
+  e$color[e$disabled] <- "#e3e3e3"
+
+  n$color.background[n$disabled] <- "#e3e3e3"
+  n$color.border[n$disabled] <- "#d5d5d5"
+  n$font.color[n$disabled] <- "#d5d5d5"
+
+  list("edges" = e, "nodes" = n)
+}
+
+get_children <- function(node_start, edges) {
+  children <- c() # All nodes travelled through
+  nodes <- node_start # Nodes to travel from
+  while (length(nodes) > 0) {
+    children <- unique(c(children, nodes)) # Update
+    nodes <- edges$to[edges$from %in% nodes] # Follow path down
+  }
+  children
+}
+
 named_choices <- function(
   value,
   name = value,

@@ -342,5 +342,15 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
     output$pathwayOrthogonal <- DiagrammeR::renderGrViz({
       make_orthogonal(ns("pathwayOrthogonal"), pathway())
     })
+
+    ## Add mitigations -------------------------------------
+
+    observe({
+      changes <- add_mitigation(pathway(), mitigations, input$mitigations)
+      visNetwork::visNetworkProxy(ns("pathwayInteractive")) |>
+        visNetwork::visUpdateEdges(edges = changes$edges) |>
+        visNetwork::visUpdateNodes(nodes = changes$nodes)
+    }) |>
+      bindEvent(pathway, input$mitigations, input$lang, ignoreInit = TRUE)
   })
 }
