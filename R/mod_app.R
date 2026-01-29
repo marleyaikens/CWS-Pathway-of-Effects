@@ -193,33 +193,15 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
 
     # prune selected value component pathway by selected activities
     observe({
-      tree <- pathways[[input$valuedComponent]] |>
-        prep_visnetwork()
-      stressors <- act2Pres[["stressors"]][
-        act2Pres[["valued_component"]] %in%
-          input$valuedComponent &
-          act2Pres[["activities"]] %in% input$activities
-      ] |>
-        unique()
-      cleanLabels <- gsub(
-        pattern = "\\n",
-        replacement = " ",
-        x = tree$nodes$label
+      p <- prep_pathways(
+        pathways,
+        act2Pres,
+        vc = input$valuedComponent,
+        a = input$activities,
+        lang = input$lang
       )
-      ids <- tree$nodes[cleanLabels %in% stressors, id]
-      # start with top branch which is the "Valued Component"
-      topNode <- tree[["nodes"]][["id"]][cleanLabels %in% input$valuedComponent]
-      topBranch <- tree[["edges"]][
-        tree[["edges"]][["from"]] %in%
-          topNode &
-          tree[["edges"]][["to"]] %in% ids,
-      ]
-      pruned <- prune_branches(ids = ids, tree = tree, pruned = topBranch)
-      pruned$nodes$label <- pruned$nodes$label |>
-        translate_text(input$lang) |>
-        stringr::str_wrap(width = 15)
       # update pathway
-      pathway(pruned)
+      pathway(p)
     }) |>
       bindEvent(input$applyActivities, input$lang)
 

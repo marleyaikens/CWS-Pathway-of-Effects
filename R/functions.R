@@ -3,6 +3,71 @@
 # Toolkit                                                                 #
 #                                                                         #
 ###########################################################################
+
+#' Prepare pruned pathways
+#'
+#' Based on full pathway diagrams, prune according to selections
+#'
+#' @param pathways List. Pathway diagrams loaded from `data/poe.json`
+#' @param ref Data.frame. References data from `data/act2Pres.rds` including
+#'   Valued Components, Activities and Stressors.
+#' @param vc Character. Valued Component to select pathways for
+#' @param a Character. Activity to select pathways for
+#' @param lang Character. Language ("english" or "french") in which to display
+#' pathways.
+#'
+#' @returns
+#'
+#' @export
+#' @examples
+#' pathways <- jsonlite::read_json(
+#'  path = "data/poe.json",
+#'  simplifyVector = FALSE
+#' )
+#'
+#' ref <- readRDS("data/act2Pres.rds") |>
+#'   as.data.frame()
+#'
+#' prep_pathways(
+#'   pathways,
+#'   ref,
+#'   vc = "Terrestrial and Semi-Aquatic SAR",
+#'   a = "Shoreline / Bank stabilization"
+#' )
+
+prep_pathways <- function(pathways, ref, vc, a, lang = "english") {
+  req(ref, vc, a, lang)
+
+  tree <- pathways[[vc]] |>
+    prep_visnetwork()
+
+  stressors <- ref$stressors[
+    ref$valued_component %in% vc & ref$activities %in% a
+  ] |>
+    unique()
+
+  cleanLabels <- gsub(
+    pattern = "\\n",
+    replacement = " ",
+    x = tree$nodes$label
+  )
+  ids <- tree$nodes[cleanLabels %in% stressors, id]
+  # start with top branch which is the "Valued Component"
+  topNode <- tree[["nodes"]][["id"]][cleanLabels %in% vc]
+  topBranch <- tree[["edges"]][
+    tree[["edges"]][["from"]] %in%
+      topNode &
+      tree[["edges"]][["to"]] %in% ids,
+  ]
+  pruned <- prune_branches(ids = ids, tree = tree, pruned = topBranch)
+  pruned$nodes$label <- pruned$nodes$label |>
+    translate_text(lang) |>
+    stringr::str_wrap(width = 15)
+
+  pruned
+}
+
+
 # Converts JSON output from Visio into R visual compatible nodes and
 # edges dataframes
 #
