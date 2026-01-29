@@ -13,8 +13,7 @@
 #'   Valued Components, Activities and Stressors.
 #' @param vc Character. Valued Component to select pathways for
 #' @param a Character. Activity to select pathways for
-#' @param lang Character. Language ("english" or "french") in which to display
-#' pathways.
+#' @param lang Character. Language for display, "en" (English) or "fr" (French).
 #'
 #' @returns
 #'
@@ -35,7 +34,7 @@
 #'   a = "Shoreline / Bank stabilization"
 #' )
 
-prep_pathways <- function(pathways, ref, vc, a, lang = "english") {
+prep_pathways <- function(pathways, ref, vc, a, lang = "en") {
   req(ref, vc, a, lang)
 
   tree <- pathways[[vc]] |>
@@ -287,7 +286,7 @@ add_zoom <- function(x, id) {
 #' Translates text from english to french
 #'
 #' @param x Character. English text to translate
-#' @param lang Character. One of "en" or "fr"
+#' @param lang Character. Language for display, "en" (English) or "fr" (French).
 #' @param translations Data.frame. with columns "en" and "fr" for translations
 #'
 #' @returns
@@ -297,6 +296,13 @@ add_zoom <- function(x, id) {
 #' translate_text("Increase in Edge Habitat", "fr", dict = enFr)
 
 translate_text <- function(x, lang = "en", dict = NULL) {
+  if (!lang %in% c("en", "fr")) {
+    stop(
+      "Language must be one of 'en' (English) or 'fr' (French)",
+      call. = FALSE
+    )
+  }
+
   dict <- dict %||% getOption("poe.dict")
 
   if (lang == "en") {
@@ -307,8 +313,6 @@ translate_text <- function(x, lang = "en", dict = NULL) {
       french <- stats::setNames(french, names(x))
     }
     french
-  } else {
-    stop("Only English and French are supported.")
   }
 }
 
