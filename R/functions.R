@@ -75,31 +75,41 @@ prep_visnetwork <- function(pathway) {
   nodes <- pathway |>
     getElement("nodes") |>
     data.table::rbindlist(fill = TRUE) |>
-    suppressWarnings()
-  data.table::setnames(
-    nodes,
-    old = c("fillcolor", "color"),
-    new = c("color.background", "color.border")
-  )
-  nodes[["shape"]] <- "box"
+    suppressWarnings() |>
+    data.table::setnames(
+      old = c("fillcolor", "color"),
+      new = c("color.background", "color.border")
+    )
+
+  edges <- pathway |>
+    getElement("edges") |>
+    data.table::rbindlist(fill = TRUE)
+
+  # Node placement
   nodes[["x"]] <- (nodes[["x"]] - min(nodes[["x"]])) /
     diff(range(nodes[["x"]]))
   nodes[["y"]] <- (nodes[["y"]] - min(nodes[["y"]])) /
     diff(range(nodes[["y"]]))
   nodes[["y"]] <- -nodes[["y"]]
+  nodes[["level"]] <- round(nodes[["y"]], 1)
+  nodes[["y"]] <- NULL
+  nodes[["x"]] <- NULL
+
+  # Node formatting
+  nodes[["shape"]] <- "box"
   nodes[["label"]] <- trimws(nodes[["label"]])
+  nodes[["font.color"]] <- "#000000"
+
   nodes[["color.border"]][is.na(nodes[["color.border"]])] <- "#0b0b0b"
   nodes[["color.background"]][is.na(nodes[["color.background"]])] <- "#ffffff"
-  nodes[["level"]] <- round(nodes[["y"]], 1)
-  edges <- pathway |> getElement("edges") |> data.table::rbindlist(fill = TRUE)
 
-  # Prepare edges for mitigations
-  edges$disabled <- edges$label <- NA
+  # Edge formatting
+  edges[["color"]] <- "#000000"
+  edges[["label"]] <- " " # NOTE: this must be " " (not "", not NA, see CODE-DESIGN.md)
 
   # only keep nodes that have edges
   nodes <- nodes[nodes[["id"]] %in% unique(c(edges[["from"]], edges[["to"]])), ]
-  nodes[["y"]] <- NULL
-  nodes[["x"]] <- NULL
+
   list(nodes = nodes, edges = edges)
 }
 # Recursive function:
@@ -358,39 +368,41 @@ add_mitigation <- function(pathway, mitigations, m, lang = "en") {
 
   m <- mitigations[mitigations$short_en %in% m, ]
 
-  # Which mitigated/disabled - Edges
+  # Edges - Specifically mitigated (get labels)
   for (i in seq_len(nrow(m))) {
     ii <- which(e$from == m$start_node[i] & e$to == m$end_node[i])
-    e$disabled[ii] <- TRUE
     e$label[ii] <- m$short_en[i]
   }
 
-  # Which mitigated/disabled - Nodes
+  # Nodes - Specifically mitigated (start point)
   m <- m$end_node
 
-  # Get remaining active pathways
+  # Nodes - Get those on remaining active pathways
   # (i.e. those not travelling through mitigations/disabled edges)
   na <- get_children(
     # Start with highest level node that is not directly mitigated
     node_start = n$id[!n$id %in% m][1],
-    # All non-mitigated/disabled pathways
-    edges = e[is.na(e$disabled), ]
+    # All non-mitigated pathways
+    edges = e[e$label == " ", ]
   )
 
-  # Get potentially disabled downstream nodes
+  # Nodes - Get those downstream of mitigation
   # - downstream of mitigations AND not maintained by other pathways
   nd <- get_children(m, e)
-  nd <- nd[!nd %in% na]
 
-  # Disable all nodes without alternate paths
-  n$disabled[n$id %in% nd] <- TRUE
+  # Nodes - To be disabled - Downstream of mitigation & without alternate paths
+  n_disabled <- n$id %in% nd[!nd %in% na]
 
-  # Format disabled nodes/edges
-  e$color[e$disabled] <- "#e3e3e3"
+  # Edges to be disabled - the ones mitigated and all those leaving disabled nodes
+  e_disabled <- e$label != " " | e$from %in% n$id[n_disabled]
 
-  n$color.background[n$disabled] <- "#e3e3e3"
-  n$color.border[n$disabled] <- "#d5d5d5"
-  n$font.color[n$disabled] <- "#d5d5d5"
+  # Visually disable edges
+  e$color[e_disabled] <- "#e3e3e3"
+
+  # Visually disable nodes
+  n$color.background[n_disabled] <- "#e3e3e3"
+  n$color.border[n_disabled] <- "#d5d5d5"
+  n$font.color[n_disabled] <- "#d5d5d5"
 
   list("edges" = e, "nodes" = n)
 }
