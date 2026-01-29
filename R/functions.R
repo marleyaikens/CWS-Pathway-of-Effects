@@ -122,6 +122,62 @@ prune_branches <- function(ids, tree, pruned = NULL) {
     )
   }
 }
+
+make_visnetwork <- function(pathway) {
+  req(pathway)
+
+  visNetwork::visNetwork(
+    nodes = pathway[["nodes"]],
+    edges = pathway[["edges"]]
+  ) |>
+    visNetwork::visNodes(font = list(size = 10)) |>
+    visNetwork::visEdges(arrows = "to") |>
+    visNetwork::visHierarchicalLayout(levelSeparation = 800) |>
+    visNetwork::visOptions(
+      highlightNearest = list(
+        enabled = TRUE,
+        degree = list(from = 1000, to = 1000),
+        algorithm = "hierarchical",
+        labelOnly = FALSE
+      )
+    )
+}
+
+make_flowchart <- function(id, pathway) {
+  req(pathway)
+  flowchart <- convert_mermaid_flowchart(data.table::copy(pathway))
+  flowchart |>
+    DiagrammeR::DiagrammeR() |>
+    add_zoom(id = id)
+}
+
+make_orthogonal <- function(id, pathway) {
+  req(pathway)
+
+  dot <- convert_to_dot(visNet = data.table::copy(pathway))
+  DiagrammeR::create_graph(
+    nodes_df = dot[["nodes"]],
+    edges_df = dot[["edges"]]
+  ) |>
+    DiagrammeR::add_global_graph_attrs(
+      attr = "splines",
+      value = "ortho",
+      attr_type = "graph"
+    ) |>
+    DiagrammeR::add_global_graph_attrs(
+      attr = "overlap",
+      value = FALSE,
+      attr_type = "graph"
+    ) |>
+    DiagrammeR::add_global_graph_attrs(
+      attr = "style",
+      value = "rounded, filled",
+      attr_type = "node"
+    ) |>
+    DiagrammeR::render_graph(layout = "tree", output = "graph") |>
+    add_zoom(id = id)
+}
+
 # Wrapper for making the POE legend with ids for translations
 #
 # @param id - id for legend
