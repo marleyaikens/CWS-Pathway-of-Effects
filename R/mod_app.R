@@ -19,11 +19,6 @@ poeUI <- function(
   # Setup -----------------------------------------------------------------
   ns <- NS(id)
   js <- "
-  $( document ).ready(function() {
-    Shiny.addCustomMessageHandler('toggleDisable', function(toggle) {
-      document.getElementById(toggle[0]).disabled = toggle[1];
-    });
-  });
   Shiny.addCustomMessageHandler('translateLabels', function(labels) {
     for (let key in labels) {
       try {
@@ -85,14 +80,15 @@ poeUI <- function(
         card_header(tags$div("Inputs", id = ns("cardTitle1"))),
 
         accordion(
-          open = htmlLabels[["valuedComponent"]],
+          id = ns("ui"),
+          open = "a_vc",
 
           accordion_panel(
             span(
               id = ns("valuedComponent"),
               htmlLabels[["valuedComponent"]]
             ),
-            value = "a1", # By default is the title, but doesn't like span(...)
+            value = "a_vc", # By default is the title, not when that is html (e.g., span(...))
 
             # Valued Components ----------------------------------------
             selectInput(
@@ -105,26 +101,16 @@ poeUI <- function(
               width = "100%"
             ),
             # Activities ---------------------------------------------
-            uiOutput(outputId = ns("activitiesUi")),
-            actionButton(
-              ns("applyActivities"),
-              htmlLabels[["applyActivities"]],
-              class = "btn-primary"
-            )
+            uiOutput(outputId = ns("activitiesUi"))
           ),
           accordion_panel(
             span(
               id = ns("mitigationMeasures"),
               htmlLabels[["mitigationMeasures"]]
             ),
-            value = "a2",
+            value = "a_m",
             # Mitigation Measures ----------------------------------------
-            uiOutput(ns("mitigationsUi")),
-            actionButton(
-              ns("applyMitigations"),
-              htmlLabels[["applyMitigations"]],
-              class = "btn-primary"
-            )
+            uiOutput(ns("mitigationsUi"))
           )
         )
       ),
@@ -210,7 +196,10 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
       # update pathway
       pathway(p)
     }) |>
-      bindEvent(input$applyActivities, input$lang)
+      bindEvent(
+        input$activities,
+        input$lang
+      )
 
     ###########################################################################
     #                                                                         #
@@ -326,21 +315,6 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
       )
     }) |>
       bindEvent(input$lang, ignoreInit = TRUE)
-
-    # used to disable apply button if activities are not selected
-    observeEvent(
-      input$activities,
-      {
-        btnId <- "applyActivities"
-        if (length(input$activities) > 0) {
-          session$sendCustomMessage("toggleDisable", list(ns(btnId), FALSE))
-        } else {
-          session$sendCustomMessage("toggleDisable", list(ns(btnId), TRUE))
-          pathway(NULL)
-        }
-      },
-      ignoreNULL = FALSE
-    )
 
     ###########################################################################
     #                                                                         #
