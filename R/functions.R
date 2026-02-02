@@ -460,6 +460,8 @@ add_mitigation <- function(pathway, mitigations, m, lang = "en") {
 
   m <- mitigations[mitigations$short_en %in% m, ]
 
+  label <- ifelse(lang == "en", "short_en", "short_fr")
+
   # Nodes & Edges - Mitigation point
   m_start <- c()
   for (i in seq_len(nrow(m))) {
@@ -473,7 +475,7 @@ add_mitigation <- function(pathway, mitigations, m, lang = "en") {
     # First node mitigated (i.e. 'to' node of mitigated edge)
     m_start <- c(m_start, e$to[ii])
     # Add mitigated edge labels
-    e$label[ii] <- stringr::str_wrap(m$short_en[i], width = 10)
+    e$label[ii] <- stringr::str_wrap(m[[label]][i], width = 10)
   }
 
   m_start <- unique(m_start) # In-case multiple mitigations point to same node

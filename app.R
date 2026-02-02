@@ -13,6 +13,7 @@ act2Pres <- readRDS("data/act2Pres.rds") |>
 
 # Mitigations - Ensuring unique ids
 mitigations <- readxl::read_excel("data/mitigations.xlsx")
+mitigations$short_fr[is.na(mitigations$short_fr)] <- ""
 nodes <- read.csv("data/node_ids.csv")
 
 # Parsed Visio Diagrams Data

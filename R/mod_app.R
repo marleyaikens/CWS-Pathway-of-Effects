@@ -342,7 +342,12 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
 
     ## Add mitigations -------------------------------------
     vis_mitigations <- reactive({
-      add_mitigation(pathway(), mitigations, input$mitigations)
+      add_mitigation(
+        pathway(),
+        mitigations,
+        input$mitigations,
+        lang = input$lang
+      )
     })
 
     observe({
