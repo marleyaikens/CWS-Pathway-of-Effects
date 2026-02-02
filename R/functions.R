@@ -94,6 +94,7 @@ prep_visnetwork <- function(pathway) {
   nodes[["level"]] <- round(nodes[["y"]], 1)
   nodes[["y"]] <- NULL
   nodes[["x"]] <- NULL
+  nodes[["title"]] <- nodes[["id"]]
 
   # Node formatting
   nodes[["shape"]] <- "box"
@@ -106,6 +107,14 @@ prep_visnetwork <- function(pathway) {
   # Edge formatting
   edges[["color"]] <- "#000000"
   edges[["label"]] <- " " # NOTE: this must be " " (not "", not NA, see CODE-DESIGN.md)
+  edges[["title"]] <- paste0(
+    edges[["id"]],
+    " (",
+    edges[["from"]],
+    "-",
+    edges[["to"]],
+    ")"
+  )
 
   # only keep nodes that have edges
   nodes <- nodes[nodes[["id"]] %in% unique(c(edges[["from"]], edges[["to"]])), ]
@@ -285,16 +294,19 @@ make_legend_item <- function(size, color, text, ...) {
 #
 # @param visNet - visNetwork data object
 convert_to_dot <- function(visNet) {
+  #dot <- visNet[["nodes"]]
   visNet[["nodes"]][["id"]] <- as.integer(visNet[["nodes"]][["id"]])
   visNet[["nodes"]][["color"]] <- visNet[["nodes"]][["color.border"]]
   visNet[["nodes"]][["fillcolor"]] <- visNet[["nodes"]][["color.background"]]
   visNet[["nodes"]][["fontcolor"]] <- "black"
+  visNet[["nodes"]][["title"]] <- NULL
   visNet[["edges"]][["from"]] <- as.integer(visNet[["edges"]][["from"]])
   visNet[["edges"]][["to"]] <- as.integer(visNet[["edges"]][["to"]])
   visNet[["edges"]][["id"]] <- NULL
   visNet[["edges"]][["disabled"]] <- NULL
   visNet[["edges"]][["label"]] <- NULL
-  visNet
+
+  visNet[["edges"]][["title"]] <- NULL
 }
 # Converts visNetwork data format to mermaid js graph specification
 #
@@ -409,7 +421,7 @@ translate_text <- function(x, lang = "en", dict = NULL) {
 #' Disables nodes and edges downstream of a mitigation (disabled edge) which are
 #' not maintained by alternate pathways.
 #'
-#' @param pathway List. Current set of diagram pathways.
+#' @param pathway List. Current set of diagram pathways for a single component.
 #' @param mitigations Data frame. Master list of mitigation metadata.
 #' @param m Character vector. Currently selected mitigations (refer to
 #' `short_en` in `mitigations`) to add to the pathway.
@@ -436,7 +448,9 @@ translate_text <- function(x, lang = "en", dict = NULL) {
 #'
 #' make_visnetwork(p)
 #' p1 <- add_mitigation(p, mitigations, "Selective work")
+#'
 #' make_visnetwork(p1)
+#' make_flowchart(p1)
 
 add_mitigation <- function(pathway, mitigations, m, lang = "en") {
   req(pathway)
