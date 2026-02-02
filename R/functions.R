@@ -138,6 +138,26 @@ prune_branches <- function(ids, tree, pruned = NULL) {
   }
 }
 
+#' Create visnetwork interactive figure
+#'
+#' @param pathway List. Current set of diagram pathways for a single component.
+#'
+#' @returns visnetwork diagram
+#'
+#' @export
+#' @examples
+#' pathways <- jsonlite::read_json("data/poe.json", simplifyVector = FALSE)
+#' ref <- as.data.frame(readRDS("data/act2Pres.rds"))
+#'
+#' pathway <- prep_pathways(
+#'   pathways,
+#'   ref,
+#'   vc = "Terrestrial and Semi-Aquatic SAR",
+#'   a = "Shoreline / Bank stabilization"
+#' )
+#'
+#' make_visnetwork(pathway)
+
 make_visnetwork <- function(pathway) {
   req(pathway)
 
@@ -158,15 +178,36 @@ make_visnetwork <- function(pathway) {
     )
 }
 
-make_flowchart <- function(id, pathway) {
+
+#' Create Diagrammr mermaid flowchart
+#'
+#' @param pathway List. Current set of diagram pathways for a single component.
+#'
+#' @returns
+#'
+#' @export
+#' @examples
+#' pathways <- jsonlite::read_json("data/poe.json", simplifyVector = FALSE)
+#' ref <- as.data.frame(readRDS("data/act2Pres.rds"))
+#'
+#' pathway <- prep_pathways(
+#'   pathways,
+#'   ref,
+#'   vc = "Terrestrial and Semi-Aquatic SAR",
+#'   a = "Shoreline / Bank stabilization"
+#' )
+#'
+#' make_flowchart(pathway)
+
+make_flowchart <- function(pathway) {
   req(pathway)
+
   flowchart <- convert_mermaid_flowchart(data.table::copy(pathway))
   flowchart |>
-    DiagrammeR::DiagrammeR() |>
-    add_zoom(id = id)
+    DiagrammeR::DiagrammeR()
 }
 
-make_orthogonal <- function(id, pathway) {
+make_orthogonal <- function(pathway) {
   req(pathway)
 
   dot <- convert_to_dot(visNet = data.table::copy(pathway))
@@ -189,8 +230,7 @@ make_orthogonal <- function(id, pathway) {
       value = "rounded, filled",
       attr_type = "node"
     ) |>
-    DiagrammeR::render_graph(layout = "tree", output = "graph") |>
-    add_zoom(id = id)
+    DiagrammeR::render_graph(layout = "tree", output = "graph")
 }
 
 # Wrapper for making the POE legend with ids for translations
@@ -266,16 +306,54 @@ convert_mermaid_flowchart <- function(visNet) {
     gsub(pattern = "\\n", replacement = "<br>", x = visNet$nodes$label)
   ) |>
     paste(collapse = "\n")
-  edgeSpec <- sprintf("\tid%s --> id%s", visNet$edges$from, visNet$edges$to) |>
+
+  normal <- visNet$edges[color == "#000000"]
+  disabled <- visNet$edges[color != "#000000" & label == " "]
+  labeled <- visNet$edges[label != " "]
+  e1 <- sprintf("\tid%s --> id%s", normal$from, normal$to) |>
+    stats::setNames(normal$id)
+  e2 <- sprintf("\tid%s --> id%s", disabled$from, disabled$to) |>
+    stats::setNames(disabled$id)
+  e3 <- sprintf(
+    "\tid%s -. \"%s\" .-> id%s",
+    labeled$from,
+    labeled$label,
+    labeled$to
+  ) |>
+    stats::setNames(labeled$id)
+
+  # Combine and put back in order
+  edgeSpec <- c(e1, e2, e3)[visNet$edges$id] |>
     paste(collapse = "\n")
-  styleSpec <- sprintf(
-    "style id%s fill:%s,stroke:%s",
-    visNet$nodes$id,
-    visNet$nodes$color.background,
-    visNet$nodes$color.border
+
+  linkStyle <- sprintf(
+    "linkStyle %s stroke:#e3e3e3,fill:none;",
+    match(c(names(e2), names(e3)), visNet$edges$id) - 1
   ) |>
     paste(collapse = "\n")
-  sprintf("graph TB\n%s\n%s\n%s", nodeSpec, edgeSpec, styleSpec)
+
+  normal <- visNet$nodes[visNet$nodes$font.color == "#000000"]
+  disabled <- visNet$nodes[visNet$nodes$font.color != "#000000"]
+
+  s1 <- sprintf(
+    "style id%s fill:%s,stroke:%s",
+    normal$id,
+    normal$color.background,
+    normal$color.border
+  ) |>
+    stats::setNames(normal$id)
+
+  s2 <- sprintf(
+    "class id%s mermaid-disabled",
+    disabled$id
+  ) |>
+    stats::setNames(disabled$id)
+
+  # Combine and put back in order
+  styleSpec <- c(s1, s2)[visNet$nodes$id] |>
+    paste(collapse = "\n")
+
+  sprintf("graph TB\n%s\n%s\n%s\n%s", nodeSpec, edgeSpec, styleSpec, linkStyle)
 }
 # Adds zoom functionality to an htmlwidget
 #

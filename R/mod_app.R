@@ -49,6 +49,12 @@ poeUI <- function(
   }
   div.checkbox span {
     width: calc(100% - 1em);
+  }
+  .mermaid-disabled > rect {
+    fill: #e3e3e3 !important;
+  }
+  .mermaid-disabled .label {
+    color: #d5d5d5 !important;
   }"
   list(
     tags$style(HTML(css)),
@@ -335,22 +341,26 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
 
     ## Flowchart View - mermaid ------------------------------------------
     output$pathwayFlowchart <- DiagrammeR::renderDiagrammeR({
-      make_flowchart(ns("pathwayFlowchart"), pathway())
+      #make_flowchart(pathway(), ns("pathwayFlowchart"))
+      make_flowchart(vis_mitigations()) |>
+        add_zoom(id = ns("pathwayFlowchart"))
     })
 
     ## Orthogonal View - DiagrammR ----------------------------------------
     output$pathwayOrthogonal <- DiagrammeR::renderGrViz({
-      make_orthogonal(ns("pathwayOrthogonal"), pathway())
+      make_orthogonal(pathway()) |>
+        add_zoom(id = ns("pathwayOrthogonal"))
     })
 
     ## Add mitigations -------------------------------------
+    vis_mitigations <- reactive({
+      add_mitigation(pathway(), mitigations, input$mitigations)
+    })
 
     observe({
-      changes <- add_mitigation(pathway(), mitigations, input$mitigations)
       visNetwork::visNetworkProxy(ns("pathwayInteractive")) |>
-        visNetwork::visUpdateEdges(edges = changes$edges) |>
-        visNetwork::visUpdateNodes(nodes = changes$nodes)
-    }) |>
-      bindEvent(pathway, input$mitigations, input$lang, ignoreInit = TRUE)
+        visNetwork::visUpdateEdges(edges = vis_mitigations()$edges) |>
+        visNetwork::visUpdateNodes(nodes = vis_mitigations()$nodes)
+    })
   })
 }
