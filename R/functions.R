@@ -460,27 +460,36 @@ add_mitigation <- function(pathway, mitigations, m, lang = "en") {
 
   m <- mitigations[mitigations$short_en %in% m, ]
 
-  # Edges - Specifically mitigated (get labels)
+  # Nodes & Edges - Mitigation point
+  m_start <- c()
   for (i in seq_len(nrow(m))) {
-    ii <- which(e$from == m$start_node[i] & e$to == m$end_node[i])
-    e$label[ii] <- m$short_en[i]
+    if (is.na(m$edge[i])) {
+      # By start/end nodes - Get ii to change edge label
+      ii <- which(e$from == m$start_node[i] & e$to == m$end_node[i])
+    } else {
+      # By edge id
+      ii <- which(e$id == m$edge[i])
+    }
+    # First node mitigated (i.e. 'to' node of mitigated edge)
+    m_start <- c(m_start, e$to[ii])
+    # Add mitigated edge labels
+    e$label[ii] <- stringr::str_wrap(m$short_en[i], width = 10)
   }
 
-  # Nodes - Specifically mitigated (start point)
-  m <- m$end_node
+  m_start <- unique(m_start) # In-case multiple mitigations point to same node
 
   # Nodes - Get those on remaining active pathways
   # (i.e. those not travelling through mitigations/disabled edges)
   na <- get_children(
     # Start with highest level node that is not directly mitigated
-    node_start = n$id[!n$id %in% m][1],
+    node_starts = n$id[!n$id %in% m_start][1],
     # All non-mitigated pathways
     edges = e[e$label == " ", ]
   )
 
   # Nodes - Get those downstream of mitigation
   # - downstream of mitigations AND not maintained by other pathways
-  nd <- get_children(m, e)
+  nd <- get_children(m_start, e)
 
   # Nodes - To be disabled - Downstream of mitigation & without alternate paths
   n_disabled <- n$id %in% nd[!nd %in% na]
@@ -499,12 +508,15 @@ add_mitigation <- function(pathway, mitigations, m, lang = "en") {
   list("edges" = e, "nodes" = n)
 }
 
-get_children <- function(node_start, edges) {
+get_children <- function(node_starts, edges) {
   children <- c() # All nodes travelled through
-  nodes <- node_start # Nodes to travel from
-  while (length(nodes) > 0) {
-    children <- unique(c(children, nodes)) # Update
-    nodes <- edges$to[edges$from %in% nodes] # Follow path down
+
+  for (n in node_starts) {
+    nodes <- n # Nodes to travel from
+    while (length(nodes) > 0) {
+      children <- unique(c(children, nodes)) # Update
+      nodes <- edges$to[edges$from %in% nodes] # Follow path down
+    }
   }
   children
 }

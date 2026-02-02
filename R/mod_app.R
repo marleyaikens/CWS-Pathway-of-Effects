@@ -206,6 +206,7 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
         a = input$activities,
         lang = input$lang
       )
+
       # update pathway
       pathway(p)
     }) |>
@@ -242,13 +243,26 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
     choices_mitigations <- reactive({
       req(pathway())
 
+      o <- tryCatch(check_mitigations(mitigations), error = \(r) {
+        list(FALSE, r$message)
+      })
+
+      validate(need(
+        o[[1]],
+        paste0(
+          "Problems with the mitigations file, contact the CWS team and report the following:\n\n",
+          o[[2]]
+        )
+      ))
+
       # Only show mitigations with start/end or edge on the diagram
       nodes <- pathway()$nodes$id
       edges <- pathway()$edges$id
       choices <- mitigations$short_en[
         (mitigations$start_node %in% nodes & mitigations$end_node %in% nodes) |
           mitigations$edge %in% edges
-      ]
+      ] |>
+        unique()
 
       choices
     })
