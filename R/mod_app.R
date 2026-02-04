@@ -174,6 +174,18 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
     ns <- session$ns
     htmlLabels <- stats::setNames(htmlLabels, ns(names(htmlLabels)))
 
+    # TODO: Remove Developer testing at end --------------------------------
+    observe({
+      req(input$valuedComponent)
+      updateCheckboxGroupInput(
+        session,
+        "activities",
+        selected = "Land and Vegetation clearing and vegetation maintenance"
+      )
+      accordion_panel_close("ui", values = "a_vc")
+      accordion_panel_open("ui", values = "a_m")
+    })
+
     ###########################################################################
     #                                                                         #
     # Pathways --------------------------------------------------------------------
