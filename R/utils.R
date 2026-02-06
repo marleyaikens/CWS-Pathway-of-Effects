@@ -100,3 +100,61 @@ check_mitigations <- function(mitigations, pathways = "data/poe.json") {
   }
   invisible(list(TRUE, ""))
 }
+
+
+poe_theme <- function() {
+  bs_theme(
+    version = 5,
+    #bootswatch = "materia",
+    "card-border-radius" = "0",
+    "btn-padding-y-sm" = "0.10rem",
+    "btn-padding-x-sm" = "0.25rem",
+    "btn-font-size-sm" = "0.75rem"
+  ) |>
+    bs_add_rules(
+      "
+      /* Custom rules */
+      g > .node {
+        text-align: center;
+      }
+      /* Reduce padding in sidebars */
+      .sidebar-content {
+        padding-top: 10px !important;
+      } 
+      .sidebar-title {
+        margin-bottom: 0 !important;
+      }
+      /* Completely disable the side bar if no mitigations */
+      /*aside#poe-sidebarMitigations.[hidden] + button {
+        display: none !important;
+      }*/
+      .poe-hidden {
+        display:none !important;
+      }
+      .pad-left  .sidebar-title {
+        padding-left: 15%;
+      }
+      div.checkbox label {
+        display: flex; 
+        justify-content: space-between;
+      }
+      input[type='checkbox'] {
+        width: 1em;
+        margin-right: 1em;
+      }
+      div.checkbox span {
+        width: calc(100% - 1em);
+      }
+      .mermaid-disabled > rect {
+        fill: #e3e3e3 !important;
+      }
+      .mermaid-disabled .label {
+        color: #d5d5d5 !important;
+      }
+     /* Remove gaps between cards and page */
+        .main.bslib-gap-spacing {
+          padding: 0 !important;
+        }
+    "
+    )
+}

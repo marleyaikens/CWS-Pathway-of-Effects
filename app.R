@@ -29,7 +29,7 @@ enFr <- rbind(enFr, mitigations[, c("long_en", "long_fr")], use.names = FALSE)
 enFr <- unique(enFr)
 
 # Replace NAs with placeholders strings (prevents app from breaking on missing translations)
-n <- as.numeric(max(substr(enFr$french, 8, 10), na.rm = TRUE)) # Get last French translation
+n <- as.numeric(max(stringr::str_extract(enFr$french, "\\d+"), na.rm = TRUE)) # Get last French translation
 enFr[is.na(french), french := paste0("french-", n + seq_len(.N))]
 
 options("poe.dict" = enFr)
@@ -61,7 +61,7 @@ htmlLabels <- list(
   applyMitigations = "Apply",
 
   # Cards
-  cardTitle1 = "Inputs",
+  cardTitle1 = "Build Pathways",
   cardTitle2 = "Interactive View",
   cardTitle3 = "Flowchart View",
   cardTitle4 = "Orthogonal View",
@@ -83,9 +83,9 @@ htmlLabels <- list(
 )
 
 # App structure -------------------------------------------------------
-ui <- page_fillable(
-  title = "CWS",
-  theme = bs_theme(version = 5, bootswatch = "materia"),
+ui <- #page_fillable(
+  #title = "CWS",
+  #theme = bs_theme(version = 5, bootswatch = "materia"),
   # main application, add modules below in future to expand
   poeUI(
     id = "poe",
@@ -95,7 +95,6 @@ ui <- page_fillable(
     legText = legText,
     legSize = legSize
   )
-)
 
 server <- function(input, output, session) {
   # main application, add modules in future to expand

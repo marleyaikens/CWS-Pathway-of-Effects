@@ -16,5 +16,6 @@ Imports:
     htmlwidgets,
     DiagrammeR,
     data.table,
-    readxl
+    readxl,
+    stringr (>= 1.5.1)
 RoxygenNote: 7.3.2

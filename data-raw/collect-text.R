@@ -10,7 +10,7 @@ ui <- c(
   "Orthogonal View",
 
   # Inputs
-  "Inputs",
+  "Build Pathways",
   "Valued Component", # And legend
   "Select all Activities/Components that apply:",
   "Apply",

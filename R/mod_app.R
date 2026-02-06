@@ -30,54 +30,31 @@ poeUI <- function(
     //console.log(labels);
   });
   "
-  css <- "
-  g > .node {
-    text-align: center;
-  }
-  div.checkbox label {
-    display: flex; 
-    justify-content: space-between;
-  }
-  input[type='checkbox'] {
-    width: 1em;
-    margin-right: 1em;
-  }
-  div.checkbox span {
-    width: calc(100% - 1em);
-  }
-  .mermaid-disabled > rect {
-    fill: #e3e3e3 !important;
-  }
-  .mermaid-disabled .label {
-    color: #d5d5d5 !important;
-  }"
   list(
-    tags$style(HTML(css)),
+    #tags$style(HTML(css)),
     tags$script(HTML(js)),
     includeScript("www/svg-pan-zoom.min.js"),
-    tags$div(
-      class = "card bslib-card card-header d-flex 
-    justify-content-between align-items-center flex-row",
-      tags$div(
-        "Pathways of Effect",
-        id = ns("dbTitle"),
-        style = "font-size: 2rem; font-weight: bold;"
-      ),
-      radioButtons(
-        inputId = ns("lang"),
-        label = "",
-        choices = c("English" = "en", "French" = "fr"),
-        inline = TRUE
-      )
-    ),
-    layout_columns(
-      col_widths = c(3, 9),
-      class = "p-1",
-
-      # Inputs ----------------------------------------------------
-      card(
-        full_screen = TRUE,
-        card_header(tags$div("Inputs", id = ns("cardTitle1"))),
+    # tags$div(
+    #   class = "card bslib-card card-header d-flex
+    # justify-content-between align-items-center flex-row",
+    #   tags$div(
+    #     "Pathways of Effect",
+    #     id = ns("dbTitle"),
+    #     style = "font-size: 2rem; font-weight: bold;"
+    #   ),
+    # ),
+    page_navbar(
+      title = "Pathways of Effect",
+      theme = poe_theme(),
+      header = shinyjs::useShinyjs(),
+      # Inputs -------------------------------------------
+      sidebar = sidebar(
+        width = "25%",
+        title = tags$header(
+          "Build Pathways",
+          class = "sidebar-title",
+          id = ns("cardTitle1")
+        ),
 
         accordion(
           id = ns("ui"),
@@ -110,55 +87,98 @@ poeUI <- function(
             ),
             value = "a_m",
             # Mitigation Measures ----------------------------------------
-            uiOutput(ns("mitigationsUi"))
+            uiOutput(ns("mitigationsUi")),
+            input_switch(ns("toggleMitigations"), "Add Custom Mitigations")
           )
         )
       ),
-      navset_card_tab(
-        full_screen = TRUE,
-        nav_panel(
-          title = tags$div("Interactive View", id = ns("cardTitle2")),
-          visNetwork::visNetworkOutput(
-            ns("pathwayInteractive"),
-            width = "100%",
-            height = "100%"
+
+      nav_panel(
+        title = tags$div("Interactive View", id = ns("cardTitle2")),
+        # Custom Mitigations Sidebar -------------------------------------
+        layout_sidebar(
+          sidebar = sidebar(
+            class = "pad-left",
+            width = 350,
+            id = ns("sidebarMitigations"),
+            position = "right",
+            open = FALSE,
+            title = "Custom Mitigations",
+            accordion(
+              open = TRUE,
+              multiple = TRUE,
+              accordion_panel(
+                title = "Add Mitigations",
+                textOutput(ns("currentEdge"), inline = TRUE),
+                textInput(
+                  ns("addMitigationName"),
+                  "Name",
+                  placeholder = "Short name"
+                ),
+                textInput(
+                  ns("addMitigationDesc"),
+                  "Description",
+                  placeholder = "Longer descriptive title"
+                ),
+                actionButton(ns("createMitigation"), "Create mitigation")
+              ),
+              accordion_panel(
+                title = "Remove Created Mitigations",
+                uiOutput(ns("removeMitigationsUi"))
+              )
+            )
           ),
-          make_poe_legend(
-            id = ns("leg1"),
-            colors = legColors,
-            labels = legText,
-            size = legSize
-          )
-        ),
-        nav_panel(
-          title = tags$div("Flowchart View", id = ns("cardTitle3")),
-          DiagrammeR::DiagrammeROutput(
-            ns("pathwayFlowchart"),
-            width = "100%",
-            height = "100%"
-          ),
-          make_poe_legend(
-            id = ns("leg2"),
-            colors = legColors,
-            labels = legText,
-            size = legSize
-          )
-        ),
-        nav_panel(
-          title = tags$div("Orthogonal View", id = ns("cardTitle4")),
-          DiagrammeR::grVizOutput(
-            ns("pathwayOrthogonal"),
-            width = "100%",
-            height = "100%"
-          ),
-          make_poe_legend(
-            id = ns("leg3"),
-            colors = legColors,
-            labels = legText,
-            size = legSize
+          # Diagrams ----------------------------------------
+          card(
+            visNetwork::visNetworkOutput(
+              ns("pathwayInteractive"),
+              width = "100%",
+              height = "100%"
+            ),
+            make_poe_legend(
+              id = ns("leg1"),
+              colors = legColors,
+              labels = legText,
+              size = legSize
+            )
           )
         )
-      )
+      ),
+      nav_panel(
+        title = tags$div("Flowchart View", id = ns("cardTitle3")),
+        DiagrammeR::DiagrammeROutput(
+          ns("pathwayFlowchart"),
+          width = "100%",
+          height = "100%"
+        ),
+        make_poe_legend(
+          id = ns("leg2"),
+          colors = legColors,
+          labels = legText,
+          size = legSize
+        )
+      ),
+      nav_panel(
+        title = tags$div("Orthogonal View", id = ns("cardTitle4")),
+        DiagrammeR::grVizOutput(
+          ns("pathwayOrthogonal"),
+          width = "100%",
+          height = "100%"
+        ),
+        make_poe_legend(
+          id = ns("leg3"),
+          colors = legColors,
+          labels = legText,
+          size = legSize
+        )
+      ),
+      nav_spacer(),
+      nav_item(radioButtons(
+        inputId = ns("lang"),
+        label = "",
+        choices = c("English" = "en", "French" = "fr"),
+        inline = TRUE
+      ))
     )
   )
 }
@@ -171,8 +191,10 @@ poeUI <- function(
 # @param htmlLabels - named vector with element IDs as names & labels as values
 poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
   moduleServer(id, function(input, output, session) {
+    # Setup ----------------------------------------------------------------
     ns <- session$ns
     htmlLabels <- stats::setNames(htmlLabels, ns(names(htmlLabels)))
+    customMitigations <- reactiveVal(data.frame())
 
     # TODO: Remove Developer testing at end --------------------------------
     observe({
@@ -256,12 +278,15 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
         )
       ))
 
+      # Add any custom mitigations to the ones on file
+      m <- rbind(mitigations, customMitigations())
+
       # Only show mitigations with start/end or edge on the diagram
       nodes <- pathway()$nodes$id
       edges <- pathway()$edges$id
-      choices <- mitigations$short_en[
-        (mitigations$start_node %in% nodes & mitigations$end_node %in% nodes) |
-          mitigations$edge %in% edges
+      choices <- m$short_en[
+        (m$start_node %in% nodes & m$end_node %in% nodes) |
+          m$edge %in% edges
       ] |>
         unique()
 
@@ -287,9 +312,121 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
         label = htmlLabels[[ns("mitigations-label")]] |>
           translate_text(isolate(input$lang)),
         choices = named_choices(choices, lang = isolate(input$lang)),
+        selected = isolate(input$mitigations),
         width = "100%"
       )
     })
+
+    # Adding Mitigations ------------------------------------------------
+
+    # Toggle Custom Mitigation sidebar
+    observe({
+      req(!is.null(input$toggleMitigations))
+
+      bslib::sidebar_toggle(
+        id = "sidebarMitigations",
+        open = input$toggleMitigations
+      )
+
+      # Completely hide side bar if not adding custom mitigations
+      shinyjs::toggleCssClass(
+        selector = paste0("#", ns("sidebarMitigations"), " + button"),
+        condition = !input$toggleMitigations,
+        class = "poe-hidden"
+      )
+    })
+
+    output$currentEdge <- renderText({
+      shinyjs::toggleState(
+        "addMitigationName",
+        condition = length(input$currentEdge) == 1
+      )
+      shinyjs::toggleState(
+        "addMitigationDesc",
+        condition = length(input$currentEdge) == 1
+      )
+
+      validate(need(
+        !is.null(input$currentEdge),
+        "Click on an edge to create a mitigation"
+      ))
+
+      validate(need(
+        input$currentEdge != "tryagain",
+        "Clear your selection (click on the background) and try clicking on an edge (not an activity) to create a mitigation"
+      ))
+
+      if (length(input$currentEdge) > 1) {
+        shinyjs::runjs(
+          paste0(
+            "Shiny.onInputChange('",
+            ns("currentEdge"),
+            "', 'tryagain');"
+          )
+        )
+      }
+
+      req(length(input$currentEdge) == 1)
+
+      paste0(
+        "Currently selected edge:",
+        input$currentEdge
+      )
+    })
+
+    # Process and update customMitigations() data frame
+    observe({
+      input$currentEdge
+
+      nm <- paste0(input$addMitigationName, " (custom)")
+      input$addMitigationDesc
+
+      m <- data.frame(
+        start_node = NA_real_,
+        end_node = NA_real_,
+        edge = input$currentEdge,
+        short_en = nm,
+        long_en = "input$addMitigationDesc",
+        short_fr = nm,
+        long_fr = "input$addMitigationDesc"
+      )
+
+      m <- rbind(customMitigations(), m)
+      customMitigations(m)
+    }) |>
+      bindEvent(input$createMitigation)
+
+    output$removeMitigationsUi <- renderUI({
+      # TODO: Programatically add buttons/observersfor removing custom mitigations
+
+      btns <- lapply(customMitigations()$short_en, \(m) {
+        tagList(
+          span(
+            actionButton(
+              ns(paste0("remove-miti-", m)),
+              label = NULL,
+              icon = icon("x"),
+              class = "btn-sm"
+            ),
+            stringr::str_remove(m, " (custom)")
+          )
+        )
+      })
+      tagList(!!!btns)
+    })
+
+    observe({
+      req(nrow(customMitigations()) > 0)
+      lapply(customMitigations()$short_en, \(m) {
+        observe({
+          cm <- customMitigations()
+          cm <- cm[cm$short_en != m, ]
+          customMitigations(cm)
+        }) |>
+          bindEvent(input[[paste0("remove-miti-", m)]], ignoreInit = TRUE)
+      })
+    }) |>
+      bindEvent(customMitigations())
 
     # Translations ------------------------------------------------------
     observe({
@@ -336,7 +473,16 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
 
     ## Interactive View - visNetwork ----------------------------------------
     output$pathwayInteractive <- visNetwork::renderVisNetwork({
-      make_visnetwork(pathway())
+      # selectEdge example: https://github.com/datastorm-open/visNetwork/issues/385
+      make_visnetwork(pathway()) |>
+        # fmt:skip
+        visNetwork::visEvents(
+        selectEdge = paste0(
+          "function(data) {
+            Shiny.onInputChange('", ns("currentEdge"), "', data.edges);
+           }"
+        )
+      )
     })
 
     ## Flowchart View - mermaid ------------------------------------------
@@ -356,7 +502,7 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
     vis_mitigations <- reactive({
       add_mitigation(
         pathway(),
-        mitigations,
+        rbind(mitigations, customMitigations()),
         input$mitigations,
         lang = input$lang
       )
