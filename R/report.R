@@ -83,6 +83,7 @@ create_report <- function(
     )
   )
   file.copy("report.html", path)
+  file.remove("report.html")
 
   path
 }
