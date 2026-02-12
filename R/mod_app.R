@@ -58,7 +58,7 @@ poeUI <- function(
 
         accordion(
           id = ns("ui"),
-          open = "a_vc",
+          open = c("a_vc", "a_m", "a_r"),
 
           accordion_panel(
             span(
@@ -90,10 +90,13 @@ poeUI <- function(
             uiOutput(ns("mitigationsUi")),
             input_switch(ns("toggleMitigations"), "Add Custom Mitigations")
           ),
-          downloadButton(
-            ns("report"),
-            "Download report",
-            class = "btn-primary"
+          accordion_panel(
+            title = "Report",
+            value = "a_r",
+            downloadButton(
+              ns("report"),
+              "Download report"
+            )
           ),
         )
       ),
@@ -210,7 +213,7 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
         selected = "Land and Vegetation clearing and vegetation maintenance"
       )
       accordion_panel_close("ui", values = "a_vc")
-      accordion_panel_open("ui", values = "a_m")
+      #accordion_panel_open("ui", values = c("a_m", "a_r"))
     })
 
     ###########################################################################
@@ -331,18 +334,32 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
     observe({
       req(!is.null(input$toggleMitigations))
 
-      bslib::sidebar_toggle(
-        id = "sidebarMitigations",
-        open = input$toggleMitigations
-      )
+      if (!input$toggleMitigations) {
+        bslib::sidebar_toggle(
+          id = "sidebarMitigations",
+          open = input$toggleMitigations
+        )
+      }
 
       # Completely hide side bar if not adding custom mitigations
+
       shinyjs::toggleCssClass(
         selector = paste0("#", ns("sidebarMitigations"), " + button"),
         condition = !input$toggleMitigations,
         class = "poe-hidden"
       )
-    })
+
+      if (input$toggleMitigations) {
+        shinyjs::delay(
+          100,
+          bslib::sidebar_toggle(
+            id = "sidebarMitigations",
+            open = input$toggleMitigations
+          )
+        )
+      }
+    }) |>
+      bindEvent(input$toggleMitigations)
 
     output$currentEdge <- renderText({
       shinyjs::toggleState(
@@ -384,10 +401,9 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
 
     # Process and update customMitigations() data frame
     observe({
-      input$currentEdge
+      req(input$currentEdge)
 
       nm <- paste0(input$addMitigationName, " (custom)")
-
       m <- data.frame(
         start_node = NA_real_,
         end_node = NA_real_,

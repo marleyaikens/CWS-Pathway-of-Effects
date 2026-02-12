@@ -106,6 +106,7 @@ poe_theme <- function() {
   bs_theme(
     version = 5,
     #bootswatch = "materia",
+    "success" = "#5a8e51ff",
     "card-border-radius" = "0",
     "btn-padding-y-sm" = "0.10rem",
     "btn-padding-x-sm" = "0.25rem",
@@ -119,15 +120,12 @@ poe_theme <- function() {
       }
       /* Reduce padding in sidebars */
       .sidebar-content {
-        padding-top: 10px !important;
+        padding-top: 20px !important;
       } 
       .sidebar-title {
         margin-bottom: 0 !important;
       }
       /* Completely disable the side bar if no mitigations */
-      /*aside#poe-sidebarMitigations.[hidden] + button {
-        display: none !important;
-      }*/
       .poe-hidden {
         display:none !important;
       }
@@ -153,7 +151,7 @@ poe_theme <- function() {
       }
      /* Remove gaps between cards and page */
         .main.bslib-gap-spacing {
-          padding: 0 !important;
+          padding: 0.5px !important;
         }
     "
     )
