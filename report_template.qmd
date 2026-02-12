@@ -1,0 +1,190 @@
+---
+params: 
+  name: "Test name"
+  vc: "Terrestrial and Semi-Aquatic SAR"
+  a:
+    - "Shoreline / Bank stabilization"
+    - "Land and Vegetation clearing and vegetation maintenance"
+  m:
+    - "Relocate"
+    - "Create Habitat"
+  m_all: 
+    - "test"
+  lang: 
+    - "en"
+title: Pathway of Effects
+subtitle: Interactive Report
+date: today
+published-title: "Date"
+author: "`r params$name`"
+format: 
+  html:
+    embed-resources: true
+    toc: true
+    page-layout: full
+    theme: 
+      - default
+keep-md: false
+execute:
+  echo: false
+---
+
+
+```{r setup}
+#| include: false
+library(gt)
+
+list.files("R", full.names = TRUE) |> lapply(source)
+
+vc <- params$vc
+a <- params$a
+m <- params$m
+m_all <- lapply(params$m_all, \(col) {
+  col[col == ""] <- NA_character_
+  col
+})
+m_all <- as.data.frame(m_all)
+
+lang <- params$lang
+
+# Load data
+pathways <- jsonlite::read_json(
+  path = "data/poe.json",
+  simplifyVector = FALSE
+)
+
+ref <- readRDS("data/act2Pres.rds") |>
+  as.data.frame()
+```
+
+```{r DEVTESTS}
+#| include: false
+#| eval: false
+
+vc <- "Terrestrial and Semi-Aquatic SAR"
+a <- "Land and Vegetation clearing and vegetation maintenance"
+m <- "Selective work"
+m_all <- data.frame(
+    start_node = "",
+    end_node = "",
+    edge = 67,
+    short = "Mitigation",
+    long = "Test"
+  )
+m_all <- readxl::read_excel("data/mitigations.xlsx")
+
+m_all <- unique(m_all)
+m_all <- lapply(m_all, \(col) {
+  col[is.na(col)] <- ""
+  col
+})
+m_all <- lapply(m_all, \(col) {
+  col[col == ""] <- NA_character_
+  col
+})
+m_all <- as.data.frame(m_all)
+```
+
+```{r}
+#| results: asis
+
+#fmt: skip
+paste0(
+  "Pathway of Effects diagram modelling the effects of development activities ",
+  "(", paste(a, collapse = ", "), ") on **", vc, "**. ",
+  "This also includes measures taken to mitigate the effects of these activities ",
+  "(", paste(m, collapse = ", "), ")")|> 
+  cat()
+```
+
+```{r}
+#| results: asis
+
+#fmt: skip
+paste0(
+  "- **Valued components:** ", paste(vc, collapse = ", "), "\n",
+  "- **Activities:** ", paste(a, collapse = ", "), "\n", 
+  "- **Mitigations:** ", paste(a, collapse = ", "), "\n"
+) |> cat()
+```
+
+## Interactive Diagram
+```{r diagram}
+#| fig-height: 10
+
+p <- prep_pathways(pathways, ref, vc = vc, a = a, lang = lang)
+d <- add_mitigation(p, m_all, m)
+make_visnetwork(d)
+```
+
+## Glossary/Details
+
+### Valued Components and Activities
+
+```{r}
+library(reactable)
+
+#TODO: Add translations
+tbl <- ref[, c("valued_component", "activities", "stressors")]
+tbl <- unique(tbl)
+names(tbl) <- stringr::str_replace_all(names(tbl), "_", " ") |>
+  stringr::str_to_title()
+tbl <- split(tbl, tbl$`Valued Component`)
+
+r <- lapply(tbl, \(x) reactable(x[, -1], groupBy = "Activities", defaultExpanded = TRUE))
+```
+
+```{r}
+#| include: false
+# Required to 'initialize' the reactible (htmltools? htmlwidgets?) printing, even if not seen.
+r[[1]]
+```
+
+:::{.panel-tabset .nav-pills}
+
+```{r}
+#| results: asis
+for (i in seq_along(r)) {
+  cat("###", names(r)[i], "\n\n")
+  cat("\n\n```{=html}\n\n")
+
+  shiny::tagList(r[[i]]) |> print()
+  
+  cat("\n\n```\n\n")
+}
+```
+
+:::  
+
+
+
+```{r}
+#| results: asis
+
+# Only show mitigations if they have been implemented
+if(!is.null(m_all) && length(m_all) > 0) {
+
+  cat("### Mitigations")
+
+  tbl <- m_all[, c(paste0("short_", lang), paste0("long_", lang))]
+  names(tbl) <- c("Name", "Description") # TODO: Translate
+  gt(tbl) |>
+    tab_style(style = cell_text(weight = "bold"),
+              locations = cells_body(rows = Name %in% m)
+    ) |>
+    tab_source_note(
+      source_note = md(
+        "**Bold** rows are mitigation measures used in this diagram"
+      )
+    )
+}
+```
+
+## Reproducibility
+
+<details>
+
+```{r}
+sessionInfo()
+```
+</details>

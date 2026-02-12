@@ -89,7 +89,12 @@ poeUI <- function(
             # Mitigation Measures ----------------------------------------
             uiOutput(ns("mitigationsUi")),
             input_switch(ns("toggleMitigations"), "Add Custom Mitigations")
-          )
+          ),
+          downloadButton(
+            ns("report"),
+            "Download report",
+            class = "btn-primary"
+          ),
         )
       ),
 
@@ -196,7 +201,7 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
     htmlLabels <- stats::setNames(htmlLabels, ns(names(htmlLabels)))
     customMitigations <- reactiveVal(data.frame())
 
-    # TODO: Remove Developer testing at end --------------------------------
+    # TODO: Remove Developer Testing at end --------------------------------
     observe({
       req(input$valuedComponent)
       updateCheckboxGroupInput(
@@ -278,8 +283,7 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
         )
       ))
 
-      # Add any custom mitigations to the ones on file
-      m <- rbind(mitigations, customMitigations())
+      m <- mitigations_all()
 
       # Only show mitigations with start/end or edge on the diagram
       nodes <- pathway()$nodes$id
@@ -315,6 +319,10 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
         selected = isolate(input$mitigations),
         width = "100%"
       )
+    })
+
+    mitigations_all <- reactive({
+      rbind(mitigations, customMitigations())
     })
 
     # Adding Mitigations ------------------------------------------------
@@ -379,16 +387,15 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
       input$currentEdge
 
       nm <- paste0(input$addMitigationName, " (custom)")
-      input$addMitigationDesc
 
       m <- data.frame(
         start_node = NA_real_,
         end_node = NA_real_,
         edge = input$currentEdge,
         short_en = nm,
-        long_en = "input$addMitigationDesc",
+        long_en = input$addMitigationDesc,
         short_fr = nm,
-        long_fr = "input$addMitigationDesc"
+        long_fr = input$addMitigationDesc
       )
 
       m <- rbind(customMitigations(), m)
@@ -502,7 +509,7 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
     vis_mitigations <- reactive({
       add_mitigation(
         pathway(),
-        rbind(mitigations, customMitigations()),
+        mitigations_all(),
         input$mitigations,
         lang = input$lang
       )
@@ -513,5 +520,22 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
         visNetwork::visUpdateEdges(edges = vis_mitigations()$edges) |>
         visNetwork::visUpdateNodes(nodes = vis_mitigations()$nodes)
     })
+
+    # Download Report --------------------------------------------------------
+    output$report <- downloadHandler(
+      filename = paste0("report_", Sys.Date(), ".html"),
+      content = \(file) {
+        withProgress(message = 'Creating report...', {
+          create_report(
+            vc = input$valuedComponent,
+            a = input$activities,
+            m = input$mitigations,
+            m_df = mitigations_all(),
+            lang = input$lang,
+            path = file
+          )
+        })
+      }
+    )
   })
 }

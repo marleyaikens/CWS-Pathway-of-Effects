@@ -35,7 +35,7 @@
 #' )
 
 prep_pathways <- function(pathways, ref, vc, a, lang = "en") {
-  req(ref, vc, a, lang)
+  shiny::req(ref, vc, a, lang)
 
   tree <- pathways[[vc]] |>
     prep_visnetwork()
@@ -167,8 +167,8 @@ prune_branches <- function(ids, tree, pruned = NULL) {
 #'
 #' make_visnetwork(pathway)
 
-make_visnetwork <- function(pathway) {
-  req(pathway)
+make_visnetwork <- function(pathway, width = NULL, height = NULL) {
+  shiny::req(pathway)
 
   visNetwork::visNetwork(
     nodes = pathway[["nodes"]],
@@ -209,7 +209,7 @@ make_visnetwork <- function(pathway) {
 #' make_flowchart(pathway)
 
 make_flowchart <- function(pathway) {
-  req(pathway)
+  shiny::req(pathway)
 
   flowchart <- convert_mermaid_flowchart(data.table::copy(pathway))
   flowchart |>
@@ -217,7 +217,7 @@ make_flowchart <- function(pathway) {
 }
 
 make_orthogonal <- function(pathway) {
-  req(pathway)
+  shiny::req(pathway)
 
   dot <- convert_to_dot(visNet = data.table::copy(pathway))
   DiagrammeR::create_graph(
@@ -453,7 +453,7 @@ translate_text <- function(x, lang = "en", dict = NULL) {
 #' make_flowchart(p1)
 
 add_mitigation <- function(pathway, mitigations, m, lang = "en") {
-  req(pathway)
+  shiny::req(pathway)
 
   e <- pathway[["edges"]]
   n <- pathway[["nodes"]]
