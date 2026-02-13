@@ -10,20 +10,20 @@ params:
     - "Create Habitat"
   m_all: 
     - "test"
+  notes:
+    - "All the notes I think I should include.\nAnd more!"
   lang: 
     - "en"
-title: Pathway of Effects
-subtitle: Interactive Report
+title: "`r params$vc`"
+subtitle: Pathway of Effects
 date: today
 published-title: "Date"
-author: "`r params$name`"
 format: 
   html:
     embed-resources: true
     toc: true
     page-layout: full
-    theme: 
-      - default
+    theme: cosmo
 keep-md: false
 execute:
   echo: false
@@ -85,17 +85,26 @@ m_all <- lapply(m_all, \(col) {
 m_all <- as.data.frame(m_all)
 ```
 
+> Some introductory blocks of text to remind the user what options they selected...
+
 ```{r}
 #| results: asis
+
+if(length(m) > 0) {
+  msg_m <- paste0(
+    "This also includes measures taken to mitigate the effects of these activities ",
+    "(", paste(m, collapse = ", "), ")"
+  )
+} else msg_m <- ""
 
 #fmt: skip
 paste0(
   "Pathway of Effects diagram modelling the effects of development activities ",
-  "(", paste(a, collapse = ", "), ") on **", vc, "**. ",
-  "This also includes measures taken to mitigate the effects of these activities ",
-  "(", paste(m, collapse = ", "), ")")|> 
+  "(", paste(a, collapse = ", "), ") on **", vc, "**. ", msg_m)|> 
   cat()
 ```
+
+> Or perhaps in list form...
 
 ```{r}
 #| results: asis
@@ -104,9 +113,17 @@ paste0(
 paste0(
   "- **Valued components:** ", paste(vc, collapse = ", "), "\n",
   "- **Activities:** ", paste(a, collapse = ", "), "\n", 
-  "- **Mitigations:** ", paste(a, collapse = ", "), "\n"
+  if(length(m) > 0) "- **Mitigations:** ", paste(m, collapse = ", "), "\n"
 ) |> cat()
 ```
+
+## Notes
+
+```{r notes}
+#| results: asis
+cat(params$notes)
+```
+
 
 ## Interactive Diagram
 ```{r diagram}
@@ -131,7 +148,13 @@ names(tbl) <- stringr::str_replace_all(names(tbl), "_", " ") |>
   stringr::str_to_title()
 tbl <- split(tbl, tbl$`Valued Component`)
 
-r <- lapply(tbl, \(x) reactable(x[, -1], groupBy = "Activities", defaultExpanded = TRUE))
+r <- lapply(
+  tbl, 
+  \(x) reactable(
+    x[, -1], 
+    searchable = TRUE, 
+    filterable = TRUE
+))
 ```
 
 ```{r}
@@ -168,15 +191,21 @@ if(!is.null(m_all) && length(m_all) > 0) {
 
   tbl <- m_all[, c(paste0("short_", lang), paste0("long_", lang))]
   names(tbl) <- c("Name", "Description") # TODO: Translate
-  gt(tbl) |>
-    tab_style(style = cell_text(weight = "bold"),
-              locations = cells_body(rows = Name %in% m)
-    ) |>
-    tab_source_note(
-      source_note = md(
-        "**Bold** rows are mitigation measures used in this diagram"
-      )
-    )
+  tbl <- unique(tbl)
+
+  # gt(tbl) |>
+  #   tab_style(style = cell_text(weight = "bold"),
+  #             locations = cells_body(rows = Name %in% m)
+  #   ) |>
+  #   tab_source_note(
+  #     source_note = md(
+  #       "**Bold** rows are mitigation measures used in this diagram"
+  #     )
+  #   )
+  reactable(
+    tbl,
+    searchable = TRUE
+  )
 }
 ```
 

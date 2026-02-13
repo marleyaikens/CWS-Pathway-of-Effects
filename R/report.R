@@ -52,6 +52,7 @@ create_report <- function(
   a,
   m = NULL,
   m_df = NULL,
+  notes = NULL,
   lang = lang,
   path = paste0("report_", Sys.Date(), ".html")
 ) {
@@ -79,10 +80,11 @@ create_report <- function(
       a = a,
       m = m,
       m_all = m_df,
+      notes = notes,
       lang = lang
     )
   )
-  file.copy("report.html", path)
+  file.copy("report.html", path, overwrite = TRUE)
   file.remove("report.html")
 
   path

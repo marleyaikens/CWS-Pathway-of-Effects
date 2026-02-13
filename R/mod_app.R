@@ -93,6 +93,12 @@ poeUI <- function(
           accordion_panel(
             title = "Report",
             value = "a_r",
+            textAreaInput(
+              ns("reportNotes"),
+              label = NULL,
+              rows = 3,
+              placeholder = "Notes to include in the report..."
+            ),
             downloadButton(
               ns("report"),
               "Download report"
@@ -547,6 +553,7 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
             a = input$activities,
             m = input$mitigations,
             m_df = mitigations_all(),
+            notes = input$reportNotes,
             lang = input$lang,
             path = file
           )
