@@ -9,7 +9,7 @@ Authors@R: c(
 Description: Interactive explorer for Pathways of Effects diagram models developed by CWS to visually represent cause and effect relationships between project develpments and environmental components.
 Encoding: UTF-8
 Imports:
-    shiny (>= 1.7.0),
+    shiny,
     bslib (>= 0.8.0),
     visNetwork,
     jsonlite,
@@ -18,4 +18,5 @@ Imports:
     data.table,
     readxl,
     stringr (>= 1.5.1)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
+License: MIT + file LICENSE

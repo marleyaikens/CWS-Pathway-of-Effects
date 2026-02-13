@@ -1,0 +1,5 @@
+^data-raw$
+^DESVTESTS-data.R$
+^DEVTESTS.R^
+^CODE-DESIGN.md$
+^LICENSE\.md$
