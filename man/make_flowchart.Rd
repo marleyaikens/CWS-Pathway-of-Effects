@@ -13,12 +13,9 @@ make_flowchart(pathway)
 Create Diagrammr mermaid flowchart
 }
 \examples{
-pathways <- jsonlite::read_json("data/poe.json", simplifyVector = FALSE)
-ref <- as.data.frame(readRDS("data/act2Pres.rds"))
-
 pathway <- prep_pathways(
-  pathways,
-  ref,
+  read_pathways(),
+  read_components(),
   vc = "Terrestrial and Semi-Aquatic SAR",
   a = "Shoreline / Bank stabilization"
 )

@@ -4,16 +4,6 @@
 #'
 #' @export
 #' @examples
-#' pathways <- jsonlite::read_json(
-#'  path = "data/poe.json",
-#'  simplifyVector = FALSE
-#' )
-#'
-#' mitigations <- readxl::read_excel("data/mitigations.xlsx")
-#' ref <- readRDS("data/act2Pres.rds") |>
-#'   as.data.frame()
-#'
-#'
 #' create_report(
 #'   "Terrestrial and Semi-Aquatic SAR",
 #'   c(
@@ -21,7 +11,7 @@
 #'     "Land and Vegetation clearing and vegetation maintenance"
 #'   ),
 #'   c("Relocate", "Create Habitat"),
-#'   m_df = mitigations,
+#'   m_df = read_mitigations(),
 #'   lang = "en"
 #' )
 #'
@@ -41,6 +31,7 @@
 #'     start_node = NA,
 #'     end_node = NA,
 #'     edge = 67,
+#'     m_id = "vc_mitigation",
 #'     short_en = "Mitigation",
 #'     long_en = "Test"
 #'   ),

@@ -1,14 +1,41 @@
-###########################################################################
-#                                                                         #
-# Toolkit                                                                 #
-#                                                                         #
-###########################################################################
+read_pathways <- function(file_name = "pathways.xlsx", dir = NULL) {
+  read_sheets(file_name, dir)
+}
 
-#' Prepare pruned pathways
+read_components <- function(file_name = "components.xlsx", dir = NULL) {
+  read_sheets(file_name, dir)
+}
+
+read_mitigations <- function(file_name = "mitigations.xlsx", dir = NULL) {
+  m <- read_sheets(file_name, dir)
+  m <- m[!(is.na(m$start_node) | is.na(m$end_node)), ]
+  m$edge_id <- paste0(m$start_node, "-", m$end_node)
+  m$m_id <- paste0(
+    simple_name(m$valued_component),
+    "_",
+    simple_name(m$short_en)
+  )
+  m
+}
+
+read_sheets <- function(file_name, dir = NULL) {
+  if (is.null(dir)) {
+    path <- system.file("extdata", file_name, package = "poe")
+  } else {
+    path <- file.path(dir, file_name)
+  }
+  sheets <- readxl::excel_sheets(path)
+  sheets <- sheets[tolower(sheets) != "notes"]
+  s <- lapply(sheets, \(x) readxl::read_excel(path, sheet = x))
+  do.call("rbind", s)
+}
+
+
+#' Prepare pruned pathways from spreadsheet
 #'
 #' Based on full pathway diagrams, prune according to selections
 #'
-#' @param pathways List. Pathway diagrams loaded from `data/poe.json`
+#' @param pathways Data frame. Pathway diagrams loaded from `extdata/pathways`
 #' @param ref Data.frame. References data from `data/act2Pres.rds` including
 #'   Valued Components, Activities and Stressors.
 #' @param vc Character. Valued Component to select pathways for
@@ -19,16 +46,10 @@
 #'
 #' @export
 #' @examples
-#' pathways <- jsonlite::read_json(
-#'  path = "data/poe.json",
-#'  simplifyVector = FALSE
-#' )
-#'
-#' ref <- readRDS("data/act2Pres.rds") |>
-#'   as.data.frame()
+#' ref <- readRDS("inst/extdata/act2Pres.rds") |>  as.data.frame()
 #'
 #' prep_pathways(
-#'   pathways,
+#'   read_pathways(),
 #'   ref,
 #'   vc = "Terrestrial and Semi-Aquatic SAR",
 #'   a = "Shoreline / Bank stabilization"
@@ -37,27 +58,23 @@
 prep_pathways <- function(pathways, ref, vc, a, lang = "en") {
   shiny::req(ref, vc, a, lang)
 
-  tree <- pathways[[vc]] |>
-    prep_visnetwork()
+  p <- pathways[pathways$valued_component == vc, ]
+  tree <- prep_visnetwork(p)
 
   stressors <- ref$stressors[
     ref$valued_component %in% vc & ref$activities %in% a
   ] |>
     unique()
 
-  cleanLabels <- gsub(
-    pattern = "\\n",
-    replacement = " ",
-    x = tree$nodes$label
-  )
-  ids <- tree$nodes[cleanLabels %in% stressors, id]
+  ids <- tree$nodes$id[tree$nodes$label %in% stressors]
   # start with top branch which is the "Valued Component"
-  topNode <- tree[["nodes"]][["id"]][cleanLabels %in% vc]
+  topNode <- tree[["nodes"]][["id"]][tree$nodes$label %in% vc]
   topBranch <- tree[["edges"]][
     tree[["edges"]][["from"]] %in%
       topNode &
       tree[["edges"]][["to"]] %in% ids,
   ]
+
   pruned <- prune_branches(ids = ids, tree = tree, pruned = topBranch)
   pruned$nodes$label <- pruned$nodes$label |>
     translate_text(lang) |>
@@ -66,24 +83,17 @@ prep_pathways <- function(pathways, ref, vc, a, lang = "en") {
   pruned
 }
 
-
 # Converts JSON output from Visio into R visual compatible nodes and
 # edges dataframes
 #
 # @param pathway - JSON of single valued component pathway
 prep_visnetwork <- function(pathway) {
-  nodes <- pathway |>
-    getElement("nodes") |>
-    data.table::rbindlist(fill = TRUE) |>
-    suppressWarnings() |>
-    data.table::setnames(
-      old = c("fillcolor", "color"),
-      new = c("color.background", "color.border")
-    )
+  nodes <- pathway
+  nodes$color.background <- node_colours()[nodes$type]
+  nodes$color <- NA
+  names(nodes)[names(nodes) == "node_id"] <- "id"
 
-  edges <- pathway |>
-    getElement("edges") |>
-    data.table::rbindlist(fill = TRUE)
+  edges <- get_edges(pathway)
 
   # Node placement
   nodes[["x"]] <- (nodes[["x"]] - min(nodes[["x"]])) /
@@ -91,36 +101,64 @@ prep_visnetwork <- function(pathway) {
   nodes[["y"]] <- (nodes[["y"]] - min(nodes[["y"]])) /
     diff(range(nodes[["y"]]))
   nodes[["y"]] <- -nodes[["y"]]
+  #nodes[["level"]] <- ceiling(nodes[["y"]] * 10) / 10
   nodes[["level"]] <- round(nodes[["y"]], 1)
+  nodes[["level"]] <- as.numeric(as.factor(nodes[["level"]]))
   nodes[["y"]] <- NULL
   nodes[["x"]] <- NULL
-  nodes[["title"]] <- nodes[["id"]]
+  nodes[["title"]] <- nodes[["node_id"]]
 
   # Node formatting
   nodes[["shape"]] <- "box"
   nodes[["label"]] <- trimws(nodes[["label"]])
   nodes[["font.color"]] <- "#000000"
 
-  nodes[["color.border"]][is.na(nodes[["color.border"]])] <- "#0b0b0b"
+  nodes[["color.border"]] <- "#0b0b0b"
   nodes[["color.background"]][is.na(nodes[["color.background"]])] <- "#ffffff"
 
   # Edge formatting
   edges[["color"]] <- "#000000"
   edges[["label"]] <- " " # NOTE: this must be " " (not "", not NA, see CODE-DESIGN.md)
-  edges[["title"]] <- paste0(
-    edges[["id"]],
-    " (",
-    edges[["from"]],
-    "-",
-    edges[["to"]],
-    ")"
-  )
+  edges[["title"]] <- edges[["id"]]
 
   # only keep nodes that have edges
   nodes <- nodes[nodes[["id"]] %in% unique(c(edges[["from"]], edges[["to"]])), ]
 
   list(nodes = nodes, edges = edges)
 }
+
+#' Extract edges from pathways file
+#'
+#' @param pathways Data frame. Pathways including 'valued_component', 'node_id',
+#'  and 'leads_to'. Converted to data frame of edges.
+#'
+#' @returns
+#'
+#' @noRd
+#' @examples
+#' get_edges(read_pathways())
+
+get_edges <- function(pathways) {
+  edges <- pathways[, c("valued_component", "node_id", "leads_to")]
+  edges <- split(pathways, pathways$valued_component)
+  edges <- lapply(edges, \(e) {
+    e$leads_to <- stringr::str_split(e$leads_to, ", ?")
+    e <- data.frame(
+      from = rep(e$node_id, lengths(e$leads_to)),
+      to = unlist(e$leads_to, use.names = FALSE)
+    )
+    e <- e[!(is.na(e$from) | is.na(e$to)), ] # Omit final nodes
+    e$id = paste0(e$from, "-", e$to)
+    e
+  })
+  edges <- do.call("rbind", edges)
+
+  # Add valued_component back in from rownames
+  edges$valued_component = stringr::str_remove(row.names(edges), "\\.\\d+$")
+
+  edges
+}
+
 # Recursive function:
 # find parent branches
 # if there are child branches, append edges and call same function
@@ -136,12 +174,14 @@ prune_branches <- function(ids, tree, pruned = NULL) {
     prune_branches(
       ids = unique(branch$to),
       tree = tree,
-      pruned = data.table::rbindlist(list(pruned, branch))
+      pruned = rbind(pruned, branch)
     )
   } else {
     # Ensure uniqueness of nodes/edges spec, otherwise will not work
     list(
-      nodes = tree$nodes[tree$nodes$id %in% pruned[, unique(c(from, to))], ],
+      nodes = tree$nodes[
+        tree$nodes$id %in% unlist(unique(pruned[, c("from", "to")])),
+      ],
       edges = unique(pruned)
     )
   }
@@ -155,11 +195,9 @@ prune_branches <- function(ids, tree, pruned = NULL) {
 #'
 #' @export
 #' @examples
-#' pathways <- jsonlite::read_json("data/poe.json", simplifyVector = FALSE)
-#' ref <- as.data.frame(readRDS("data/act2Pres.rds"))
-#'
+#' ref <- read_components()
 #' pathway <- prep_pathways(
-#'   pathways,
+#'   read_pathways(),
 #'   ref,
 #'   vc = "Terrestrial and Semi-Aquatic SAR",
 #'   a = "Shoreline / Bank stabilization"
@@ -175,8 +213,15 @@ make_visnetwork <- function(pathway, width = NULL, height = NULL) {
     edges = pathway[["edges"]]
   ) |>
     visNetwork::visNodes(font = list(size = 10)) |>
-    visNetwork::visEdges(arrows = "to") |>
-    visNetwork::visHierarchicalLayout(levelSeparation = 800) |>
+    visNetwork::visEdges(
+      arrows = "to" #,
+      # smooth = list(
+      #   type = "horizontal",
+      #   roundness = 0.05,
+      #   forceDirection = "vertical"
+      # )
+    ) |>
+    visNetwork::visHierarchicalLayout() |>
     visNetwork::visOptions(
       highlightNearest = list(
         enabled = TRUE,
@@ -184,7 +229,15 @@ make_visnetwork <- function(pathway, width = NULL, height = NULL) {
         algorithm = "hierarchical",
         labelOnly = FALSE
       )
-    )
+    ) |>
+    visNetwork::visPhysics(enabled = FALSE)
+  # visNetwork::visPhysics(
+  #   hierarchicalRepulsion = list(
+  #     damping = 1,
+  #     springConstant = 0,
+  #     springLength = 0
+  #   )
+  # )
 }
 
 
@@ -196,12 +249,9 @@ make_visnetwork <- function(pathway, width = NULL, height = NULL) {
 #'
 #' @export
 #' @examples
-#' pathways <- jsonlite::read_json("data/poe.json", simplifyVector = FALSE)
-#' ref <- as.data.frame(readRDS("data/act2Pres.rds"))
-#'
 #' pathway <- prep_pathways(
-#'   pathways,
-#'   ref,
+#'   read_pathways(),
+#'   read_components(),
 #'   vc = "Terrestrial and Semi-Aquatic SAR",
 #'   a = "Shoreline / Bank stabilization"
 #' )
@@ -312,6 +362,8 @@ convert_to_dot <- function(visNet) {
 #
 # @param visNet - visNetwork data object
 convert_mermaid_flowchart <- function(visNet) {
+  visNet$nodes <- as.data.table(visNet$nodes)
+  visNet$edges <- as.data.table(visNet$edges)
   nodeSpec <- sprintf(
     "\tid%s(\"%s\")",
     visNet[["nodes"]][["id"]],
@@ -431,24 +483,16 @@ translate_text <- function(x, lang = "en", dict = NULL) {
 #'
 #' @export
 #' @examples
-#' pathways <- jsonlite::read_json(
-#'  path = "data/poe.json",
-#'  simplifyVector = FALSE
-#' )
-#' mitigations <- readxl::read_excel("data/mitigations.xlsx")
-#' ref <- readRDS("data/act2Pres.rds") |>
-#'   as.data.frame()
-#'
 #' p <- prep_pathways(
-#'   pathways,
-#'   ref,
+#'   read_pathways(),
+#'   read_components(),
 #'   vc = "Terrestrial and Semi-Aquatic SAR",
 #'   a = "Shoreline / Bank stabilization"
 #' )
 #'
 #' make_visnetwork(p)
-#' p1 <- add_mitigation(p, mitigations, "Selective work")
 #'
+#' p1 <- add_mitigation(p, read_mitigations(), "Selective work")
 #' make_visnetwork(p1)
 #' make_flowchart(p1)
 
@@ -458,19 +502,19 @@ add_mitigation <- function(pathway, mitigations, m, lang = "en") {
   e <- pathway[["edges"]]
   n <- pathway[["nodes"]]
 
-  m <- mitigations[mitigations$short_en %in% m, ]
+  m <- mitigations[mitigations$m_id %in% m, ]
 
   label <- ifelse(lang == "en", "short_en", "short_fr")
 
   # Nodes & Edges - Mitigation point
   m_start <- c()
   for (i in seq_len(nrow(m))) {
-    if (is.na(m$edge[i])) {
+    if (is.na(m$edge_id[i])) {
       # By start/end nodes - Get ii to change edge label
       ii <- which(e$from == m$start_node[i] & e$to == m$end_node[i])
     } else {
       # By edge id
-      ii <- which(e$id == m$edge[i])
+      ii <- which(e$id == m$edge_id[i])
     }
     # First node mitigated (i.e. 'to' node of mitigated edge)
     m_start <- c(m_start, e$to[ii])

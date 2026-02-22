@@ -2,12 +2,12 @@
 % Please edit documentation in R/functions.R
 \name{prep_pathways}
 \alias{prep_pathways}
-\title{Prepare pruned pathways}
+\title{Prepare pruned pathways from spreadsheet}
 \usage{
 prep_pathways(pathways, ref, vc, a, lang = "en")
 }
 \arguments{
-\item{pathways}{List. Pathway diagrams loaded from `data/poe.json`}
+\item{pathways}{Data frame. Pathway diagrams loaded from `extdata/pathways`}
 
 \item{ref}{Data.frame. References data from `data/act2Pres.rds` including
 Valued Components, Activities and Stressors.}
@@ -22,16 +22,10 @@ Valued Components, Activities and Stressors.}
 Based on full pathway diagrams, prune according to selections
 }
 \examples{
-pathways <- jsonlite::read_json(
- path = "data/poe.json",
- simplifyVector = FALSE
-)
-
-ref <- readRDS("data/act2Pres.rds") |>
-  as.data.frame()
+ref <- readRDS("inst/extdata/act2Pres.rds") |>  as.data.frame()
 
 prep_pathways(
-  pathways,
+  read_pathways(),
   ref,
   vc = "Terrestrial and Semi-Aquatic SAR",
   a = "Shoreline / Bank stabilization"

@@ -48,30 +48,27 @@ m_all <- as.data.frame(m_all)
 lang <- params$lang
 
 # Load data
-pathways <- jsonlite::read_json(
-  path = "data/poe.json",
-  simplifyVector = FALSE
-)
-
-ref <- readRDS("data/act2Pres.rds") |>
-  as.data.frame()
+pathways <- read_pathways()
+ref <- read_components()
 ```
 
 ```{r DEVTESTS}
 #| include: false
 #| eval: false
 
+pathways <- read_pathways()
+ref <- read_components()
+
 vc <- "Terrestrial and Semi-Aquatic SAR"
 a <- "Land and Vegetation clearing and vegetation maintenance"
 m <- "Selective work"
 m_all <- data.frame(
-    start_node = "",
-    end_node = "",
-    edge = 67,
-    short = "Mitigation",
+    start_node = "30",
+    end_node = "7",
+    short = "Mitigation EG",
     long = "Test"
   )
-m_all <- readxl::read_excel("data/mitigations.xlsx")
+m_all <- read_mitigations()
 
 m_all <- unique(m_all)
 m_all <- lapply(m_all, \(col) {

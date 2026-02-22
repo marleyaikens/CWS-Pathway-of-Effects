@@ -16,11 +16,9 @@ visnetwork diagram
 Create visnetwork interactive figure
 }
 \examples{
-pathways <- jsonlite::read_json("data/poe.json", simplifyVector = FALSE)
-ref <- as.data.frame(readRDS("data/act2Pres.rds"))
-
+ref <- read_components()
 pathway <- prep_pathways(
-  pathways,
+  read_pathways(),
   ref,
   vc = "Terrestrial and Semi-Aquatic SAR",
   a = "Shoreline / Bank stabilization"

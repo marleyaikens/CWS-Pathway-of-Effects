@@ -7,98 +7,58 @@
 #'
 #' @export
 #' @examples
-#' mitigations <- readxl::read_excel("data/mitigations.xlsx")
-#'
-#' check_mitigations(mitigations)
-#'
-#' m <- data.frame(start_node = c(1, 1), end_node = c(99, 99), edge = c(NA, 5))
-#' check_mitigations(m)
-#'
+#' check_mitigations()
 
-check_mitigations <- function(mitigations, pathways = "data/poe.json") {
-  pathways <- jsonlite::read_json(pathways, simplifyVector = FALSE)
-
-  edges <- lapply(pathways, \(vc) {
-    data.frame(
-      valued_component = vc[["name"]],
-      id = sapply(vc[["edges"]], getElement, "id"),
-      from = sapply(vc[["edges"]], getElement, "from"),
-      to = sapply(vc[["edges"]], \(x) {
-        to <- getElement(x, "to")
-        if (is.null(to)) {
-          to <- NA
-        }
-        to
-      })
-    )
-  })
-
-  edges <- do.call("rbind", edges)
+check_mitigations <- function(
+  mitigations = read_mitigations(),
+  pathways = read_pathways()
+) {
+  edges <- get_edges(pathways)
+  edges$edge_id = edges$id
   mitigations <- mitigations[, c(
+    "valued_component",
     "start_node",
     "end_node",
-    "edge",
     "short_en",
-    "short_fr"
+    "short_fr",
+    "edge_id"
   )]
 
-  # Check that edges and to/from nodes are in agreement if both are provided
-  edge_agrees <- sapply(seq_len(nrow(mitigations)), \(m) {
-    m <- mitigations[m, ]
-    if (!is.na(m$start_node) & !is.na(m$end_node) & !is.na(m$edge)) {
-      agrees <- identical(
-        edges$id[edges$from == m$start_node & edges$to == m$end_node],
-        as.character(m$edge)
-      )
-    } else {
-      agrees <- TRUE
-    }
-    agrees
-  })
-
   # Check that the edge to be mitigated does exist
-  edge_exists <- sapply(seq_len(nrow(mitigations)), \(m) {
-    m <- mitigations[m, ]
-    if (!is.na(m$start_node) & !is.na(m$end_node)) {
-      in_edges <- edges[edges$from == m$start_node & edges$to == m$end_node, ]
-      in_edges <- nrow(in_edges) > 0
-    } else if (!is.na(m$edge)) {
-      in_edges <- m$edge %in% edges$id
-    } else {
-      in_edges <- FALSE
-    }
+  edges$exists <- TRUE
+  m_check <- merge(
+    mitigations,
+    edges[, c("valued_component", "edge_id", "exists")],
+    all.x = TRUE
+  )
 
-    in_edges
-  })
+  m_check$exists[is.na(m_check$exists)] <- FALSE
 
-  msg <- c()
-  if (any(!edge_exists)) {
-    msg <- c(
-      msg,
+  if (any(!m_check$exists)) {
+    stop(
+      "Problems found!\n",
       "Some mitigations are for non-existant edges:\n",
       paste0(
-        capture.output(as.data.frame(mitigations[!edge_exists, ])),
+        capture.output(as.data.frame(m_check[!m_check$exists, ])),
         collapse = "\n"
       ),
       "\n\n"
     )
   }
 
-  if (any(!edge_agrees)) {
-    msg <- c(
-      msg,
-      "Some mitigations have both to/from and edge ids which do not agree:\n",
-      paste0(
-        capture.output(as.data.frame(mitigations[!edge_exists, ])),
-        collapse = "\n"
-      )
-    )
-  }
+  invisible(list(TRUE, "")) # For capturing the message in the Shiny app
+}
 
-  if (length(msg) > 0) {
-    stop("Problems found!\n", msg)
-  }
-  invisible(list(TRUE, ""))
+node_colours <- function() {
+  c(
+    "component" = "#88bde9", # Valued Component
+    "stressor" = "#fee599", # Stressors/Pressures
+    "effect" = "#f2f2f2", # Effect
+    "contravention" = "#f06c6c", # Potential Contravention of Legislation and/or Regulations
+    "habitat" = "#9dbb61", # Habitat/Wetland Availability and Distribution
+    "quality" = "#f59d56", # Fitness, Reproduction, and Mortality / Wetland Quality and Function
+    "population" = "#7e649e"
+  )
 }
 
 
@@ -155,4 +115,16 @@ poe_theme <- function() {
         }
     "
     )
+}
+
+check_pathways <- function() {
+  # Expect that a Valued Component has a path to each stressor listed
+}
+
+is_ready <- function(r) {
+  tryCatch(!is.null(r()), error = \(e) FALSE)
+}
+
+simple_name <- function(x) {
+  x |> tolower() |> stringr::str_replace_all(" ", "_")
 }

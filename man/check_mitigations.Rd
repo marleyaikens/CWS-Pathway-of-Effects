@@ -4,7 +4,7 @@
 \alias{check_mitigations}
 \title{Check mitigations file for problems}
 \usage{
-check_mitigations(mitigations, pathways = "data/poe.json")
+check_mitigations(mitigations = read_mitigations(), pathways = read_pathways())
 }
 \arguments{
 \item{pathways}{}
@@ -13,11 +13,5 @@ check_mitigations(mitigations, pathways = "data/poe.json")
 Check mitigations file for problems
 }
 \examples{
-mitigations <- readxl::read_excel("data/mitigations.xlsx")
-
-check_mitigations(mitigations)
-
-m <- data.frame(start_node = c(1, 1), end_node = c(99, 99), edge = c(NA, 5))
-check_mitigations(m)
-
+check_mitigations()
 }

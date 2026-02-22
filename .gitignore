@@ -2,3 +2,5 @@
 .Rhistory
 .RData
 .Ruserdata
+data-raw/create_customizable_data.R
+.~lock*

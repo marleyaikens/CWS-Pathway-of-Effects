@@ -1,63 +1,96 @@
-# Understanding the data
-
-library(dplyr)
-library(tidyr)
-library(stringr)
-library(purrr)
-library(writexl)
-
-act2Pres <- readRDS("data/act2Pres.rds") |>
-  as_tibble()
-
-# Parsed Visio Diagrams Data
-p <- jsonlite::read_json(
-  path = "data/poe.json",
-  simplifyVector = FALSE
+pathway <- prep_pathways(
+  read_pathways(),
+  read_components(),
+  vc = "Terrestrial and Semi-Aquatic SAR",
+  a = c("Shoreline / Bank stabilization", "Drilling, Pile Driving and Fracking")
 )
 
-act2Pres
+#make_visnetwork(pathway)
+# n <- pathway$nodes
 
-n <- map(p, \(x) {
-  map(x[["nodes"]], \(n) {
-    n <- map(n, \(nn) if (is.null(nn)) NA else nn)
-    as_tibble(n)
-  }) |>
-    list_rbind()
-}) |>
-  list_rbind(names_to = "vc") |>
-  rename("node_id" = "id") |>
-  mutate(
-    label = str_squish(label),
-    type = recode_values(
-      fillcolor,
-      "#88bde9" ~ "component", # Valued Component
-      "#fee599" ~ "stressor", # Stressors/Pressures
-      "#f2f2f2" ~ "effect", # Effect
-      "#f06c6c" ~ "contravention", # Potential Contravention of Legislation and/or Regulations
-      "#9dbb61" ~ "habitat", # Habitat/Wetland Availability and Distribution
-      "#f59d56" ~ "quality", # Fitness, Reproduction, and Mortality / Wetland Quality and Function
-      "#7e649e" ~ "population"
+# n$child_n <- NA
+# for (i in seq_len(nrow(n))) {
+#   n$child_n[i] <- length(get_children(n$id[i], pathway$edges))
+# }
+# n$child_n <- rev(as.numeric(as.factor(n$child_n)))
+
+# n$to <- NA
+# for (i in seq_len(nrow(n))) {
+#   if (!is.na(n$leads_to[i])) {
+#     to <- stringr::str_split_1(n$leads_to[i], ", ?")
+#     to <- to[to %in% n$id]
+#     n$to[i] <- list(to)
+#   } else {
+#     n$to[i] <- NA
+#   }
+# }
+
+# n$from <- NA
+# n$from_n <- NA
+# for (i in seq_len(nrow(n))) {
+#   id <- n$id[i]
+#   from <- c()
+#   for (t in seq_len(nrow(n))) {
+#     parent <- id %in% n$to[[t]]
+#     if (parent) from <- c(from, n$id[t])
+#   }
+#   n$from[i] <- list(from)
+#   n$from_n[i] <- length(from)
+# }
+# n$level <- as.numeric(as.factor(n$from_n)) + 2
+
+# n$level <- n$child_n
+# n$level[n$type == "component"] <- 1
+# n$level[n$type == "stressor"] <- 2
+# lvl_max <- max(n$child_n[
+#   !n$type %in% c("component", "stressor", "habitat", "quality", "population")
+# ])
+# n$level[n$type %in% c("habitat", "quality")] <- lvl_max + 1
+# n$level[n$type == "population"] <- lvl_max + 2
+
+# pathway$nodes <- n
+
+# pathway$nodes$level <- NULL
+# pathway$nodes$fixed <- FALSE
+# pathway$nodes$fixed[1] <- TRUE
+
+visNetwork::visNetwork(
+  nodes = pathway[["nodes"]],
+  edges = pathway[["edges"]]
+) |>
+  visNetwork::visNodes(font = list(size = 10)) |>
+  #dynamic, , discrete, straightCross, horizontal,
+  # continuous
+  visNetwork::visEdges(
+    arrows = "to",
+    smooth = list(
+      type = "horizontal",
+      roundness = 0.05,
+      forceDirection = "vertical"
     )
   ) |>
-  filter(label != "") |>
-  select(-c("width", "height", "color", "linewidth")) # I don't think these are used in interactive
-
-# select(n, vc, label, fillcolor, type) |>
-#   filter(is.na(type))
-
-e <- map(p, \(x) {
-  map(x[["edges"]], \(e) {
-    e <- map(e, \(ee) if (is.null(ee)) NA else ee)
-    as_tibble(e)
-  }) |>
-    list_rbind() |>
-    rename("edge_id" = "id")
-}) |>
-  list_rbind(names_to = "vc")
+  #visNetwork::visHierarchicalLayout(sortMethod = "directed", levelSeparation = 100) |>
+  visNetwork::visHierarchicalLayout(levelSeparation = 800) |>
+  visNetwork::visOptions(
+    highlightNearest = list(
+      enabled = TRUE,
+      degree = list(from = 1000, to = 1000),
+      algorithm = "hierarchical",
+      labelOnly = FALSE
+    )
+  ) |>
+  visNetwork::visPhysics(enabled = FALSE)
 
 
-nn <- n |>
-  left_join(e, by = c("vc", "node_id" = "from")) |>
-  summarize(to = paste0(sort(to), collapse = ", "), .by = c(-"to", -"edge_id"))
+# - --------------
 
-writexl::write_xlsx(nn, "data/pathways_test.xlsx")
+# From Custom File
+ref <- read_components()
+pathway <- prep_pathways(
+  read_pathways(),
+  ref,
+  vc = "Terrestrial and Semi-Aquatic SAR",
+  a = "Shoreline / Bank stabilization"
+)
+
+make_visnetwork(pathway)

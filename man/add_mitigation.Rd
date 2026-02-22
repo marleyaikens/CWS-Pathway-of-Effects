@@ -21,24 +21,16 @@ Disables nodes and edges downstream of a mitigation (disabled edge) which are
 not maintained by alternate pathways.
 }
 \examples{
-pathways <- jsonlite::read_json(
- path = "data/poe.json",
- simplifyVector = FALSE
-)
-mitigations <- readxl::read_excel("data/mitigations.xlsx")
-ref <- readRDS("data/act2Pres.rds") |>
-  as.data.frame()
-
 p <- prep_pathways(
-  pathways,
-  ref,
+  read_pathways(),
+  read_components(),
   vc = "Terrestrial and Semi-Aquatic SAR",
   a = "Shoreline / Bank stabilization"
 )
 
 make_visnetwork(p)
-p1 <- add_mitigation(p, mitigations, "Selective work")
 
+p1 <- add_mitigation(p, read_mitigations(), "Selective work")
 make_visnetwork(p1)
 make_flowchart(p1)
 }

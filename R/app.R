@@ -2,24 +2,24 @@
 
 poe_app <- function() {
   # Activities to Stressors/Pressures Crosswalk
-  act2Pres <- readRDS("data/act2Pres.rds") |>
-    as.data.frame()
+  # act2Pres <- readRDS("data/act2Pres.rds") |>
+  #   as.data.frame()
+
+  act2Pres <- read_components()
 
   # Mitigations - Ensuring unique ids
-  mitigations <- readxl::read_excel("data/mitigations.xlsx")
+  mitigations <- read_mitigations()
   mitigations$short_fr[is.na(mitigations$short_fr)] <- ""
-  nodes <- read.csv("data/node_ids.csv")
 
   # Parsed Visio Diagrams Data
-  pathways <- jsonlite::read_json(
-    path = "data/poe.json",
-    simplifyVector = FALSE
-  )
-
-  pathways_xl <- readxl::read_excel("data/pathways_test.xlsx")
+  pathways <- read_pathways()
 
   # Translation Table (with mitigations)
-  enFr <- data.table::fread("data/en-fr-table.csv")
+  enFr <- data.table::fread(system.file(
+    "extdata",
+    "en-fr-table.csv",
+    package = "poe"
+  ))
   enFr <- rbind(
     enFr,
     mitigations[, c("short_en", "short_fr")],
@@ -30,7 +30,7 @@ poe_app <- function() {
 
   # Replace NAs with placeholders strings (prevents app from breaking on missing translations)
   n <- as.numeric(max(stringr::str_extract(enFr$french, "\\d+"), na.rm = TRUE)) # Get last French translation
-  enFr[is.na(french), french := paste0("french-", n + seq_len(.N))]
+  enFr$french[is.na(enFr$french)] <- "french"
 
   options("poe.dict" = enFr)
 

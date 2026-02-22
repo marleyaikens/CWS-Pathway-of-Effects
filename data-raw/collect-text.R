@@ -25,7 +25,7 @@ ui <- c(
   "Select Language"
 )
 
-labels <- jsonlite::read_json("data/poe.json") |>
+labels <- jsonlite::read_json(read_pathways()) |>
   lapply(function(vc) {
     data.frame(
       valued_component = vc[["name"]],

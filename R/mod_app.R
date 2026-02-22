@@ -33,7 +33,7 @@ poeUI <- function(
   list(
     #tags$style(HTML(css)),
     tags$script(HTML(js)),
-    includeScript("www/svg-pan-zoom.min.js"),
+    includeScript(system.file("www", "svg-pan-zoom.min.js", package = "poe")),
     # tags$div(
     #   class = "card bslib-card card-header d-flex
     # justify-content-between align-items-center flex-row",
@@ -245,6 +245,7 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
       pathway(p)
     }) |>
       bindEvent(
+        input$valuedComponent,
         input$activities,
         input$lang
       )
@@ -254,7 +255,6 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
     # User Interactions -------------------------------------------------------
     #                                                                         #
     ###########################################################################
-
     ## Activities -------------------------------------
     choices_activities <- reactive({
       choices <- act2Pres[["activities"]][
@@ -292,18 +292,20 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
         )
       ))
 
-      m <- mitigations_all()
-
       # Only show mitigations with start/end or edge on the diagram
       nodes <- pathway()$nodes$id
       edges <- pathway()$edges$id
-      choices <- m$short_en[
+
+      m <- mitigations_all()
+      m <- m[m$valued_component == input$valuedComponent, ]
+      m <- m[
         (m$start_node %in% nodes & m$end_node %in% nodes) |
-          m$edge %in% edges
+          m$edge_id %in% edges,
+        c("m_id", "short_en")
       ] |>
         unique()
 
-      choices
+      stats::setNames(m$m_id, m$short_en)
     })
 
     output$mitigationsUi <- renderUI({
@@ -324,7 +326,11 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
         inputId = ns("mitigations"),
         label = htmlLabels[[ns("mitigations-label")]] |>
           translate_text(isolate(input$lang)),
-        choices = named_choices(choices, lang = isolate(input$lang)),
+        choices = named_choices(
+          choices,
+          name = names(choices),
+          lang = isolate(input$lang)
+        ),
         selected = isolate(input$mitigations),
         width = "100%"
       )
@@ -341,7 +347,7 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
       req(!is.null(input$toggleMitigations))
 
       if (!input$toggleMitigations) {
-        bslib::sidebar_toggle(
+        bslib::toggle_sidebar(
           id = "sidebarMitigations",
           open = input$toggleMitigations
         )
@@ -358,7 +364,7 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
       if (input$toggleMitigations) {
         shinyjs::delay(
           100,
-          bslib::sidebar_toggle(
+          bslib::toggle_sidebar(
             id = "sidebarMitigations",
             open = input$toggleMitigations
           )
@@ -411,13 +417,15 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
 
       nm <- paste0(input$addMitigationName, " (custom)")
       m <- data.frame(
+        valued_component = input$valuedComponent,
         start_node = NA_real_,
         end_node = NA_real_,
-        edge = input$currentEdge,
+        m_id = paste0(simple_name(input$valuedComponent), "_", simple_name(nm)),
         short_en = nm,
         long_en = input$addMitigationDesc,
         short_fr = nm,
-        long_fr = input$addMitigationDesc
+        long_fr = input$addMitigationDesc,
+        edge_id = input$currentEdge
       )
 
       m <- rbind(customMitigations(), m)
@@ -426,18 +434,27 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
       bindEvent(input$createMitigation)
 
     output$removeMitigationsUi <- renderUI({
-      # TODO: Programatically add buttons/observersfor removing custom mitigations
+      # TODO: Programatically add buttons/observers for removing custom mitigations
 
-      btns <- lapply(customMitigations()$short_en, \(m) {
+      btns <- lapply(customMitigations()$m_id, \(m) {
+        m <- customMitigations()[customMitigations()$m_id == m, ]
         tagList(
           span(
             actionButton(
-              ns(paste0("remove-miti-", m)),
+              ns(paste0("remove-miti-", m$m_id)),
               label = NULL,
               icon = icon("x"),
               class = "btn-sm"
             ),
-            stringr::str_remove(m, " (custom)")
+            paste0(
+              stringr::str_remove(
+                m$short_en,
+                " \\(custom\\)"
+              ),
+              " (",
+              m$valued_component,
+              ")"
+            )
           )
         )
       })
@@ -446,10 +463,10 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
 
     observe({
       req(nrow(customMitigations()) > 0)
-      lapply(customMitigations()$short_en, \(m) {
+      lapply(customMitigations()$m_id, \(m) {
         observe({
           cm <- customMitigations()
-          cm <- cm[cm$short_en != m, ]
+          cm <- cm[cm$m_id != m, ]
           customMitigations(cm)
         }) |>
           bindEvent(input[[paste0("remove-miti-", m)]], ignoreInit = TRUE)
@@ -478,7 +495,11 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
       updateCheckboxGroupInput(
         session = session,
         inputId = "mitigations",
-        choices = named_choices(choices_mitigations(), lang = input$lang),
+        choices = named_choices(
+          choices_mitigations(),
+          name = names(choices_mitigations()),
+          lang = isolate(input$lang)
+        ),
         selected = input$mitigations
       )
 
@@ -501,18 +522,36 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
     ###########################################################################
 
     ## Interactive View - visNetwork ----------------------------------------
+    vis_ready <- reactiveVal(FALSE)
+
     output$pathwayInteractive <- visNetwork::renderVisNetwork({
+      req(pathway())
+
+      # Track readiness of vis
+      vis_ready(FALSE)
+
       # selectEdge example: https://github.com/datastorm-open/visNetwork/issues/385
       make_visnetwork(pathway()) |>
         # fmt:skip
         visNetwork::visEvents(
-        selectEdge = paste0(
-          "function(data) {
-            Shiny.onInputChange('", ns("currentEdge"), "', data.edges);
-           }"
+          selectEdge = paste0(
+            "function(data) {
+              Shiny.onInputChange('", ns("currentEdge"), "', data.edges);
+            }"
+          ),
+          # Ping input$vis_stable when ready
+          afterDrawing = paste0(
+            "function() {
+              Shiny.onInputChange('", ns("vis_stable"), "', Math.random());
+            }"
+          )
         )
-      )
     })
+
+    observe({
+      vis_ready(TRUE)
+    }) |>
+      bindEvent(input$vis_stable, ignoreInit = TRUE)
 
     ## Flowchart View - mermaid ------------------------------------------
     output$pathwayFlowchart <- DiagrammeR::renderDiagrammeR({
@@ -529,6 +568,7 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
 
     ## Add mitigations -------------------------------------
     vis_mitigations <- reactive({
+      req(vis_ready())
       add_mitigation(
         pathway(),
         mitigations_all(),
@@ -541,7 +581,8 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
       visNetwork::visNetworkProxy(ns("pathwayInteractive")) |>
         visNetwork::visUpdateEdges(edges = vis_mitigations()$edges) |>
         visNetwork::visUpdateNodes(nodes = vis_mitigations()$nodes)
-    })
+    }) |>
+      bindEvent(vis_mitigations(), ignoreInit = TRUE)
 
     # Download Report --------------------------------------------------------
     output$report <- downloadHandler(
