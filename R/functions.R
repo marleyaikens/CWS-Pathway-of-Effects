@@ -96,16 +96,12 @@ prep_visnetwork <- function(pathway) {
   edges <- get_edges(pathway)
 
   # Node placement
-  nodes[["x"]] <- (nodes[["x"]] - min(nodes[["x"]])) /
-    diff(range(nodes[["x"]]))
-  nodes[["y"]] <- (nodes[["y"]] - min(nodes[["y"]])) /
-    diff(range(nodes[["y"]]))
-  nodes[["y"]] <- -nodes[["y"]]
-  #nodes[["level"]] <- ceiling(nodes[["y"]] * 10) / 10
-  nodes[["level"]] <- round(nodes[["y"]], 1)
+  nodes[["level"]] <- (nodes[["level"]] - min(nodes[["level"]])) /
+    diff(range(nodes[["level"]]))
+  nodes[["level"]] <- -nodes[["level"]]
+  nodes[["level"]] <- round(nodes[["level"]], 1)
   nodes[["level"]] <- as.numeric(as.factor(nodes[["level"]]))
-  nodes[["y"]] <- NULL
-  nodes[["x"]] <- NULL
+
   nodes[["title"]] <- nodes[["node_id"]]
 
   # Node formatting
@@ -123,6 +119,17 @@ prep_visnetwork <- function(pathway) {
 
   # only keep nodes that have edges
   nodes <- nodes[nodes[["id"]] %in% unique(c(edges[["from"]], edges[["to"]])), ]
+
+  # Tweak sorting
+  if (any(!is.na(nodes[["sort"]]))) {
+    sort <- nodes[["sort"]][!is.na(nodes[["x"]])]
+    id <- nodes[["id"]][!is.na(nodes[["x"]])]
+    sort <- paste0(sort, "_", id)
+    change <- stats::setNames(sort, paste0("^", id, "$"))
+    nodes[["id"]] <- stringr::str_replace_all(nodes[["id"]], change)
+    edges[["from"]] <- stringr::str_replace_all(edges[["from"]], change)
+    edges[["to"]] <- stringr::str_replace_all(edges[["to"]], change)
+  }
 
   list(nodes = nodes, edges = edges)
 }
