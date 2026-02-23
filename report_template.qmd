@@ -18,6 +18,8 @@ title: "`r params$vc`"
 subtitle: Pathway of Effects
 date: today
 published-title: "Date"
+author: "`r packageVersion('poe')`"
+author-title: "poe Tool version"
 format: 
   html:
     embed-resources: true
@@ -29,9 +31,21 @@ execute:
   echo: false
 ---
 
+```{css}
+/* This is where custom styles are defined */
+h4 {
+  font-weight: bold;
+  font-size: 100%;
+  margin-bottom: 0.25rem;
+}
+```
+
 
 ```{r setup}
 #| include: false
+
+# DEVNOTES: Remember to rebuild package before testing!!
+
 library(gt)
 
 list.files("R", full.names = TRUE) |> lapply(source)
@@ -56,12 +70,14 @@ ref <- read_components()
 #| include: false
 #| eval: false
 
+# These are used for development tests only, not rendered when creating the report
+
 pathways <- read_pathways()
 ref <- read_components()
 
 vc <- "Terrestrial and Semi-Aquatic SAR"
-a <- "Land and Vegetation clearing and vegetation maintenance"
-m <- "Selective work"
+a <- "Shoreline / Bank stabilization"
+m <- c("terrestrial_and_semi-aquatic_sar_relocate", "terrestrial_and_semi-aquatic_sar_create_habitat")
 m_all <- data.frame(
     start_node = "30",
     end_node = "7",
@@ -82,47 +98,56 @@ m_all <- lapply(m_all, \(col) {
 m_all <- as.data.frame(m_all)
 ```
 
-> Some introductory blocks of text to remind the user what options they selected...
+This report presents a Pathway of Effects (PoE) diagram modelling the effects of development activities on terrestrial and semi-aquatic species at risk (SAR), including associated mitigation measures. It is based on the user’s selected inputs in the Canadian Wildlife Service (CWS) PoE Shiny R Tool (the `poe` R package), which include the following: 
 
+#### Valued component:
 ```{r}
 #| results: asis
+paste("-", paste(vc, collapse = "\n- ")) |> cat()
+```
 
+#### Activities:
+```{r}
+#| results: asis
+paste("-", paste(a, collapse = "\n- ")) |> cat()
+```
+
+#### Mitigations:
+```{r}
+#| results: asis
 if(length(m) > 0) {
-  msg_m <- paste0(
-    "This also includes measures taken to mitigate the effects of these activities ",
-    "(", paste(m, collapse = ", "), ")"
-  )
-} else msg_m <- ""
-
-#fmt: skip
-paste0(
-  "Pathway of Effects diagram modelling the effects of development activities ",
-  "(", paste(a, collapse = ", "), ") on **", vc, "**. ", msg_m)|> 
-  cat()
+  m_txt <- m_all[[paste0("short_", lang)]][m_all$m_id %in% m] |> unique()
+  paste("-", paste(m_txt, collapse = "\n - ")) |> cat()
+} else {
+  "*None selected*" |> cat()
+}
 ```
 
-> Or perhaps in list form...
-
-```{r}
-#| results: asis
-
-#fmt: skip
-paste0(
-  "- **Valued components:** ", paste(vc, collapse = ", "), "\n",
-  "- **Activities:** ", paste(a, collapse = ", "), "\n", 
-  if(length(m) > 0) "- **Mitigations:** ", paste(m, collapse = ", "), "\n"
-) |> cat()
-```
+To recreate the diagram, the same inputs must be reselected in the tool.
 
 ## Notes
 
 ```{r notes}
 #| results: asis
-cat(params$notes)
+if(!is.null(params$notes) && params$notes != "") cat(params$notes) else cat("*No user-supplied notes*")
 ```
 
 
 ## Interactive Diagram
+```{r DEVTESTS-diagram}
+#| eval: false
+# Only used for testing (otherwise eval: false)
+write(
+  c(
+  "vc:", vc, "\n",
+  "m:", m, "\n",
+  "\n",
+  capture.output(print(m_all)), 
+  "\n\n",
+  capture.output(print(pathways))),
+  "~/Projects/Business/CWS/poe/LOG.txt")
+```
+
 ```{r diagram}
 #| fig-height: 10
 
@@ -135,7 +160,10 @@ make_visnetwork(d)
 
 ### Valued Components and Activities
 
-```{r}
+Table of *all* possible Valued Components and their corresponding activities and stressors (not only those in the diagram).
+This table can be searched (upper right corner) or individual columns can be filtered (boxes below column name).
+
+```{r tbl_vc_a}
 library(reactable)
 
 #TODO: Add translations
@@ -162,7 +190,7 @@ r[[1]]
 
 :::{.panel-tabset .nav-pills}
 
-```{r}
+```{r tbl_print}
 #| results: asis
 for (i in seq_along(r)) {
   cat("###", names(r)[i], "\n\n")
@@ -178,39 +206,37 @@ for (i in seq_along(r)) {
 
 
 
-```{r}
+```{r tbl_m}
 #| results: asis
 
 # Only show mitigations if they have been implemented
 if(!is.null(m_all) && length(m_all) > 0) {
 
-  cat("### Mitigations")
+  cat("### Mitigations\n\n")
+
+  cat("Table of *all* possible Mitigations for each Valued Component (not only those in the diagram).\n
+This table can be searched (upper right corner) or individual columns can be filtered (boxes below column name).")
 
   tbl <- m_all[, c(paste0("short_", lang), paste0("long_", lang))]
   names(tbl) <- c("Name", "Description") # TODO: Translate
   tbl <- unique(tbl)
-
-  # gt(tbl) |>
-  #   tab_style(style = cell_text(weight = "bold"),
-  #             locations = cells_body(rows = Name %in% m)
-  #   ) |>
-  #   tab_source_note(
-  #     source_note = md(
-  #       "**Bold** rows are mitigation measures used in this diagram"
-  #     )
-  #   )
   reactable(
     tbl,
-    searchable = TRUE
+    searchable = TRUE,
+    filterable = TRUE
   )
 }
 ```
 
-## Reproducibility
+## System information
+
+System information for tracking operating system and software versions used.
+Useful for troubleshooting, record keeping, and identifying in which versions
+potential bugs may have occurred.
 
 <details>
 
-```{r}
+```{r system_info}
 sessionInfo()
 ```
 </details>

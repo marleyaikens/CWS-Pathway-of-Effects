@@ -4,16 +4,12 @@
 #'
 #' @export
 #' @examples
-#' create_report(
-#'   "Terrestrial and Semi-Aquatic SAR",
-#'   c(
-#'     "Shoreline / Bank stabilization",
-#'     "Land and Vegetation clearing and vegetation maintenance"
-#'   ),
-#'   c("Relocate", "Create Habitat"),
-#'   m_df = read_mitigations(),
-#'   lang = "en"
-#' )
+#' v <- "Terrestrial and Semi-Aquatic SAR"
+#' a <- c("Shoreline / Bank stabilization", "Water extraction")
+#' m <- c("terrestrial_and_semi-aquatic_sar_relocate", "terrestrial_and_semi-aquatic_sar_create_habitat")
+#' m_df <- read_mitigations()
+#' create_report(v, a, m, m_df, lang = "en")
+#' create_report(v, a, m, m_df, lang = "fr")
 #'
 #' # No Mitigations
 #' create_report(
