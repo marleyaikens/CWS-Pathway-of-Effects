@@ -4,7 +4,7 @@
 \alias{translate_text}
 \title{Translates text from english to french}
 \usage{
-translate_text(x, lang = "en", dict = NULL)
+translate_text(x, lang = "en", dict = read_sheets("translations.xlsx"))
 }
 \arguments{
 \item{x}{Character. English text to translate}
@@ -17,6 +17,5 @@ translate_text(x, lang = "en", dict = NULL)
 Translates text from english to french
 }
 \examples{
-enFr <- read.csv("data/en-fr-table.csv")
-translate_text("Increase in Edge Habitat", "fr", dict = enFr)
+translate_text("Increase in Edge Habitat", "fr")
 }

@@ -12,7 +12,7 @@ add_mitigation(pathway, mitigations, m, lang = "en")
 \item{mitigations}{Data frame. Master list of mitigation metadata.}
 
 \item{m}{Character vector. Currently selected mitigations (refer to
-`short_en` in `mitigations`) to add to the pathway.}
+`short` in `mitigations`) to add to the pathway.}
 
 \item{lang}{Character. Language for display, "en" (English) or "fr" (French).}
 }
