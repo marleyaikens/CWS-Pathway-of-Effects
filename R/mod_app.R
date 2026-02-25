@@ -44,16 +44,16 @@ poeUI <- function(
     #   ),
     # ),
     page_navbar(
-      title = "Pathways of Effect",
+      title = span(id = ns("appTitle"), htmlLabels[["appTitle"]]),
       theme = poe_theme(),
       header = shinyjs::useShinyjs(),
       # Inputs -------------------------------------------
       sidebar = sidebar(
         width = "25%",
         title = tags$header(
-          "Build Pathways",
+          htmlLabels[["sidebarPathwaysLabel"]],
           class = "sidebar-title",
-          id = ns("cardTitle1")
+          id = ns("sidebarPathwaysLabel")
         ),
 
         accordion(
@@ -61,7 +61,7 @@ poeUI <- function(
           open = c("a_vc", "a_m", "a_r"),
 
           accordion_panel(
-            span(
+            title = span(
               id = ns("valuedComponent"),
               htmlLabels[["valuedComponent"]]
             ),
@@ -81,63 +81,91 @@ poeUI <- function(
             uiOutput(outputId = ns("activitiesUi"))
           ),
           accordion_panel(
-            span(
+            title = span(
               id = ns("mitigationMeasures"),
               htmlLabels[["mitigationMeasures"]]
             ),
             value = "a_m",
             # Mitigation Measures ----------------------------------------
             uiOutput(ns("mitigationsUi")),
-            input_switch(ns("toggleMitigations"), "Add Custom Mitigations")
+            input_switch(
+              id = ns("toggleMitigations"),
+              label = span(
+                id = ns("toggleMitigationsLabel"),
+                htmlLabels[["toggleMitigationsLabel"]]
+              )
+            )
           ),
           accordion_panel(
-            title = "Report",
+            title = span(id = ns("report"), htmlLabels[["report"]]),
             value = "a_r",
             textAreaInput(
               ns("reportNotes"),
               label = NULL,
               rows = 3,
-              placeholder = "Notes to include in the report..."
+              placeholder = "Notes..."
             ),
             downloadButton(
               ns("report"),
-              "Download report"
+              label = span(id = ns("reportLabel"), htmlLabels[["reportLabel"]])
             )
           ),
         )
       ),
 
       nav_panel(
-        title = tags$div("Interactive View", id = ns("cardTitle2")),
+        title = tags$div("Interactive View", id = ns("tabInteractive")),
         # Custom Mitigations Sidebar -------------------------------------
         layout_sidebar(
           sidebar = sidebar(
+            id = ns("sidebarMitigations"), # Required for toggling
             class = "pad-left",
             width = 350,
-            id = ns("sidebarMitigations"),
             position = "right",
             open = FALSE,
-            title = "Custom Mitigations",
+            title = tags$header(
+              htmlLabels[["sidebarMitigationsLabel"]],
+              class = "sidebar-title",
+              id = ns("sidebarMitigationsLabel")
+            ),
             accordion(
               open = TRUE,
               multiple = TRUE,
               accordion_panel(
-                title = "Add Mitigations",
+                title = span(
+                  id = ns("addMitigations"),
+                  htmlLabels[["addMitigations"]]
+                ),
+                value = "",
                 textOutput(ns("currentEdge"), inline = TRUE),
                 textInput(
                   ns("addMitigationName"),
-                  "Name",
-                  placeholder = "Short name"
+                  label = span(
+                    id = ns("addMitigationNameLabel"),
+                    htmlLabels[["addMitigationNameLabel"]]
+                  )
                 ),
                 textInput(
                   ns("addMitigationDesc"),
-                  "Description",
-                  placeholder = "Longer descriptive title"
+                  label = span(
+                    id = ns("addMitigationDescriptionLabel"),
+                    htmlLabels[["addMitigationDescriptionLabel"]]
+                  )
                 ),
-                actionButton(ns("createMitigation"), "Create mitigation")
+                actionButton(
+                  ns("createMitigation"),
+                  label = span(
+                    id = ns("createMitigationLabel"),
+                    htmlLabels[["createMitigationLabel"]]
+                  )
+                )
               ),
               accordion_panel(
-                title = "Remove Created Mitigations",
+                title = span(
+                  id = ns("removeMitigations"),
+                  htmlLabels[["removeMitigations"]]
+                ),
+                value = "",
                 uiOutput(ns("removeMitigationsUi"))
               )
             )
@@ -159,7 +187,7 @@ poeUI <- function(
         )
       ),
       nav_panel(
-        title = tags$div("Flowchart View", id = ns("cardTitle3")),
+        title = tags$div("Flowchart View", id = ns("tabFlowchart")),
         DiagrammeR::DiagrammeROutput(
           ns("pathwayFlowchart"),
           width = "100%",
@@ -173,7 +201,7 @@ poeUI <- function(
         )
       ),
       nav_panel(
-        title = tags$div("Orthogonal View", id = ns("cardTitle4")),
+        title = tags$div("Orthogonal View", id = ns("tabOrthogonal")),
         DiagrammeR::grVizOutput(
           ns("pathwayOrthogonal"),
           width = "100%",
@@ -190,7 +218,7 @@ poeUI <- function(
       nav_item(radioButtons(
         inputId = ns("lang"),
         label = "",
-        choices = c("English" = "en", "French" = "fr"),
+        choices = c("English" = "en", "Français" = "fr"),
         inline = TRUE
       ))
     )
@@ -269,7 +297,7 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
       choices <- choices_activities()
       checkboxGroupInput(
         inputId = ns("activities"),
-        label = htmlLabels[[ns("activities-label")]] |>
+        label = htmlLabels[[ns("activitiesLabel")]] |>
           translate_text(isolate(input$lang)),
         choices = named_choices(choices, lang = isolate(input$lang)),
         width = "100%"
@@ -287,7 +315,11 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
       validate(need(
         o[[1]],
         paste0(
-          "Problems with the mitigations file, contact the CWS team and report the following:\n\n",
+          translate_text(
+            "Problems with the mitigations file, contact the CWS team and report the following",
+            input$lang
+          ),
+          ":\n\n",
           o[[2]]
         )
       ))
@@ -311,20 +343,25 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
     output$mitigationsUi <- renderUI({
       choices <- choices_mitigations()
 
-      # TODO: Translate Validates
       validate(need(
         length(choices) > 0,
-        "No mitigation measures apply to these activities"
+        translate_text(
+          "No mitigation measures apply to these activities",
+          input$lang
+        )
       ))
 
       validate(need(
         length(choices) == length(unique(choices)),
-        "There are duplicate short names in Mitigations. These should be unique."
+        translate_text(
+          "There are duplicate short names in Mitigations. These should be unique.",
+          input$lang
+        )
       ))
 
       checkboxGroupInput(
         inputId = ns("mitigations"),
-        label = htmlLabels[[ns("mitigations-label")]] |>
+        label = htmlLabels[[ns("mitigationsLabel")]] |>
           translate_text(isolate(input$lang)),
         choices = named_choices(
           choices,
@@ -385,12 +422,15 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
 
       validate(need(
         !is.null(input$currentEdge),
-        "Click on an edge to create a mitigation"
+        translate_text("Click on an edge to create a mitigation", input$lang)
       ))
 
       validate(need(
         input$currentEdge != "tryagain",
-        "Clear your selection (click on the background) and try clicking on an edge (not an activity) to create a mitigation"
+        translate_text(
+          "Clear your selection (click on the background) and try clicking on an edge (not an activity) to create a mitigation",
+          input$lang
+        )
       ))
 
       if (length(input$currentEdge) > 1) {
@@ -406,7 +446,8 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
       req(length(input$currentEdge) == 1)
 
       paste0(
-        "Currently selected edge:",
+        translate_text("Currently selected edge", input$lang),
+        ": ",
         input$currentEdge
       )
     })
@@ -415,7 +456,7 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
     observe({
       req(input$currentEdge)
 
-      nm <- paste0(input$addMitigationName, " (custom)")
+      nm <- paste0(input$addMitigationName, " *")
       m <- data.frame(
         valued_component = input$valuedComponent,
         start_node = NA_real_,
@@ -447,7 +488,7 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
             paste0(
               stringr::str_remove(
                 m$short,
-                " \\(custom\\)"
+                " \\*"
               ),
               " (",
               m$valued_component,
@@ -474,6 +515,15 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
 
     # Translations ------------------------------------------------------
     observe({
+      # Update non-dynamic UI elements with JS
+      session$sendCustomMessage(
+        "translateLabels",
+        htmlLabels |>
+          translate_text(input$lang) |>
+          # convert to list for conversion to JSON object
+          lapply(identity)
+      )
+
       # Update UI Inputs
       updateSelectInput(
         session = session,
@@ -484,32 +534,27 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
         ),
         selected = input$valuedComponent
       )
+
       updateCheckboxGroupInput(
         session = session,
         inputId = "activities",
         choices = named_choices(choices_activities(), lang = input$lang),
         selected = input$activities
       )
+
       updateCheckboxGroupInput(
         session = session,
         inputId = "mitigations",
         choices = named_choices(
           choices_mitigations(),
           name = names(choices_mitigations()),
-          lang = isolate(input$lang)
+          lang = input$lang
         ),
         selected = input$mitigations
       )
-
-      # Update other elements with JS
-
-      session$sendCustomMessage(
-        "translateLabels",
-        htmlLabels |>
-          translate_text(input$lang) |>
-          # convert to list for conversion to JSON object
-          lapply(identity)
-      )
+      # NOTE: Nothing should follow mitigations here because at the start they
+      #  validate(need) activities, so the logic won't proceed until activities
+      #  are selected
     }) |>
       bindEvent(input$lang, ignoreInit = TRUE)
 

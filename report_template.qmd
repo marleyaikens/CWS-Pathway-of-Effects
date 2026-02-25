@@ -134,9 +134,9 @@ if(length(m) > 0) {
 cat("\n\n")
 
 if(lang == "en") {
-  cat("To recreate the diagram, the same inputs must be reselected in the tool.")
+  cat("To recreate the diagram, the same inputs must be reselected in the tool.\n  \\* Indicates a user-created mitigation")
 } else {
-  cat("Pour recréer le diagramme, il faut sélectionner à nouveau les mêmes données dans l'outil.")
+  cat("Pour recréer le diagramme, il faut sélectionner à nouveau les mêmes données dans l'outil.\n  \\* Indique une mesure d'atténuation personnalisée")
 }
 
 ```
@@ -235,9 +235,9 @@ report_tables_print(r)
 #| results: asis
 
 if(lang == "en") {
-  cat("Table of *all* possible Mitigations for each Valued Component (not only those in the diagram). This table can be searched (upper right corner) or individual columns can be filtered (boxes below column name).")
+  cat("Table of *all* possible Mitigations for each Valued Component (not only those in the diagram). This table can be searched (upper right corner) or individual columns can be filtered (boxes below column name).\n\n\\* Indicates a user-created mitigation")
 } else {
-  cat("Version en français")
+  cat("Version en français. \n\n\\* Indique une mesure d'atténuation personnalisée")
 }
 ```
 

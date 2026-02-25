@@ -36,25 +36,32 @@ poe_app <- function() {
 
   htmlLabels <- list(
     # App title
-    dbTitle = "Pathways of Effect",
+    appTitle = "Pathways of Effect",
 
     # Accordion titles
     "valuedComponent" = "Valued Component",
     "mitigationMeasures" = "Mitigation Measures",
+    "addMitigations" = "Add Mitigations",
+    "removeMitigations" = "Remove Created Mitigations",
 
-    # Buttons
-    applyActivities = "Apply",
-    applyMitigations = "Apply",
+    # UI only Inputs
+    "toggleMitigationsLabel" = "Add Custom Mitigations",
+    "report" = "Report",
+    "reportLabel" = "Download report",
+    "addMitigationNameLabel" = "Name",
+    "addMitigationDescriptionLabel" = "Description",
+    "createMitigationLabel" = "Create mitigation",
 
-    # Cards
-    cardTitle1 = "Build Pathways",
-    cardTitle2 = "Interactive View",
-    cardTitle3 = "Flowchart View",
-    cardTitle4 = "Orthogonal View",
+    # Sidebars Tabs
+    "sidebarMitigationsLabel" = "Custom Mitigations",
+    "sidebarPathwaysLabel" = "Build Pathways",
+    "tabInteractive" = "Interactive View",
+    "tabFlowchart" = "Flowchart View",
+    "tabOrthogonal" = "Orthogonal View",
 
     # Inputs
-    "activities-label" = "Select all Activities/Components that apply:",
-    "mitigations-label" = "Select all Mitigations that apply:",
+    "activitiesLabel" = "Select all Activities/Components that apply:",
+    "mitigationsLabel" = "Select all Mitigations that apply:",
 
     # Legends
     leg1Text1 = legText[1],
