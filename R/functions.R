@@ -13,7 +13,7 @@ read_mitigations <- function(file_name = "mitigations.xlsx", dir = NULL) {
   m$m_id <- paste0(
     simple_name(m$valued_component),
     "_",
-    simple_name(m$short_en)
+    simple_name(m$short)
   )
   m
 }
@@ -450,11 +450,16 @@ add_zoom <- function(x, id) {
 #'
 #' @returns
 #'
+#' @export
+#'
 #' @examples
-#' enFr <- read.csv("data/en-fr-table.csv")
-#' translate_text("Increase in Edge Habitat", "fr", dict = enFr)
+#' translate_text("Increase in Edge Habitat", "fr")
 
-translate_text <- function(x, lang = "en", dict = NULL) {
+translate_text <- function(
+  x,
+  lang = "en",
+  dict = read_sheets("translations.xlsx")
+) {
   if (!lang %in% c("en", "fr")) {
     stop(
       "Language must be one of 'en' (English) or 'fr' (French)",
@@ -463,6 +468,10 @@ translate_text <- function(x, lang = "en", dict = NULL) {
   }
 
   dict <- dict %||% getOption("poe.dict")
+
+  if (is.null(dict)) {
+    stop("No dictionary found", call. = FALSE)
+  }
 
   if (lang == "en") {
     x
@@ -483,7 +492,7 @@ translate_text <- function(x, lang = "en", dict = NULL) {
 #' @param pathway List. Current set of diagram pathways for a single component.
 #' @param mitigations Data frame. Master list of mitigation metadata.
 #' @param m Character vector. Currently selected mitigations (refer to
-#' `short_en` in `mitigations`) to add to the pathway.
+#' `short` in `mitigations`) to add to the pathway.
 #' @param lang Character. Language for display, "en" (English) or "fr" (French).
 #'
 #' @returns
@@ -511,7 +520,8 @@ add_mitigation <- function(pathway, mitigations, m, lang = "en") {
 
   m <- mitigations[mitigations$m_id %in% m, ]
 
-  label <- ifelse(lang == "en", "short_en", "short_fr")
+  m$label <- translate_text(m$short, lang = lang)
+  label <- "label"
 
   # Nodes & Edges - Mitigation point
   m_start <- c()
@@ -578,7 +588,7 @@ named_choices <- function(
   value,
   name = value,
   lang = "en",
-  dict = NULL
+  dict = read_sheets("translations.xlsx")
 ) {
   dict <- dict %||% getOption("poe.dict")
   stats::setNames(

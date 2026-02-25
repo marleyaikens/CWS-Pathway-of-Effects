@@ -28,8 +28,8 @@
 #'     end_node = NA,
 #'     edge = 67,
 #'     m_id = "vc_mitigation",
-#'     short_en = "Mitigation",
-#'     long_en = "Test"
+#'     short = "Mitigation",
+#'     long = "Test"
 #'   ),
 #'   lang = "en"
 #' )
@@ -54,6 +54,9 @@ create_report <- function(
       col
     })
   }
+
+  # Check and update dictionary
+  dictionary_update()
 
   # Write to temp dir, copy back to Shiny download handler file
   #template <- file.path(tempdir(), "report_template.qmd")

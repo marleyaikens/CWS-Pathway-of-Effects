@@ -19,8 +19,7 @@ check_mitigations <- function(
     "valued_component",
     "start_node",
     "end_node",
-    "short_en",
-    "short_fr",
+    "short",
     "edge_id"
   )]
 

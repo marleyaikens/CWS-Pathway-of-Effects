@@ -5,34 +5,20 @@ poe_app <- function() {
   # act2Pres <- readRDS("data/act2Pres.rds") |>
   #   as.data.frame()
 
+  # Check and update dictionary
+  dictionary_update()
+
   act2Pres <- read_components()
 
   # Mitigations - Ensuring unique ids
   mitigations <- read_mitigations()
-  mitigations$short_fr[is.na(mitigations$short_fr)] <- ""
 
   # Parsed Visio Diagrams Data
   pathways <- read_pathways()
 
-  # Translation Table (with mitigations)
-  enFr <- data.table::fread(system.file(
-    "extdata",
-    "en-fr-table.csv",
-    package = "poe"
-  ))
-  enFr <- rbind(
-    enFr,
-    mitigations[, c("short_en", "short_fr")],
-    use.names = FALSE
-  )
-  enFr <- rbind(enFr, mitigations[, c("long_en", "long_fr")], use.names = FALSE)
-  enFr <- unique(enFr)
-
-  # Replace NAs with placeholders strings (prevents app from breaking on missing translations)
-  n <- as.numeric(max(stringr::str_extract(enFr$french, "\\d+"), na.rm = TRUE)) # Get last French translation
-  enFr$french[is.na(enFr$french)] <- "french"
-
-  options("poe.dict" = enFr)
+  # Translations -----------------------------------------------
+  dict <- read_sheets("translations.xlsx")
+  options("poe.dict" = dict)
 
   # Legends -------------------------------------------------------------
 

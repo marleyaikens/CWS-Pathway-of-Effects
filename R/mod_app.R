@@ -301,11 +301,11 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
       m <- m[
         (m$start_node %in% nodes & m$end_node %in% nodes) |
           m$edge_id %in% edges,
-        c("m_id", "short_en")
+        c("m_id", "short")
       ] |>
         unique()
 
-      stats::setNames(m$m_id, m$short_en)
+      stats::setNames(m$m_id, m$short)
     })
 
     output$mitigationsUi <- renderUI({
@@ -421,10 +421,8 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
         start_node = NA_real_,
         end_node = NA_real_,
         m_id = paste0(simple_name(input$valuedComponent), "_", simple_name(nm)),
-        short_en = nm,
-        long_en = input$addMitigationDesc,
-        short_fr = nm,
-        long_fr = input$addMitigationDesc,
+        short = nm,
+        long = input$addMitigationDesc,
         edge_id = input$currentEdge
       )
 
@@ -448,7 +446,7 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
             ),
             paste0(
               stringr::str_remove(
-                m$short_en,
+                m$short,
                 " \\(custom\\)"
               ),
               " (",
