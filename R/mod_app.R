@@ -11,6 +11,7 @@
 poeUI <- function(
   id,
   act2Pres,
+  activities,
   htmlLabels,
   legColors,
   legText,
@@ -62,8 +63,8 @@ poeUI <- function(
 
           accordion_panel(
             title = span(
-              id = ns("valuedComponent"),
-              htmlLabels[["valuedComponent"]]
+              id = ns("valuedComponentLabel"),
+              htmlLabels[["valuedComponentLabel"]]
             ),
             value = "a_vc", # By default is the title, not when that is html (e.g., span(...))
 
@@ -72,10 +73,17 @@ poeUI <- function(
               inputId = ns("valuedComponent"),
               label = NULL,
               choices = unique(act2Pres$valued_component),
-              selected = "",
-              multiple = FALSE,
-              selectize = TRUE,
-              width = "100%"
+              selected = ""
+            ),
+            # Sector ------------------------------------------------
+            selectInput(
+              inputId = ns("sector"),
+              label = NULL, #span(
+              #id = ns("sectorLabel"),
+              # htmlLabels[["sectorLabel"]]
+              #),
+              choices = unique(activities$sector[!is.na(activities$sector)]),
+              selected = ""
             ),
             # Activities ---------------------------------------------
             uiOutput(outputId = ns("activitiesUi"))
@@ -96,6 +104,7 @@ poeUI <- function(
               )
             )
           ),
+          # Report -------------------------------------
           accordion_panel(
             title = span(id = ns("report"), htmlLabels[["report"]]),
             value = "a_r",
@@ -231,7 +240,14 @@ poeUI <- function(
 # @param act2Pres - activity to pressures lookup table
 # @param pathways - JSON of all pathways
 # @param htmlLabels - named vector with element IDs as names & labels as values
-poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
+poeServer <- function(
+  id,
+  act2Pres,
+  mitigations,
+  pathways,
+  activities,
+  htmlLabels
+) {
   moduleServer(id, function(input, output, session) {
     # Setup ----------------------------------------------------------------
     ns <- session$ns
@@ -261,6 +277,7 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
 
     # prune selected value component pathway by selected activities
     observe({
+      req(input$activities)
       p <- prep_pathways(
         pathways,
         act2Pres,
@@ -271,12 +288,7 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
 
       # update pathway
       pathway(p)
-    }) |>
-      bindEvent(
-        input$valuedComponent,
-        input$activities,
-        input$lang
-      )
+    })
 
     ###########################################################################
     #                                                                         #
@@ -300,6 +312,7 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
         label = htmlLabels[[ns("activitiesLabel")]] |>
           translate_text(isolate(input$lang)),
         choices = named_choices(choices, lang = isolate(input$lang)),
+        selected = activities$activities[activities$sector == input$sector],
         width = "100%"
       )
     })
@@ -555,6 +568,16 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
           lang = input$lang
         ),
         selected = input$valuedComponent
+      )
+
+      updateSelectInput(
+        session = session,
+        inputId = "sector",
+        choices = named_choices(
+          unique(activities$sector[!is.na(activities$sector)]),
+          lang = input$lang
+        ),
+        selected = input$sector
       )
 
       updateCheckboxGroupInput(

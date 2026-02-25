@@ -2,6 +2,10 @@ read_pathways <- function(file_name = "pathways.xlsx", dir = NULL) {
   read_sheets(file_name, dir)
 }
 
+read_activities <- function(file_name = "activities.xlsx", dir = NULL) {
+  read_sheets(file_name, dir)
+}
+
 read_components <- function(file_name = "components.xlsx", dir = NULL) {
   read_sheets(file_name, dir)
 }

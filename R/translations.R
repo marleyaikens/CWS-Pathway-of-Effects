@@ -5,13 +5,15 @@ dictionary_update <- function() {
   names(labs)[names(labs) == "label"] <- "english"
   components <- read_components() |>
     extract_labels("components etc.")
+  sectors <- read_activities() |>
+    extract_labels("sectors")
 
   pathways <- read_pathways() |>
     extract_labels("pathways", keep = "label")
   mitigations <- read_mitigations() |>
     extract_labels("mitigations", keep = c("short", "long"))
 
-  new <- rbind(labs, components, pathways, mitigations)
+  new <- rbind(labs, components, sectors, pathways, mitigations)
   new <- new[!is.na(new$english), ] |>
     unique()
   new <- new[!new$english %in% current$english, ]

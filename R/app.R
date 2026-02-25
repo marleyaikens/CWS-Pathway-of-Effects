@@ -1,5 +1,11 @@
 # Load Data ------------------------------------------------------------
 
+#' Launch the Pathways of Effect Shiny App
+#'
+#' @returns
+#'
+#' @export
+#' @examples
 poe_app <- function() {
   # Activities to Stressors/Pressures Crosswalk
   # act2Pres <- readRDS("data/act2Pres.rds") |>
@@ -15,6 +21,9 @@ poe_app <- function() {
 
   # Parsed Visio Diagrams Data
   pathways <- read_pathways()
+
+  # Activities by sector
+  activities <- read_activities()
 
   # Translations -----------------------------------------------
   dict <- read_sheets("translations.xlsx")
@@ -39,15 +48,18 @@ poe_app <- function() {
     appTitle = "Pathways of Effect",
 
     # Accordion titles
-    "valuedComponent" = "Valued Component",
+    "valuedComponentLabel" = "Valued Component",
     "mitigationMeasures" = "Mitigation Measures",
     "addMitigations" = "Add Mitigations",
     "removeMitigations" = "Remove Created Mitigations",
 
     # UI only Inputs
+    "sectorLabel" = "Sector",
     "toggleMitigationsLabel" = "Add Custom Mitigations",
     "report" = "Report",
     "reportLabel" = "Download report",
+    "reportNameLabel" = "Project name",
+    "reportStatusLabel" = "Project status",
     "addMitigationNameLabel" = "Name",
     "addMitigationDescriptionLabel" = "Description",
     "createMitigationLabel" = "Create mitigation",
@@ -83,6 +95,7 @@ poe_app <- function() {
     poeUI(
       id = "poe",
       act2Pres = act2Pres,
+      activities = activities,
       htmlLabels = htmlLabels,
       legColors = legColors,
       legText = legText,
@@ -96,10 +109,11 @@ poe_app <- function() {
       act2Pres = act2Pres,
       mitigations = mitigations,
       pathways = pathways,
+      activities = activities,
       htmlLabels = htmlLabels
     )
   }
 
   # Run app -------------------------------------------------------------
-  shinyApp(ui, server)
+  shinyApp(ui, server, options = list(host = "0.0.0.0", port = 8080), )
 }
