@@ -471,13 +471,17 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
         valued_component = input$valuedComponent,
         start_node = NA_real_,
         end_node = NA_real_,
-        m_id = paste0(simple_name(input$valuedComponent), "_", simple_name(nm)),
+        m_id = paste0(
+          simple_name(input$valuedComponent),
+          "_",
+          simple_name(nm)
+        ),
         short = nm,
         long = input$addMitigationDesc,
         edge_id = input$currentEdge
       )
 
-      m <- rbind(customMitigations(), m)
+      m <- rbind(customMitigations(), m) |> unique()
       customMitigations(m)
     }) |>
       bindEvent(input$createMitigation)
@@ -485,8 +489,16 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
     output$removeMitigationsUi <- renderUI({
       # TODO: Programatically add buttons/observers for removing custom mitigations
 
-      btns <- lapply(customMitigations()$m_id, \(m) {
-        m <- customMitigations()[customMitigations()$m_id == m, ]
+      btns <- lapply(unique(customMitigations()$m_id), \(m) {
+        # Mitigations with the same name, but different edge, treated as single
+        # mitigation with mutliple paths
+
+        m <- customMitigations()[
+          customMitigations()$m_id == m,
+          c("valued_component", "short", "m_id")
+        ] |>
+          unique()
+
         tagList(
           span(
             actionButton(
