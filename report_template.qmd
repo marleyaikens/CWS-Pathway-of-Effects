@@ -14,12 +14,14 @@ params:
     - "All the notes I think I should include.\nAnd more!"
   lang: 
     - "en"
-title: "`r params$vc`"
-subtitle: Pathway of Effects
+title: "`r poe::translate_text(params$vc, lang = params$lang)`"
+subtitle: "`r poe::translate_text('Pathways of Effect', params$lang)`"
 date: today
+date-format: iso
 published-title: "Date"
 author: "`r packageVersion('poe')`"
-author-title: "poe Tool version"
+author-title: "Version"
+toc-title: "`r poe::translate_text('Table of Contents', params$lang)`"
 format: 
   html:
     embed-resources: true
@@ -46,7 +48,7 @@ h4 {
 
 # DEVNOTES: Remember to rebuild package before testing!!
 
-library(gt)
+library(reactable)
 
 list.files("R", full.names = TRUE) |> lapply(source)
 
@@ -98,42 +100,62 @@ m_all <- lapply(m_all, \(col) {
 m_all <- as.data.frame(m_all)
 ```
 
-This report presents a Pathway of Effects (PoE) diagram modelling the effects of development activities on terrestrial and semi-aquatic species at risk (SAR), including associated mitigation measures. It is based on the user’s selected inputs in the Canadian Wildlife Service (CWS) PoE Shiny R Tool (the `poe` R package), which include the following: 
-
-#### Valued component:
-```{r}
+```{r intro}
 #| results: asis
-paste("-", paste(vc, collapse = "\n- ")) |> cat()
-```
-
-#### Activities:
-```{r}
-#| results: asis
-paste("-", paste(a, collapse = "\n- ")) |> cat()
-```
-
-#### Mitigations:
-```{r}
-#| results: asis
-if(length(m) > 0) {
-  m_txt <- m_all[[paste0("short_", lang)]][m_all$m_id %in% m] |> unique()
-  paste("-", paste(m_txt, collapse = "\n - ")) |> cat()
+if(lang == "en") {
+cat("This report presents a Pathway of Effects (PoE) diagram modelling the effects of development activities on terrestrial and semi-aquatic species at risk (SAR), including associated mitigation measures. It is based on the user’s selected inputs in the Canadian Wildlife Service (CWS) PoE Shiny R Tool (the `poe` R package), which include the following:")
 } else {
-  "*None selected*" |> cat()
+  cat("Introduction en français")
 }
 ```
 
-To recreate the diagram, the same inputs must be reselected in the tool.
+#### `r translate_text("Valued Component", lang)`:
+```{r}
+#| results: asis
+paste("-", paste(translate_text(vc, lang), collapse = "\n- ")) |> cat()
+```
+
+#### `r translate_text("Activities", lang)`:
+```{r}
+#| results: asis
+paste("-", paste(translate_text(a, lang), collapse = "\n- ")) |> cat()
+```
+
+#### `r translate_text("Mitigations", lang)`:
+```{r}
+#| results: asis
+if(length(m) > 0) {
+  m_txt <- m_all[["short"]][m_all$m_id %in% m] |> unique() |> translate_text(lang = lang)
+  paste("-", paste(m_txt, collapse = "\n - ")) |> cat()
+} else {
+  paste0("*", translate_text("None selected", lang), "*") |> cat()
+}
+
+cat("\n\n")
+
+if(lang == "en") {
+  cat("To recreate the diagram, the same inputs must be reselected in the tool.")
+} else {
+  cat("Pour recréer le diagramme, il faut sélectionner à nouveau les mêmes données dans l'outil.")
+}
+
+```
+
+
 
 ## Notes
 
 ```{r notes}
 #| results: asis
-if(!is.null(params$notes) && params$notes != "") cat(params$notes) else cat("*No user-supplied notes*")
+if(!is.null(params$notes) && params$notes != "") {
+  cat(params$notes)
+} else {
+  paste0("*", translate_text("No user-supplied notes", lang), "*") |> cat()
+}
 ```
 
 
-## Interactive Diagram
+## `r translate_text("Interactive Diagram", lang)`
 ```{r DEVTESTS-diagram}
 #| eval: false
 # Only used for testing (otherwise eval: false)
@@ -152,34 +174,34 @@ write(
 #| fig-height: 10
 
 p <- prep_pathways(pathways, ref, vc = vc, a = a, lang = lang)
-d <- add_mitigation(p, m_all, m)
+d <- add_mitigation(p, m_all, m, lang = lang)
 make_visnetwork(d)
 ```
 
-## Glossary/Details
+## `r translate_text("Glossary/Details", lang)`
 
-### Valued Components and Activities
+### `r translate_text("Valued Components and Activities", lang)`
 
-Table of *all* possible Valued Components and their corresponding activities and stressors (not only those in the diagram).
-This table can be searched (upper right corner) or individual columns can be filtered (boxes below column name).
+```{r}
+#| results: asis
+if(lang == "en") {
+  cat("Table of *all* possible Valued Components and their corresponding activities and stressors (not only those in the diagram). This table can be searched (upper right corner) or individual columns can be filtered (boxes below column name).")
+} else {
+  cat("Version en français")
+}
+```
+
 
 ```{r tbl_vc_a}
-library(reactable)
-
-#TODO: Add translations
-tbl <- ref[, c("valued_component", "activities", "stressors")]
-tbl <- unique(tbl)
-names(tbl) <- stringr::str_replace_all(names(tbl), "_", " ") |>
-  stringr::str_to_title()
-tbl <- split(tbl, tbl$`Valued Component`)
-
-r <- lapply(
-  tbl, 
-  \(x) reactable(
-    x[, -1], 
-    searchable = TRUE, 
-    filterable = TRUE
-))
+r <- report_tables(
+  ref, 
+  c(
+    "Valued Component" = "valued_component", 
+    "Activities" = "activities", 
+    "Stressors" = "stressors"
+  ), 
+  lang = lang
+)
 ```
 
 ```{r}
@@ -190,49 +212,77 @@ r[[1]]
 
 :::{.panel-tabset .nav-pills}
 
-```{r tbl_print}
+```{r tbl_vc_print}
 #| results: asis
-for (i in seq_along(r)) {
-  cat("###", names(r)[i], "\n\n")
-  cat("\n\n```{=html}\n\n")
+# for (i in seq_along(r)) {
+#   cat("###", names(r)[i], "\n\n")
+#   cat("\n\n```{=html}\n\n")
 
-  shiny::tagList(r[[i]]) |> print()
+#   shiny::tagList(r[[i]]) |> print()
   
-  cat("\n\n```\n\n")
-}
+#   cat("\n\n```\n\n")
+# }
+report_tables_print(r)
 ```
 
 :::  
 
 
 
-```{r tbl_m}
+### `r translate_text("Mitigations", lang)`
+
+```{r}
 #| results: asis
 
-# Only show mitigations if they have been implemented
-if(!is.null(m_all) && length(m_all) > 0) {
-
-  cat("### Mitigations\n\n")
-
-  cat("Table of *all* possible Mitigations for each Valued Component (not only those in the diagram).\n
-This table can be searched (upper right corner) or individual columns can be filtered (boxes below column name).")
-
-  tbl <- m_all[, c(paste0("short_", lang), paste0("long_", lang))]
-  names(tbl) <- c("Name", "Description") # TODO: Translate
-  tbl <- unique(tbl)
-  reactable(
-    tbl,
-    searchable = TRUE,
-    filterable = TRUE
-  )
+if(lang == "en") {
+  cat("Table of *all* possible Mitigations for each Valued Component (not only those in the diagram). This table can be searched (upper right corner) or individual columns can be filtered (boxes below column name).")
+} else {
+  cat("Version en français")
 }
 ```
 
-## System information
 
-System information for tracking operating system and software versions used.
+```{r tbl_m}
+#| results: asis
+
+if(!is.null(m_all) && length(m_all) > 0) {
+  r <- report_tables(
+    m_all, 
+    c(
+      "Valued Component" = "valued_component", 
+      "Name" = "short", 
+      "Description" = "long"
+    ), 
+    lang = lang
+  )
+} else cat(paste0("*", translate_text("No mitigations", lang = lang), "*"))
+```
+
+:::{.panel-tabset .nav-pills}
+
+```{r tbl_m_print}
+#| results: asis
+if(!is.null(m_all) && length(m_all) > 0) {
+  report_tables_print(r)
+}
+```
+
+:::  
+
+## `r translate_text("System information", lang)`
+
+
+```{r}
+#| results: asis
+
+if(lang == "en") {
+  cat("System information for tracking operating system and software versions used.
 Useful for troubleshooting, record keeping, and identifying in which versions
-potential bugs may have occurred.
+potential bugs may have occurred.")
+} else {
+  cat("Version en français")
+}
+```
 
 <details>
 

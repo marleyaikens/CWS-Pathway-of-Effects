@@ -79,3 +79,69 @@ create_report <- function(
 
   path
 }
+
+#' Create list of tables for reports
+#'
+#' @param tbl Data frame.
+#' @param cols Named character vector. Columns to keep in table, names become
+#'   pretty column names.
+#' @param lang Character. 'en' or 'fr' language to translate values to.
+#'
+#' @returns List of reactable tables
+#'
+#' @export
+#' @examples
+report_tables <- function(tbl, cols, lang) {
+  tbl <- tbl[, cols] |>
+    unique() |> # Don't remove duplicated untranslated labels
+    lapply(translate_text, lang = lang) |>
+    as.data.frame()
+
+  names(tbl) <- names(cols)
+
+  tbl <- split(tbl, tbl[[1]])
+
+  r <- lapply(
+    tbl,
+    \(x) {
+      reactable(
+        x[, -1],
+        defaultColDef = colDef(header = \(h) translate_text(h, lang = lang)),
+        searchable = TRUE,
+        filterable = TRUE,
+        language = reactableLang(
+          searchPlaceholder = translate_text("Search", lang = lang),
+          pageNext = translate_text("Next", lang = lang),
+          pagePrevious = translate_text("Previous", lang = lang),
+          # Hard code this translation as the unicode is difficult
+          pageInfo = ifelse(
+            lang == "en",
+            "{rowStart}\u2013{rowEnd} of {rows} rows",
+            "{rowStart}\u2013{rowEnd} sur {rows} lignes"
+          )
+        )
+      )
+    }
+  )
+
+  r
+}
+
+#' Print a list of reactable tables in report
+#'
+#' @param tbls List of reactable tables created by `report_tables()`
+#'
+#' @returns
+#'
+#' @export
+#' @examples
+report_tables_print <- function(tbls) {
+  for (i in seq_along(r)) {
+    cat("###", names(r)[i], "\n\n")
+    cat("\n\n```{=html}\n\n")
+
+    shiny::tagList(r[[i]]) |> print()
+
+    cat("\n\n```\n\n")
+  }
+}
