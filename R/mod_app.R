@@ -271,16 +271,16 @@ poeServer <- function(
     customMitigations <- reactiveVal(data.frame())
 
     # TODO: Remove Developer Testing at end --------------------------------
-    observe({
-      req(input$valuedComponent)
-      updateCheckboxGroupInput(
-        session,
-        "activities",
-        selected = "Land and Vegetation clearing and vegetation maintenance"
-      )
-      accordion_panel_close("ui", values = "a_vc")
-      #accordion_panel_open("ui", values = c("a_m", "a_r"))
-    })
+    # observe({
+    #   req(input$valuedComponent)
+    #   updateCheckboxGroupInput(
+    #     session,
+    #     "activities",
+    #     selected = "Land and Vegetation clearing and vegetation maintenance"
+    #   )
+    #   accordion_panel_close("ui", values = "a_vc")
+    #   #accordion_panel_open("ui", values = c("a_m", "a_r"))
+    # })
 
     ###########################################################################
     #                                                                         #
