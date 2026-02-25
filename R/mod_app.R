@@ -306,6 +306,16 @@ poeServer <- function(id, act2Pres, mitigations, pathways, htmlLabels) {
 
     ## Mitigations ------------------------------------------------------
     choices_mitigations <- reactive({
+      validate(
+        need(
+          !is.null(input$activities) && length(input$activities) > 0,
+          translate_text(
+            "Activities must be selected before mitigation measures",
+            input$lang
+          )
+        ),
+        errorClass = "space"
+      )
       req(pathway())
 
       o <- tryCatch(check_mitigations(mitigations), error = \(r) {

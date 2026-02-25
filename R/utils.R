@@ -77,6 +77,9 @@ poe_theme <- function() {
       g > .node {
         text-align: center;
       }
+      .shiny-output-error-space {
+        margin-bottom: 20px;
+      }
       /* Reduce padding in sidebars */
       .sidebar-content {
         padding-top: 20px !important;
