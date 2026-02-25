@@ -40,6 +40,8 @@ create_report <- function(
   m = NULL,
   m_df = NULL,
   notes = NULL,
+  project_name = NULL,
+  project_status = NULL,
   lang = lang,
   path = paste0("report_", Sys.Date(), ".html")
 ) {
@@ -71,6 +73,8 @@ create_report <- function(
       m = m,
       m_all = m_df,
       notes = notes,
+      project_name = project_name,
+      project_status = project_status,
       lang = lang
     )
   )

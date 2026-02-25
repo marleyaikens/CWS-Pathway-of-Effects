@@ -1,6 +1,5 @@
 ---
 params: 
-  name: "Test name"
   vc: "Terrestrial and Semi-Aquatic SAR"
   a:
     - "Shoreline / Bank stabilization"
@@ -12,15 +11,19 @@ params:
     - "test"
   notes:
     - "All the notes I think I should include.\nAnd more!"
+  project_name: ""
+  project_status: ""
   lang: 
     - "en"
-title: "`r poe::translate_text(params$vc, lang = params$lang)`"
-subtitle: "`r poe::translate_text('Pathways of Effect', params$lang)`"
+title: "`r params$project_name`"
+subtitle: "`r paste(poe::translate_text('Pathways of Effect', params$lang), '-', poe::translate_text(params$vc, lang = params$lang))`"
 date: today
 date-format: iso
 published-title: "Date"
 author: "`r packageVersion('poe')`"
 author-title: "Version"
+abstract: "`r params$project_status`"
+abstract-title: "`r poe::translate_text('Project status', params$lang)`"
 toc-title: "`r poe::translate_text('Table of Contents', params$lang)`"
 format: 
   html:
@@ -102,6 +105,7 @@ m_all <- as.data.frame(m_all)
 
 ```{r intro}
 #| results: asis
+
 if(lang == "en") {
 cat("This report presents a Pathway of Effects (PoE) diagram modelling the effects of development activities on terrestrial and semi-aquatic species at risk (SAR), including associated mitigation measures. It is based on the user’s selected inputs in the Canadian Wildlife Service (CWS) PoE Shiny R Tool (the `poe` R package), which include the following:")
 } else {

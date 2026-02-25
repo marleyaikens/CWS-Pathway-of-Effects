@@ -108,6 +108,22 @@ poeUI <- function(
           accordion_panel(
             title = span(id = ns("report"), htmlLabels[["report"]]),
             value = "a_r",
+            bslib::layout_column_wrap(
+              textInput(
+                ns("reportName"),
+                label = span(
+                  id = ns("reportNameLabel"),
+                  htmlLabels[["reportNameLabel"]]
+                )
+              ),
+              textInput(
+                ns("reportStatus"),
+                label = span(
+                  id = ns("reportStatusLabel"),
+                  htmlLabels[["reportStatusLabel"]]
+                )
+              )
+            ),
             textAreaInput(
               ns("reportNotes"),
               label = NULL,
@@ -683,6 +699,8 @@ poeServer <- function(
             m = input$mitigations,
             m_df = mitigations_all(),
             notes = input$reportNotes,
+            project_name = input$reportName,
+            project_status = input$reportStatus,
             lang = input$lang,
             path = file
           )
