@@ -13,8 +13,8 @@ params:
     - "All the notes I think I should include.\nAnd more!"
   project_name: "Project"
   project_status: "Status"
-  lang: 
-    - "en"
+  lang: "en"
+  dict_path: ""
 title: "`r params$project_name`"
 subtitle: "`r paste(poe::translate_text('Pathways of Effect', params$lang), '-', poe::translate_text(params$vc, lang = params$lang))`"
 date: today
@@ -68,6 +68,9 @@ lang <- params$lang
 # Load data
 pathways <- read_pathways()
 ref <- read_components()
+
+dict <- read_translations(dir = params$dict_path)
+options("poe.dict" = dict)
 ```
 
 ```{r DEVTESTS}

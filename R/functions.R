@@ -151,6 +151,15 @@ read_translations <- function(file_name = "translations.xlsx", dir = NULL) {
 #' @noRd
 
 read_sheets <- function(file_name, dir = NULL) {
+  path <- data_location(file_name, dir)
+
+  sheets <- readxl::excel_sheets(path)
+  sheets <- sheets[tolower(sheets) != "notes"]
+  s <- lapply(sheets, \(x) readxl::read_excel(path, sheet = x))
+  do.call("rbind", s)
+}
+
+data_location <- function(file_name, dir = NULL) {
   if (is.null(dir)) {
     path <- system.file("extdata", file_name, package = "poe")
   } else {
@@ -171,11 +180,7 @@ read_sheets <- function(file_name, dir = NULL) {
       )
     }
   }
-
-  sheets <- readxl::excel_sheets(path)
-  sheets <- sheets[tolower(sheets) != "notes"]
-  s <- lapply(sheets, \(x) readxl::read_excel(path, sheet = x))
-  do.call("rbind", s)
+  path
 }
 
 
