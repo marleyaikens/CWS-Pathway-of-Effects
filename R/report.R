@@ -68,6 +68,15 @@ create_report <- function(
     "pathways.xlsx" # Do not require sectors.xlsx
   )) {
     file.copy(data_location(d), file.path(tempdir(), d))
+    if (!file.exists(file.path(tempdir(), d))) {
+      stop(
+        "Cannot move",
+        d,
+        "to temp dir:",
+        file.path(tempdir(), d),
+        call. = FALSE
+      )
+    }
   }
 
   # Copy over report template
