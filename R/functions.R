@@ -168,7 +168,6 @@ data_location <- function(file_name, dir = NULL) {
 
   if (!file.exists(path)) {
     dir <- "."
-    cat(file_name, " looked for in ", normalizePath(dir))
     path <- file.path(dir, file_name)
     if (!file.exists(path)) {
       stop(
