@@ -184,7 +184,7 @@ check_components <- function(
     msg <- c(
       msg,
       "Some components in mitigations.xlsx not in pathways.xlsx or components.xlsx: ",
-      paste0(v_pm[!v_m %in% c(v_c, v_p)], collapse = ", "),
+      paste0(v_m[!v_m %in% c(v_c, v_p)], collapse = ", "),
       "\n"
     )
   }
