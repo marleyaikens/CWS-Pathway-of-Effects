@@ -14,7 +14,6 @@ params:
   project_name: "Project"
   project_status: "Status"
   lang: "en"
-  dict_path: ""
 title: "`r params$project_name`"
 subtitle: "`r paste(poe::translate_text('Pathways of Effect', params$lang), '-', poe::translate_text(params$vc, lang = params$lang))`"
 date: today
@@ -69,7 +68,7 @@ lang <- params$lang
 pathways <- read_pathways()
 ref <- read_components()
 
-dict <- read_translations(dir = params$dict_path)
+dict <- read_translations()
 options("poe.dict" = dict)
 ```
 

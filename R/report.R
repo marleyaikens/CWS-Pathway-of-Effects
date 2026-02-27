@@ -59,7 +59,11 @@ create_report <- function(
   # Write to temp dir, copy back to Shiny download handler file
   template <- file.path(tempdir(), "report_template.qmd")
   report_out <- file.path(tempdir(), "report.html")
-  dict_path <- data_location("translations.xlsx") |> dirname()
+
+  file.copy(
+    data_location("translations.xlsx"),
+    file.path(tempdir(), "translations.xlsx")
+  )
   file.copy(
     system.file("extdata", "report_template.qmd", package = "poe"),
     template
@@ -76,8 +80,7 @@ create_report <- function(
       notes = notes,
       project_name = project_name,
       project_status = project_status,
-      lang = lang,
-      dict_path = dict_path
+      lang = lang
     )
   )
   file.copy(report_out, path, overwrite = TRUE)
