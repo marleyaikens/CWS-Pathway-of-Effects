@@ -14,6 +14,9 @@ Interactive explorer for Pathways of Effects diagram models developed by CWS to 
 Authors:
 \itemize{
   \item Thomas Roh \email{thomas.roh@delveds.com}
+  \item Marley Aikens \email{Marley.Aikens@ec.gc.ca}
+  \item Kristin Mozel \email{Kristin.Mozel@ec.gc.ca}
+  \item Peter Rodger \email{Peter.Rodger@ec.gc.ca}
 }
 
 Other contributors:

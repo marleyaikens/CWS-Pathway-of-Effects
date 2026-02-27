@@ -395,7 +395,7 @@ prune_branches <- function(ids, tree, pruned = NULL) {
 #'
 #' make_visnetwork(pathway)
 
-make_visnetwork <- function(pathway, width = NULL, height = NULL) {
+make_visnetwork <- function(pathway) {
   shiny::req(pathway)
 
   visNetwork::visNetwork(
@@ -403,14 +403,7 @@ make_visnetwork <- function(pathway, width = NULL, height = NULL) {
     edges = pathway[["edges"]]
   ) |>
     visNetwork::visNodes(font = list(size = 10)) |>
-    visNetwork::visEdges(
-      arrows = "to" #,
-      # smooth = list(
-      #   type = "horizontal",
-      #   roundness = 0.05,
-      #   forceDirection = "vertical"
-      # )
-    ) |>
+    visNetwork::visEdges(arrows = "to") |>
     visNetwork::visHierarchicalLayout() |>
     visNetwork::visOptions(
       highlightNearest = list(
@@ -596,61 +589,54 @@ convert_mermaid_flowchart <- function(visNet) {
   # ON HOLD
   #visNet$nodes <- as.data.table(visNet$nodes)
   #visNet$edges <- as.data.table(visNet$edges)
-  nodeSpec <- sprintf(
-    "\tid%s(\"%s\")",
-    visNet[["nodes"]][["id"]],
-    gsub(pattern = "\\n", replacement = "<br>", x = visNet$nodes$label)
-  ) |>
-    paste(collapse = "\n")
-
-  normal <- visNet$edges[color == "#000000"]
-  disabled <- visNet$edges[color != "#000000" & label == " "]
-  labeled <- visNet$edges[label != " "]
-  e1 <- sprintf("\tid%s --> id%s", normal$from, normal$to) |>
-    stats::setNames(normal$id)
-  e2 <- sprintf("\tid%s --> id%s", disabled$from, disabled$to) |>
-    stats::setNames(disabled$id)
-  e3 <- sprintf(
-    "\tid%s -. \"%s\" .-> id%s",
-    labeled$from,
-    labeled$label,
-    labeled$to
-  ) |>
-    stats::setNames(labeled$id)
-
-  # Combine and put back in order
-  edgeSpec <- c(e1, e2, e3)[visNet$edges$id] |>
-    paste(collapse = "\n")
-
-  linkStyle <- sprintf(
-    "linkStyle %s stroke:#e3e3e3,fill:none;",
-    match(c(names(e2), names(e3)), visNet$edges$id) - 1
-  ) |>
-    paste(collapse = "\n")
-
-  normal <- visNet$nodes[visNet$nodes$font.color == "#000000"]
-  disabled <- visNet$nodes[visNet$nodes$font.color != "#000000"]
-
-  s1 <- sprintf(
-    "style id%s fill:%s,stroke:%s",
-    normal$id,
-    normal$color.background,
-    normal$color.border
-  ) |>
-    stats::setNames(normal$id)
-
-  s2 <- sprintf(
-    "class id%s mermaid-disabled",
-    disabled$id
-  ) |>
-    stats::setNames(disabled$id)
-
-  # Combine and put back in order
-  styleSpec <- c(s1, s2)[visNet$nodes$id] |>
-    paste(collapse = "\n")
-
-  sprintf("graph TB\n%s\n%s\n%s\n%s", nodeSpec, edgeSpec, styleSpec, linkStyle)
+  # nodeSpec <- sprintf(
+  #   "\tid%s(\"%s\")",
+  #   visNet[["nodes"]][["id"]],
+  #   gsub(pattern = "\\n", replacement = "<br>", x = visNet$nodes$label)
+  # ) |>
+  #   paste(collapse = "\n")
+  # normal <- visNet$edges[color == "#000000"]
+  # disabled <- visNet$edges[color != "#000000" & label == " "]
+  # labeled <- visNet$edges[label != " "]
+  # e1 <- sprintf("\tid%s --> id%s", normal$from, normal$to) |>
+  #   stats::setNames(normal$id)
+  # e2 <- sprintf("\tid%s --> id%s", disabled$from, disabled$to) |>
+  #   stats::setNames(disabled$id)
+  # e3 <- sprintf(
+  #   "\tid%s -. \"%s\" .-> id%s",
+  #   labeled$from,
+  #   labeled$label,
+  #   labeled$to
+  # ) |>
+  #   stats::setNames(labeled$id)
+  # # Combine and put back in order
+  # edgeSpec <- c(e1, e2, e3)[visNet$edges$id] |>
+  #   paste(collapse = "\n")
+  # linkStyle <- sprintf(
+  #   "linkStyle %s stroke:#e3e3e3,fill:none;",
+  #   match(c(names(e2), names(e3)), visNet$edges$id) - 1
+  # ) |>
+  #   paste(collapse = "\n")
+  # normal <- visNet$nodes[visNet$nodes$font.color == "#000000"]
+  # disabled <- visNet$nodes[visNet$nodes$font.color != "#000000"]
+  # s1 <- sprintf(
+  #   "style id%s fill:%s,stroke:%s",
+  #   normal$id,
+  #   normal$color.background,
+  #   normal$color.border
+  # ) |>
+  #   stats::setNames(normal$id)
+  # s2 <- sprintf(
+  #   "class id%s mermaid-disabled",
+  #   disabled$id
+  # ) |>
+  #   stats::setNames(disabled$id)
+  # # Combine and put back in order
+  # styleSpec <- c(s1, s2)[visNet$nodes$id] |>
+  #   paste(collapse = "\n")
+  # sprintf("graph TB\n%s\n%s\n%s\n%s", nodeSpec, edgeSpec, styleSpec, linkStyle)
 }
+
 #' Add zoom functionality to htmlwidget
 #'
 #' Adds SVG pan and zoom functionality to an htmlwidget using svg-pan-zoom.js.
@@ -678,7 +664,7 @@ add_zoom <- function(x, id) {
 #'
 #' @param x Character. English text to translate
 #' @param lang Character. Language for display, "en" (English) or "fr" (French).
-#' @param translations Data.frame. with columns "en" and "fr" for translations
+#' @param dict Data frame. With columns "en" and "fr" for translations.
 #'
 #' @returns Character. Translated text (or original if lang is "en").
 #'

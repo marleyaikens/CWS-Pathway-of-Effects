@@ -4,7 +4,7 @@
 \alias{make_visnetwork}
 \title{Create visnetwork interactive figure}
 \usage{
-make_visnetwork(pathway, width = NULL, height = NULL)
+make_visnetwork(pathway)
 }
 \arguments{
 \item{pathway}{List. Current set of diagram pathways for a single component.}

@@ -22,7 +22,8 @@
 #' @examplesIf have_data()
 #' v <- "Terrestrial and Semi-Aquatic SAR"
 #' a <- c("Shoreline / Bank stabilization", "Water extraction")
-#' m <- c("terrestrial_and_semi-aquatic_sar_relocate", "terrestrial_and_semi-aquatic_sar_create_habitat")
+#' m <- c("terrestrial_and_semi-aquatic_sar_relocate",
+#'        "terrestrial_and_semi-aquatic_sar_create_habitat")
 #' m_df <- read_mitigations()
 #' create_report(v, a, m, m_df, lang = "en")
 #' create_report(v, a, m, m_df, lang = "fr")
@@ -32,6 +33,9 @@
 #' a <- "Aircraft overflights / runway activity"
 #' create_report(v, a, lang = "en")
 #' create_report(v, a, lang = "fr")
+#'
+#' # Cleanup
+#' file.remove(paste0("report_", Sys.Date(), ".html"))
 
 create_report <- function(
   vc,

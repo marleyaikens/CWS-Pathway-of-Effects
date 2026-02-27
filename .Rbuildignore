@@ -1,7 +1,6 @@
 ^data-raw$
-^DESVTESTS-data.R$
-^DEVTESTS.R^
 ^CODE-DESIGN.md$
+^RELEASE.R$
 ^LICENSE\.md$
 ^\_archive$
 ^\.vscode$

@@ -11,7 +11,7 @@ translate_text(x, lang = "en", dict = read_translations())
 
 \item{lang}{Character. Language for display, "en" (English) or "fr" (French).}
 
-\item{translations}{Data.frame. with columns "en" and "fr" for translations}
+\item{dict}{Data frame. With columns "en" and "fr" for translations.}
 }
 \value{
 Character. Translated text (or original if lang is "en").

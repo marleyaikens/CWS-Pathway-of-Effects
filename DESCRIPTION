@@ -4,6 +4,9 @@ Version: 0.2.0
 Authors@R: c(
     person("Steffi", "LaZerte", email = "sel@steffilazerte.ca", role = c("aut", "cre")),
     person("Thomas", "Roh", email = "thomas.roh@delveds.com", role = c("aut")),
+    person("Marley", "Aikens", email = "Marley.Aikens@ec.gc.ca", role = c("aut")),
+    person("Kristin", "Mozel", email = "Kristin.Mozel@ec.gc.ca", role = c("aut")),
+    person("Peter", "Rodger", email = "Peter.Rodger@ec.gc.ca", role = c("aut")),
     person("Canadian Wildlife Service", role = "cph")
     )
 Description: Interactive explorer for Pathways of Effects diagram models developed by CWS to visually represent cause and effect relationships between project develpments and environmental components.
