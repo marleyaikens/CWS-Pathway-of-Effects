@@ -23,7 +23,7 @@ poe_app <- function() {
   activities <- read_activities()
 
   # Translations -----------------------------------------------
-  dict <- read_sheets("translations.xlsx")
+  dict <- read_translations()
   options("poe.dict" = dict)
 
   # Legends -------------------------------------------------------------

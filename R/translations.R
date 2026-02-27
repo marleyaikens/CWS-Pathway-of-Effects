@@ -1,5 +1,15 @@
+#' Update translations dictionary
+#'
+#' Updates the translations Excel file by extracting new English text from all
+#' data sources and adding them to the dictionary with placeholder French
+#' translations.
+#'
+#' @returns NULL (invisibly). Saves updated translations.xlsx file.
+#'
+#' @export
+
 dictionary_update <- function() {
-  current <- read_sheets("translations.xlsx")
+  current <- read_translations()
 
   labs <- read_sheets("ui_labels.xlsx")
   names(labs)[names(labs) == "label"] <- "english"

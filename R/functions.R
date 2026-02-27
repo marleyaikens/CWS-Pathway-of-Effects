@@ -22,6 +22,30 @@ read_mitigations <- function(file_name = "mitigations.xlsx", dir = NULL) {
   m
 }
 
+#' Read translations data
+#'
+#' Reads translations Excel file containing English to French translations for
+#' all UI elements, labels, and content in the app.
+#'
+#' @param file_name Character. Name of Excel file to read. Defaults to
+#'   "translations.xlsx".
+#' @param dir Character. Directory containing the file. Defaults to `NULL`
+#'   which uses package data or looks for the file in the current working
+#'   directory.
+#'
+#' @returns Data frame with columns:
+#' * `english` - English text
+#' * `french` - French translation
+#' * `note` - Optional note about the translation source
+#'
+#' @export
+#' @examplesIf have_data()
+#' read_translations()
+
+read_translations <- function(file_name = "translations.xlsx", dir = NULL) {
+  read_sheets(file_name, dir)
+}
+
 read_sheets <- function(file_name, dir = NULL) {
   if (is.null(dir)) {
     path <- system.file("extdata", file_name, package = "poe")
@@ -479,7 +503,7 @@ add_zoom <- function(x, id) {
 translate_text <- function(
   x,
   lang = "en",
-  dict = read_sheets("translations.xlsx")
+  dict = read_translations()
 ) {
   if (!lang %in% c("en", "fr")) {
     stop(
@@ -609,7 +633,7 @@ named_choices <- function(
   value,
   name = value,
   lang = "en",
-  dict = read_sheets("translations.xlsx")
+  dict = read_translations()
 ) {
   dict <- dict %||% getOption("poe.dict")
   stats::setNames(
