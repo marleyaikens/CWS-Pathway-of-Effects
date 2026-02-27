@@ -11,8 +11,8 @@ params:
     - "test"
   notes:
     - "All the notes I think I should include.\nAnd more!"
-  project_name: ""
-  project_status: ""
+  project_name: "Project"
+  project_status: "Status"
   lang: 
     - "en"
 title: "`r params$project_name`"
@@ -51,9 +51,8 @@ h4 {
 
 # DEVNOTES: Remember to rebuild package before testing!!
 
+library(poe)
 library(reactable)
-
-list.files("R", full.names = TRUE) |> lapply(source)
 
 vc <- params$vc
 a <- params$a

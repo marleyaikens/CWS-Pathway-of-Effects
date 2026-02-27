@@ -1,14 +1,104 @@
+#' Read pathway data
+#'
+#' Reads pathway Excel file containing nodes, labels, types, and levels for
+#' each valued component. Used to create pathways diagrams for different
+#' valued components and different stressors.
+#'
+#' @param file_name Character. Name of Excel file to read. Defaults to
+#'   "pathways.xlsx".
+#' @param dir Character. Directory containing the file. Defaults to `NULL`
+#'   which uses package data or looks for the file in the current working
+#'   directory.
+#'
+#' @returns Data frame with columns:
+#' * `valued_component` - Valued component name
+#' * `label` - Node label text
+#' * `level` - Hierarchical level for network layout
+#' * `type` - Node type (e.g., "pressures", "activities")
+#' * `node_id` - Node identifier
+#' * `leads_to` - Comma-separated list of child node IDs
+#' * `sort` - Optional sort order for within a level
+#'
+#' @export
+#' @examplesIf have_data()
+#' read_pathways()
+
 read_pathways <- function(file_name = "pathways.xlsx", dir = NULL) {
   read_sheets(file_name, dir)
 }
+
+#' Read activities data
+#'
+#' Reads activities Excel file containing activity names organized by sector.
+#' Used to create Sector drop down to pre-select activities.
+#'
+#' @param file_name Character. Name of Excel file to read. Defaults to
+#'   "activities.xlsx".
+#' @param dir Character. Directory containing the file. Defaults to `NULL`
+#'   which uses package data or looks for the file in the current working
+#'   directory.
+#'
+#' @returns Data frame with columns:
+#' * `activities` - Activity name
+#' * `sector` - Sector name
+#'
+#' @export
+#' @examplesIf have_data()
+#' read_activities()
 
 read_activities <- function(file_name = "activities.xlsx", dir = NULL) {
   read_sheets(file_name, dir)
 }
 
+#' Read components data
+#'
+#' Reads components Excel file containing the mapping among valued components,
+#' activities, and stressors. Used to create the stressors checkbox selections
+#' and to select which nodes are included in the diagram.
+#'
+#' @param file_name Character. Name of Excel file to read. Defaults to
+#'   "components.xlsx".
+#' @param dir Character. Directory containing the file. Defaults to `NULL`
+#'   which uses package data or looks for the file in the current working
+#'   directory.
+#'
+#' @returns Data frame with columns:
+#' * `valued_component` - Valued component name
+#' * `activities` - Activity name
+#' * `stressors` - Stressor name
+#'
+#' @export
+#' @examplesIf have_data()
+#' read_components()
+
 read_components <- function(file_name = "components.xlsx", dir = NULL) {
   read_sheets(file_name, dir)
 }
+
+#' Read mitigations data
+#'
+#' Reads mitigations Excel file containing mitigation descriptions and the
+#' edges they apply to. Creates edge IDs and mitigation IDs. Used to create
+#' mitigations checkboxes and to apply mitigations to the diagrams.
+#'
+#' @param file_name Character. Name of Excel file to read. Defaults to
+#'   "mitigations.xlsx".
+#' @param dir Character. Directory containing the file. Defaults to `NULL`
+#'   which uses package data or looks for the file in the current working
+#'   directory.
+#'
+#' @returns Data frame with columns:
+#' * `valued_component` - Valued component name
+#' * `start_node` - Starting node ID for mitigation edge
+#' * `end_node` - Ending node ID for mitigation edge
+#' * `short` - Short mitigation description
+#' * `long` - Long mitigation description
+#' * `edge_id` - Edge identifier (created from start and end nodes)
+#' * `m_id` - Mitigation identifier (created from VC and short description)
+#'
+#' @export
+#' @examplesIf have_data()
+#' read_mitigations()
 
 read_mitigations <- function(file_name = "mitigations.xlsx", dir = NULL) {
   m <- read_sheets(file_name, dir)
@@ -46,6 +136,20 @@ read_translations <- function(file_name = "translations.xlsx", dir = NULL) {
   read_sheets(file_name, dir)
 }
 
+#' Read and combine Excel sheets
+#'
+#' Internal function to read all sheets from an Excel file and combine them
+#' into a single data frame. Excludes sheets named "notes".
+#'
+#' @param file_name Character. Name of Excel file to read.
+#' @param dir Character. Directory containing the file. Defaults to `NULL`
+#'   which uses package data or looks for the file in the current working
+#'   directory.
+#'
+#' @returns Data frame. Combined data from all sheets.
+#'
+#' @noRd
+
 read_sheets <- function(file_name, dir = NULL) {
   if (is.null(dir)) {
     path <- system.file("extdata", file_name, package = "poe")
@@ -77,25 +181,26 @@ read_sheets <- function(file_name, dir = NULL) {
 
 #' Prepare pruned pathways from spreadsheet
 #'
-#' Based on full pathway diagrams, prune according to selections
+#' Based on full pathway diagrams, prune according to selections of valued
+#' component and activity to show only relevant pathways and stressors.
 #'
-#' @param pathways Data frame. Pathway diagrams loaded from `extdata/pathways`
-#' @param ref Data.frame. References data from `data/act2Pres.rds` including
-#'   Valued Components, Activities and Stressors.
-#' @param vc Character. Valued Component to select pathways for
-#' @param a Character. Activity to select pathways for
+#' @param pathways Data frame. Pathway diagrams from [read_pathways()].
+#' @param ref Data frame. Component reference data from [read_components()]
+#'   including valued components, activities, and stressors.
+#' @param vc Character. Valued component to select pathways for.
+#' @param a Character. Activity to select pathways for.
 #' @param lang Character. Language for display, "en" (English) or "fr" (French).
+#'   Defaults to "en".
 #'
-#' @returns
+#' @returns Named list with:
+#' * `nodes` - Data frame of nodes in the pruned pathway
+#' * `edges` - Data frame of edges in the pruned pathway
 #'
 #' @export
-#' @examples
-#' ref <- readRDS("inst/extdata/act2Pres.rds") |>  as.data.frame()
-#' ref <- read_components()
-#'
+#' @examplesIf have_data()
 #' prep_pathways(
 #'   read_pathways(),
-#'   ref,
+#'   read_components(),
 #'   vc = "Terrestrial and Semi-Aquatic SAR",
 #'   a = "Shoreline / Bank stabilization"
 #' )
@@ -128,10 +233,24 @@ prep_pathways <- function(pathways, ref, vc, a, lang = "en") {
   pruned
 }
 
-# Converts JSON output from Visio into R visual compatible nodes and
-# edges dataframes
-#
-# @param pathway - JSON of single valued component pathway
+#' Prepare pathway data for visNetwork
+#'
+#' Converts pathway data into the format required by visNetwork, including
+#' nodes and edges with proper formatting, colors, and layout information.
+#'
+#' @param pathway Data frame. Pathway data for a single valued component,
+#'   typically a subset of output from [read_pathways()].
+#'
+#' @returns Named list with:
+#' * `nodes` - Data frame of formatted nodes for visNetwork
+#' * `edges` - Data frame of edges connecting nodes
+#'
+#' @noRd
+#' @examplesIf have_data()
+#' p <- read_pathways()
+#' p <- p[p$valued_component == "Marine Birds", ]
+#' prep_visnetwork(p)
+
 prep_visnetwork <- function(pathway) {
   nodes <- pathway
   nodes$color.background <- node_colours()[nodes$type]
@@ -166,7 +285,7 @@ prep_visnetwork <- function(pathway) {
   nodes <- nodes[nodes[["id"]] %in% unique(c(edges[["from"]], edges[["to"]])), ]
 
   # Tweak sorting
-  if (any(!is.na(nodes[["sort"]]))) {
+  if (!all(is.na(nodes[["sort"]]))) {
     sort <- nodes[["sort"]][!is.na(nodes[["x"]])]
     id <- nodes[["id"]][!is.na(nodes[["x"]])]
     sort <- paste0(sort, "_", id)
@@ -184,10 +303,14 @@ prep_visnetwork <- function(pathway) {
 #' @param pathways Data frame. Pathways including 'valued_component', 'node_id',
 #'  and 'leads_to'. Converted to data frame of edges.
 #'
-#' @returns
+#' @returns Data frame with columns:
+#' * `from` - Starting node ID
+#' * `to` - Ending node ID
+#' * `id` - Edge identifier
+#' * `valued_component` - Valued component name
 #'
 #' @noRd
-#' @examples
+#' @examplesIf have_data()
 #' get_edges(read_pathways())
 
 get_edges <- function(pathways) {
@@ -211,14 +334,30 @@ get_edges <- function(pathways) {
   edges
 }
 
-# Recursive function:
-# find parent branches
-# if there are child branches, append edges and call same function
-# else stop and return compiled results filtering nodes as well
-#
-# @param ids - node IDs to search for
-# @param tree - full network/tree to search through
-# @param pruned - pruned branches to append to
+#' Recursively prune pathway branches
+#'
+#' Recursive function to find and retain only the branches that lead to
+#' specified node IDs, removing all other branches.
+#'
+#' @param ids Character vector. Node IDs to search for.
+#' @param tree Named list. Full network/tree to search through with `nodes` and
+#'   `edges` data frames.
+#' @param pruned Data frame. Pruned edges to append to. Defaults to `NULL`.
+#'
+#' @returns Named list with:
+#' * `nodes` - Data frame of filtered nodes
+#' * `edges` - Data frame of filtered edges
+#'
+#' @noRd
+#' @examplesIf have_data()
+#' p <- read_pathways()
+#' p <- p[p$valued_component == "Marine Birds", ]
+#' tree <- prep_visnetwork(p)
+#' ids <- tree$nodes$id[1:10]
+#' topBranch <- tree$edges
+#' topBranch <- topBranch[topBranch$from == tree$nodes$id[1] & topBranch$to %in% ids,]
+#' pruned <- prune_branches(ids = ids, tree = tree, pruned = topBranch)
+
 prune_branches <- function(ids, tree, pruned = NULL) {
   branch <- tree$edges[tree$edges$from %in% ids, ]
   if (nrow(branch) > 0) {
@@ -246,11 +385,10 @@ prune_branches <- function(ids, tree, pruned = NULL) {
 #' @returns visnetwork diagram
 #'
 #' @export
-#' @examples
-#' ref <- read_components()
+#' @examplesIf have_data()
 #' pathway <- prep_pathways(
 #'   read_pathways(),
-#'   ref,
+#'   read_components(),
 #'   vc = "Terrestrial and Semi-Aquatic SAR",
 #'   a = "Shoreline / Bank stabilization"
 #' )
@@ -283,45 +421,42 @@ make_visnetwork <- function(pathway, width = NULL, height = NULL) {
       )
     ) |>
     visNetwork::visPhysics(enabled = FALSE)
-  # visNetwork::visPhysics(
-  #   hierarchicalRepulsion = list(
-  #     damping = 1,
-  #     springConstant = 0,
-  #     springLength = 0
-  #   )
-  # )
 }
 
 
-#' Create Diagrammr mermaid flowchart
+#' [ON HOLD] Create Diagrammr mermaid flowchart
 #'
 #' @param pathway List. Current set of diagram pathways for a single component.
 #'
-#' @returns
+#' @returns DiagrammeR htmlwidget.
 #'
 #' @export
-#' @examples
-#' pathway <- prep_pathways(
-#'   read_pathways(),
-#'   read_components(),
-#'   vc = "Terrestrial and Semi-Aquatic SAR",
-#'   a = "Shoreline / Bank stabilization"
-#' )
-#'
-#' make_flowchart(pathway)
 
 make_flowchart <- function(pathway) {
   shiny::req(pathway)
-
-  flowchart <- convert_mermaid_flowchart(data.table::copy(pathway))
+  # ON HOLD
+  #pathway <- data.table::copy(pathway)
+  flowchart <- convert_mermaid_flowchart(pathway)
   flowchart |>
     DiagrammeR::DiagrammeR()
 }
 
+#' [ON HOLD] Create orthogonal graph
+#'
+#' Creates an orthogonal graph layout using DiagrammeR with orthogonal edge
+#' routing.
+#'
+#' @param pathway Named list. Pathway with `nodes` and `edges` data frames.
+#'
+#' @returns DiagrammeR graph object.
+#'
+#' @noRd
+
 make_orthogonal <- function(pathway) {
   shiny::req(pathway)
-
-  dot <- convert_to_dot(visNet = data.table::copy(pathway))
+  # ON HOLD
+  #pathway <- data.table::copy(pathway)
+  dot <- convert_to_dot(visNet = pathway)
   DiagrammeR::create_graph(
     nodes_df = dot[["nodes"]],
     edges_df = dot[["edges"]]
@@ -344,12 +479,20 @@ make_orthogonal <- function(pathway) {
     DiagrammeR::render_graph(layout = "tree", output = "graph")
 }
 
-# Wrapper for making the POE legend with ids for translations
-#
-# @param id - id for legend
-# @param colors - legend square colors
-# @param labels - legend text
-# @param size - size of squares
+#' Create pathway of effects legend
+#'
+#' Creates an HTML legend for the pathway diagram with color-coded squares and
+#' labels. IDs are structured to enable translation.
+#'
+#' @param id Character. Base ID for legend elements.
+#' @param colors Character vector. Legend square colors.
+#' @param labels Character vector. Legend text labels.
+#' @param size Numeric. Size of legend squares in pixels.
+#'
+#' @returns HTML div element containing legend.
+#'
+#' @noRd
+
 make_poe_legend <- function(id, colors, labels, size) {
   # id is semi hard-coded so the text can be found and translated
   legendItems <- Map(
@@ -363,9 +506,16 @@ make_poe_legend <- function(id, colors, labels, size) {
   )
   make_legend(legendItems)
 }
-# Wrapper for making the POE legend with ids for translations
-#
-# @param ... - list of items from make_legend_item
+#' Create legend container
+#'
+#' Creates an HTML div container for legend items.
+#'
+#' @param ... Legend items created by [make_legend_item()].
+#'
+#' @returns HTML div element.
+#'
+#' @noRd
+
 make_legend <- function(...) {
   tags$div(
     # id = "tree-legend",
@@ -374,10 +524,20 @@ make_legend <- function(...) {
     ...
   )
 }
-# Creates a legend item
-# @param color - color of square
-# @param text - text label
-# @param ... - named arguments to pass to text div
+#' Create individual legend item
+#'
+#' Creates an HTML element for a single legend item with colored square and
+#' text label.
+#'
+#' @param size Numeric. Size of square in pixels.
+#' @param color Character. Color of square.
+#' @param text Character. Text label.
+#' @param ... Named arguments to pass to text div.
+#'
+#' @returns HTML div element.
+#'
+#' @noRd
+
 make_legend_item <- function(size, color, text, ...) {
   tags$div(
     class = "d-flex align-items-center",
@@ -392,10 +552,20 @@ make_legend_item <- function(size, color, text, ...) {
     tags$div(text, class = "h6 m-0 p-0", ...)
   )
 }
-# Converts visNetwork data format to DOT language
-#
-# @param visNet - visNetwork data object
+#' [ON HOLD] Convert visNetwork format to DOT language
+#'
+#' Converts visNetwork data object to DOT language format for use with
+#' DiagrammeR.
+#'
+#' @param visNet Named list. visNetwork data object with `nodes` and `edges`
+#'   data frames.
+#'
+#' @returns Named list with formatted `nodes` and `edges` for DOT.
+#'
+#' @noRd
+
 convert_to_dot <- function(visNet) {
+  # ON HOLD
   #dot <- visNet[["nodes"]]
   visNet[["nodes"]][["id"]] <- as.integer(visNet[["nodes"]][["id"]])
   visNet[["nodes"]][["color"]] <- visNet[["nodes"]][["color.border"]]
@@ -410,12 +580,22 @@ convert_to_dot <- function(visNet) {
 
   visNet[["edges"]][["title"]] <- NULL
 }
-# Converts visNetwork data format to mermaid js graph specification
-#
-# @param visNet - visNetwork data object
+
+#' [ON HOLD] Convert visNetwork format to Mermaid.js specification
+#'
+#' Converts visNetwork data object to Mermaid.js graph specification string.
+#'
+#' @param visNet Named list. visNetwork data object with `nodes` and `edges`
+#'   data frames.
+#'
+#' @returns Character. Mermaid.js graph specification.
+#'
+#' @noRd
+
 convert_mermaid_flowchart <- function(visNet) {
-  visNet$nodes <- as.data.table(visNet$nodes)
-  visNet$edges <- as.data.table(visNet$edges)
+  # ON HOLD
+  #visNet$nodes <- as.data.table(visNet$nodes)
+  #visNet$edges <- as.data.table(visNet$edges)
   nodeSpec <- sprintf(
     "\tid%s(\"%s\")",
     visNet[["nodes"]][["id"]],
@@ -471,10 +651,17 @@ convert_mermaid_flowchart <- function(visNet) {
 
   sprintf("graph TB\n%s\n%s\n%s\n%s", nodeSpec, edgeSpec, styleSpec, linkStyle)
 }
-# Adds zoom functionality to an htmlwidget
-#
-# @param x - htmlwidget
-# @param id - id of widget
+#' Add zoom functionality to htmlwidget
+#'
+#' Adds SVG pan and zoom functionality to an htmlwidget using svg-pan-zoom.js.
+#'
+#' @param x htmlwidget. Widget to add zoom to.
+#' @param id Character. ID of widget element.
+#'
+#' @returns Modified htmlwidget with zoom functionality.
+#'
+#' @noRd
+
 add_zoom <- function(x, id) {
   htmlwidgets::onRender(
     x = x,
@@ -493,7 +680,7 @@ add_zoom <- function(x, id) {
 #' @param lang Character. Language for display, "en" (English) or "fr" (French).
 #' @param translations Data.frame. with columns "en" and "fr" for translations
 #'
-#' @returns
+#' @returns Character. Translated text (or original if lang is "en").
 #'
 #' @export
 #'
@@ -531,31 +718,34 @@ translate_text <- function(
 
 #' Add mitigations to pathways
 #'
-#' Disables nodes and edges downstream of a mitigation (disabled edge) which are
-#' not maintained by alternate pathways.
+#' Applies selected mitigations to a pathway diagram by visually disabling edges
+#' and nodes downstream of the mitigation points. Only nodes that are not
+#' maintained by alternate pathways are disabled.
 #'
-#' @param pathway List. Current set of diagram pathways for a single component.
-#' @param mitigations Data frame. Master list of mitigation metadata.
-#' @param m Character vector. Currently selected mitigations (refer to
-#' `short` in `mitigations`) to add to the pathway.
+#' @param pathway Named list. Pathway with `nodes` and `edges` data frames from
+#'   [prep_pathways()].
+#' @param mitigations Data frame. Mitigation metadata from [read_mitigations()].
+#' @param m Character vector. Mitigation IDs to apply (refer to `m_id` column
+#'   in `mitigations`).
 #' @param lang Character. Language for display, "en" (English) or "fr" (French).
+#'   Defaults to "en".
 #'
-#' @returns
+#' @returns Named list with:
+#' * `edges` - Data frame of edges with mitigations applied
+#' * `nodes` - Data frame of nodes with downstream nodes disabled
 #'
 #' @export
-#' @examples
+#' @examplesIf have_data()
 #' p <- prep_pathways(
 #'   read_pathways(),
 #'   read_components(),
 #'   vc = "Terrestrial and Semi-Aquatic SAR",
 #'   a = "Shoreline / Bank stabilization"
 #' )
+#' p1 <- add_mitigation(p, read_mitigations(), "Selective work")
 #'
 #' make_visnetwork(p)
-#'
-#' p1 <- add_mitigation(p, read_mitigations(), "Selective work")
 #' make_visnetwork(p1)
-#' make_flowchart(p1)
 
 add_mitigation <- function(pathway, mitigations, m, lang = "en") {
   shiny::req(pathway)
@@ -616,6 +806,18 @@ add_mitigation <- function(pathway, mitigations, m, lang = "en") {
   list("edges" = e, "nodes" = n)
 }
 
+#' Get all child nodes downstream of starting nodes
+#'
+#' Traverses the network graph to find all nodes downstream of the specified
+#' starting nodes.
+#'
+#' @param node_starts Character vector. Starting node IDs.
+#' @param edges Data frame. Edge data with `from` and `to` columns.
+#'
+#' @returns Character vector. All node IDs downstream of starting nodes.
+#'
+#' @noRd
+
 get_children <- function(node_starts, edges) {
   children <- c() # All nodes travelled through
 
@@ -628,6 +830,21 @@ get_children <- function(node_starts, edges) {
   }
   children
 }
+
+#' Create named choices with translations
+#'
+#' Creates a named vector for use in Shiny input choices, translating names
+#' based on language.
+#'
+#' @param value Character vector. Values for choices.
+#' @param name Character vector. Names for choices. Defaults to `value`.
+#' @param lang Character. Language code ("en" or "fr").
+#' @param dict Data frame. Translation dictionary. Defaults to reading
+#'   translations.xlsx.
+#'
+#' @returns Named character vector with translated names.
+#'
+#' @noRd
 
 named_choices <- function(
   value,

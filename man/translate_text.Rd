@@ -4,7 +4,7 @@
 \alias{translate_text}
 \title{Translates text from english to french}
 \usage{
-translate_text(x, lang = "en", dict = read_sheets("translations.xlsx"))
+translate_text(x, lang = "en", dict = read_translations())
 }
 \arguments{
 \item{x}{Character. English text to translate}
@@ -12,6 +12,9 @@ translate_text(x, lang = "en", dict = read_sheets("translations.xlsx"))
 \item{lang}{Character. Language for display, "en" (English) or "fr" (French).}
 
 \item{translations}{Data.frame. with columns "en" and "fr" for translations}
+}
+\value{
+Character. Translated text (or original if lang is "en").
 }
 \description{
 Translates text from english to french

@@ -7,11 +7,19 @@
 check_mitigations(mitigations = read_mitigations(), pathways = read_pathways())
 }
 \arguments{
-\item{pathways}{}
+\item{mitigations}{Data frame. Mitigations data from [read_mitigations()].}
+
+\item{pathways}{Data frame. Pathways data from [read_pathways()].}
+}
+\value{
+List with validation status (invisibly). Stops with error if
+  problems are found.
 }
 \description{
-Check mitigations file for problems
+Validates that all mitigation edges exist in the pathway data.
 }
 \examples{
+\dontshow{if (have_data()) withAutoprint(\{ # examplesIf}
 check_mitigations()
+\dontshow{\}) # examplesIf}
 }

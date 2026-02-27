@@ -2,23 +2,16 @@
 % Please edit documentation in R/functions.R
 \name{make_flowchart}
 \alias{make_flowchart}
-\title{Create Diagrammr mermaid flowchart}
+\title{[ON HOLD] Create Diagrammr mermaid flowchart}
 \usage{
 make_flowchart(pathway)
 }
 \arguments{
 \item{pathway}{List. Current set of diagram pathways for a single component.}
 }
-\description{
-Create Diagrammr mermaid flowchart
+\value{
+DiagrammeR htmlwidget.
 }
-\examples{
-pathway <- prep_pathways(
-  read_pathways(),
-  read_components(),
-  vc = "Terrestrial and Semi-Aquatic SAR",
-  a = "Shoreline / Bank stabilization"
-)
-
-make_flowchart(pathway)
+\description{
+[ON HOLD] Create Diagrammr mermaid flowchart
 }

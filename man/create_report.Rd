@@ -8,16 +8,45 @@ create_report(
   vc,
   a,
   m = NULL,
-  m_df = NULL,
+  m_df = read_mitigations(),
   notes = NULL,
+  project_name = "Project Placeholder",
+  project_status = "Status Placeholder",
   lang = lang,
   path = paste0("report_", Sys.Date(), ".html")
 )
 }
+\arguments{
+\item{vc}{Character. Valued component to include in report.}
+
+\item{a}{Character vector. Activities to include in report.}
+
+\item{m}{Character vector. Mitigation IDs to include. Defaults to `NULL`.}
+
+\item{m_df}{Data frame. Mitigation metadata. Defaults to [read_mitigations()]}
+
+\item{notes}{Character. User notes to include in report. Defaults to `NULL`.}
+
+\item{project_name}{Character. Project name for report header. Defaults to
+"Project Placeholder".}
+
+\item{project_status}{Character. Project status for report header. Defaults
+to "Status Placeholder".}
+
+\item{lang}{Character. Language code ("en" or "fr").}
+
+\item{path}{Character. Output file path. Defaults to
+`paste0("report_", Sys.Date(), ".html")`.}
+}
+\value{
+Character. Path to created HTML report file.
+}
 \description{
-Create html report of diagram
+Generates an HTML report showing the pathway diagram with selected
+mitigations and project information.
 }
 \examples{
+\dontshow{if (have_data()) withAutoprint(\{ # examplesIf}
 v <- "Terrestrial and Semi-Aquatic SAR"
 a <- c("Shoreline / Bank stabilization", "Water extraction")
 m <- c("terrestrial_and_semi-aquatic_sar_relocate", "terrestrial_and_semi-aquatic_sar_create_habitat")
@@ -26,25 +55,9 @@ create_report(v, a, m, m_df, lang = "en")
 create_report(v, a, m, m_df, lang = "fr")
 
 # No Mitigations
-create_report(
-  "Marine Birds",
-  "Aircraft overflights / runway activity",
-  lang = "en"
-)
-
-# Mitigations
-create_report(
-  vc = "Marine Birds",
-  a = "Aircraft overflights / runway activity",
-  m = "Mitigation",
-  m_df = data.frame(
-    start_node = NA,
-    end_node = NA,
-    edge = 67,
-    m_id = "vc_mitigation",
-    short = "Mitigation",
-    long = "Test"
-  ),
-  lang = "en"
-)
+v <- "Marine Birds"
+a <- "Aircraft overflights / runway activity"
+create_report(v, a, lang = "en")
+create_report(v, a, lang = "fr")
+\dontshow{\}) # examplesIf}
 }

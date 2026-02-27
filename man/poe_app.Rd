@@ -7,5 +7,11 @@
 poe_app()
 }
 \description{
-Launch the Pathways of Effect Shiny App
+Launches the app. Note that the App data must be in the current working
+directory for the app to work.
+}
+\examples{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+poe_app()
+\dontshow{\}) # examplesIf}
 }

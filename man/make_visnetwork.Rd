@@ -16,13 +16,14 @@ visnetwork diagram
 Create visnetwork interactive figure
 }
 \examples{
-ref <- read_components()
+\dontshow{if (have_data()) withAutoprint(\{ # examplesIf}
 pathway <- prep_pathways(
   read_pathways(),
-  ref,
+  read_components(),
   vc = "Terrestrial and Semi-Aquatic SAR",
   a = "Shoreline / Bank stabilization"
 )
 
 make_visnetwork(pathway)
+\dontshow{\}) # examplesIf}
 }

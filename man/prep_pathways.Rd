@@ -7,27 +7,34 @@
 prep_pathways(pathways, ref, vc, a, lang = "en")
 }
 \arguments{
-\item{pathways}{Data frame. Pathway diagrams loaded from `extdata/pathways`}
+\item{pathways}{Data frame. Pathway diagrams from [read_pathways()].}
 
-\item{ref}{Data.frame. References data from `data/act2Pres.rds` including
-Valued Components, Activities and Stressors.}
+\item{ref}{Data frame. Component reference data from [read_components()]
+including valued components, activities, and stressors.}
 
-\item{vc}{Character. Valued Component to select pathways for}
+\item{vc}{Character. Valued component to select pathways for.}
 
-\item{a}{Character. Activity to select pathways for}
+\item{a}{Character. Activity to select pathways for.}
 
-\item{lang}{Character. Language for display, "en" (English) or "fr" (French).}
+\item{lang}{Character. Language for display, "en" (English) or "fr" (French).
+Defaults to "en".}
+}
+\value{
+Named list with:
+* `nodes` - Data frame of nodes in the pruned pathway
+* `edges` - Data frame of edges in the pruned pathway
 }
 \description{
-Based on full pathway diagrams, prune according to selections
+Based on full pathway diagrams, prune according to selections of valued
+component and activity to show only relevant pathways and stressors.
 }
 \examples{
-ref <- readRDS("inst/extdata/act2Pres.rds") |>  as.data.frame()
-
+\dontshow{if (have_data()) withAutoprint(\{ # examplesIf}
 prep_pathways(
   read_pathways(),
-  ref,
+  read_components(),
   vc = "Terrestrial and Semi-Aquatic SAR",
   a = "Shoreline / Bank stabilization"
 )
+\dontshow{\}) # examplesIf}
 }

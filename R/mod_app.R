@@ -1,13 +1,20 @@
-###########################################################################
-#                                                                         #
-# Module                                                                  #
-#                                                                         #
-###########################################################################
-# User Interface module for pathways of effects
-#
-# @param id - module id
-# @param act2Pres - activity to pressures lookup table
-# @param htmlLabels - named vector with element IDs as names & labels as values
+#' User Interface module for pathways of effects
+#'
+#' Creates the Shiny UI for the Pathways of Effect app.
+#'
+#' @param id Character. Shiny Module ID.
+#' @param act2Pres Data frame. Components and activity to stressors lookup table.
+#' @param activities Data frame. Activities organized by sector.
+#' @param htmlLabels Named list. Element IDs as names and labels as values for
+#'   translation.
+#' @param legColors Character vector. Legend square colors.
+#' @param legText Character vector. Legend text labels.
+#' @param legSize Numeric. Size of legend squares in pixels.
+#'
+#' @returns Shiny module UI.
+#'
+#' @noRd
+
 poeUI <- function(
   id,
   act2Pres,
@@ -211,51 +218,62 @@ poeUI <- function(
           )
         )
       ),
-      nav_panel(
-        title = tags$div("Flowchart View", id = ns("tabFlowchart")),
-        DiagrammeR::DiagrammeROutput(
-          ns("pathwayFlowchart"),
-          width = "100%",
-          height = "100%"
-        ),
-        make_poe_legend(
-          id = ns("leg2"),
-          colors = legColors,
-          labels = legText,
-          size = legSize
-        )
-      ),
-      nav_panel(
-        title = tags$div("Orthogonal View", id = ns("tabOrthogonal")),
-        DiagrammeR::grVizOutput(
-          ns("pathwayOrthogonal"),
-          width = "100%",
-          height = "100%"
-        ),
-        make_poe_legend(
-          id = ns("leg3"),
-          colors = legColors,
-          labels = legText,
-          size = legSize
-        )
-      ),
+      # ON HOLD (logic for the flowcharts and orthoganal views are on hold)
+      # nav_panel(
+      #   title = tags$div("Flowchart View", id = ns("tabFlowchart")),
+      #   DiagrammeR::DiagrammeROutput(
+      #     ns("pathwayFlowchart"),
+      #     width = "100%",
+      #     height = "100%"
+      #   ),
+      #   make_poe_legend(
+      #     id = ns("leg2"),
+      #     colors = legColors,
+      #     labels = legText,
+      #     size = legSize
+      #   )
+      # ),
+      # nav_panel(
+      #   title = tags$div("Orthogonal View", id = ns("tabOrthogonal")),
+      #   DiagrammeR::grVizOutput(
+      #     ns("pathwayOrthogonal"),
+      #     width = "100%",
+      #     height = "100%"
+      #   ),
+      #   make_poe_legend(
+      #     id = ns("leg3"),
+      #     colors = legColors,
+      #     labels = legText,
+      #     size = legSize
+      #   )
+      # ),
       nav_spacer(),
       nav_item(radioButtons(
         inputId = ns("lang"),
         label = "",
-        choices = c("English" = "en", "Français" = "fr"),
+        choices = c("English" = "en", "Fran\\u00e7ais" = "fr"),
         inline = TRUE
       ))
     )
   )
 }
 
-# Server module for pathways of effects
-#
-# @param id - module id
-# @param act2Pres - activity to pressures lookup table
-# @param pathways - JSON of all pathways
-# @param htmlLabels - named vector with element IDs as names & labels as values
+#' Server module for pathways of effects
+#'
+#' Creates the Shiny server logic for the Pathways of Effect app.
+#'
+#' @param id Character. Shiny Module ID.
+#' @param act2Pres Data frame. Components and activity to stressors lookup table.
+#' @param mitigations Data frame. Mitigation data.
+#' @param pathways Data frame. Pathway diagrams.
+#' @param activities Data frame. Activities organized by sector.
+#' @param htmlLabels Named list. Element IDs as names and labels as values for
+#'   translation.
+#'
+#' @returns Shiny module Server.
+#'
+#' @noRd
+
 poeServer <- function(
   id,
   act2Pres,
@@ -269,18 +287,6 @@ poeServer <- function(
     ns <- session$ns
     htmlLabels <- stats::setNames(htmlLabels, ns(names(htmlLabels)))
     customMitigations <- reactiveVal(data.frame())
-
-    # TODO: Remove Developer Testing at end --------------------------------
-    # observe({
-    #   req(input$valuedComponent)
-    #   updateCheckboxGroupInput(
-    #     session,
-    #     "activities",
-    #     selected = "Land and Vegetation clearing and vegetation maintenance"
-    #   )
-    #   accordion_panel_close("ui", values = "a_vc")
-    #   #accordion_panel_open("ui", values = c("a_m", "a_r"))
-    # })
 
     ###########################################################################
     #                                                                         #
@@ -516,8 +522,6 @@ poeServer <- function(
       bindEvent(input$createMitigation)
 
     output$removeMitigationsUi <- renderUI({
-      # TODO: Programatically add buttons/observers for removing custom mitigations
-
       btns <- lapply(unique(customMitigations()$m_id), \(m) {
         # Mitigations with the same name, but different edge, treated as single
         # mitigation with mutliple paths

@@ -7,30 +7,38 @@
 add_mitigation(pathway, mitigations, m, lang = "en")
 }
 \arguments{
-\item{pathway}{List. Current set of diagram pathways for a single component.}
+\item{pathway}{Named list. Pathway with `nodes` and `edges` data frames from
+[prep_pathways()].}
 
-\item{mitigations}{Data frame. Master list of mitigation metadata.}
+\item{mitigations}{Data frame. Mitigation metadata from [read_mitigations()].}
 
-\item{m}{Character vector. Currently selected mitigations (refer to
-`short` in `mitigations`) to add to the pathway.}
+\item{m}{Character vector. Mitigation IDs to apply (refer to `m_id` column
+in `mitigations`).}
 
-\item{lang}{Character. Language for display, "en" (English) or "fr" (French).}
+\item{lang}{Character. Language for display, "en" (English) or "fr" (French).
+Defaults to "en".}
+}
+\value{
+Named list with:
+* `edges` - Data frame of edges with mitigations applied
+* `nodes` - Data frame of nodes with downstream nodes disabled
 }
 \description{
-Disables nodes and edges downstream of a mitigation (disabled edge) which are
-not maintained by alternate pathways.
+Applies selected mitigations to a pathway diagram by visually disabling edges
+and nodes downstream of the mitigation points. Only nodes that are not
+maintained by alternate pathways are disabled.
 }
 \examples{
+\dontshow{if (have_data()) withAutoprint(\{ # examplesIf}
 p <- prep_pathways(
   read_pathways(),
   read_components(),
   vc = "Terrestrial and Semi-Aquatic SAR",
   a = "Shoreline / Bank stabilization"
 )
+p1 <- add_mitigation(p, read_mitigations(), "Selective work")
 
 make_visnetwork(p)
-
-p1 <- add_mitigation(p, read_mitigations(), "Selective work")
 make_visnetwork(p1)
-make_flowchart(p1)
+\dontshow{\}) # examplesIf}
 }

@@ -118,8 +118,8 @@ test_that("make_flowchart() creates DiagrammeR object", {
     a = "Shoreline / Bank stabilization"
   )
 
+  skip("Flowcharts on hold")
   expect_silent(result <- make_flowchart(pathway))
-
   expect_s3_class(result, "DiagrammeR")
   expect_s3_class(result, "htmlwidget")
 })
@@ -136,8 +136,8 @@ test_that("make_orthogonal() creates graph object", {
     a = "Shoreline / Bank stabilization"
   )
 
+  skip("Orthogonal diagrams on hold")
   expect_silent(result <- make_orthogonal(pathway))
-
   expect_s3_class(result, "grViz")
   expect_s3_class(result, "htmlwidget")
 })

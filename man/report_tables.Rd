@@ -7,16 +7,18 @@
 report_tables(tbl, cols, lang)
 }
 \arguments{
-\item{tbl}{Data frame.}
+\item{tbl}{Data frame. Table data to format.}
 
-\item{cols}{Named character vector. Columns to keep in table, names become
-pretty column names.}
+\item{cols}{Named character vector. Columns to keep in table. Names become
+column headers.}
 
-\item{lang}{Character. 'en' or 'fr' language to translate values to.}
+\item{lang}{Character. Language code ("en" or "fr") for translations.}
 }
 \value{
-List of reactable tables
+Named list of reactable tables, one per unique value in first
+  column.
 }
 \description{
-Create list of tables for reports
+Creates list of reactable tables from data frame, split by first column and
+with translated labels.
 }

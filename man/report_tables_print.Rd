@@ -7,8 +7,14 @@
 report_tables_print(tbls)
 }
 \arguments{
-\item{tbls}{List of reactable tables created by `report_tables()`}
+\item{tbls}{Named list. List of reactable tables created by
+[report_tables()].}
+}
+\value{
+NULL (invisibly). Prints tables to output.
 }
 \description{
-Print a list of reactable tables in report
+Prints reactable tables with headers for use in Quarto reports. This
+function is used internally by the report template and is not intended to be
+called directly by the user.
 }

@@ -47,6 +47,22 @@ dictionary_update <- function() {
   )
 }
 
+#' Extract labels for translation
+#'
+#' Extracts unique text values from specified columns of a data frame for the
+#' translation dictionary.
+#'
+#' @param df Data frame. Source data to extract labels from.
+#' @param note Character. Note to add indicating source of labels.
+#' @param keep Character vector. Column names to extract labels from. Defaults
+#'   to `NULL` which uses all columns.
+#'
+#' @returns Data frame with columns:
+#' * `english` - Extracted text values
+#' * `note` - Source note
+#'
+#' @noRd
+
 extract_labels <- function(df, note, keep = NULL) {
   if (is.null(keep)) {
     keep <- names(df)

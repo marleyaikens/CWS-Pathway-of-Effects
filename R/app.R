@@ -2,10 +2,13 @@
 
 #' Launch the Pathways of Effect Shiny App
 #'
-#' @returns
+#' Launches the app. Note that the App data must be in the current working
+#' directory for the app to work.
 #'
 #' @export
-#' @examples
+#' @examplesIf interactive()
+#' poe_app()
+
 poe_app <- function() {
   # Activities to Stressors/Pressures Crosswalk
   # act2Pres <- readRDS("data/act2Pres.rds") |>

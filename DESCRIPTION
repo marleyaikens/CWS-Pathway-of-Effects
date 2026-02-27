@@ -8,16 +8,20 @@ Authors@R: c(
     )
 Description: Interactive explorer for Pathways of Effects diagram models developed by CWS to visually represent cause and effect relationships between project develpments and environmental components.
 Encoding: UTF-8
+Depends:
+    R (>= 4.1.0)
 Imports:
-    shiny,
+    shiny (>= 1.12.1),
     bslib (>= 0.8.0),
-    visNetwork,
-    jsonlite,
-    htmlwidgets,
-    DiagrammeR,
-    data.table,
-    readxl,
-    stringr (>= 1.5.1)
+    visNetwork (>= 2.1.2),
+    htmlwidgets (>= 1.6.4),
+    DiagrammeR (>= 1.0.11),
+    readxl (>= 1.4.5),
+    stringr (>= 1.6.0),
+    shinyjs (>= 2.1.1),
+    openxlsx (>= 4.2.8),
+    quarto (>= 1.5.1),
+    reactable (>= 0.4.5)
 RoxygenNote: 7.3.3
 License: MIT + file LICENSE
 Suggests: 

@@ -1,9 +1,25 @@
 #' Create html report of diagram
 #'
-#' @returns
+#' Generates an HTML report showing the pathway diagram with selected
+#' mitigations and project information.
+#'
+#' @param vc Character. Valued component to include in report.
+#' @param a Character vector. Activities to include in report.
+#' @param m Character vector. Mitigation IDs to include. Defaults to `NULL`.
+#' @param m_df Data frame. Mitigation metadata. Defaults to [read_mitigations()]
+#' @param notes Character. User notes to include in report. Defaults to `NULL`.
+#' @param project_name Character. Project name for report header. Defaults to
+#'   "Project Placeholder".
+#' @param project_status Character. Project status for report header. Defaults
+#'   to "Status Placeholder".
+#' @param lang Character. Language code ("en" or "fr").
+#' @param path Character. Output file path. Defaults to
+#'   `paste0("report_", Sys.Date(), ".html")`.
+#'
+#' @returns Character. Path to created HTML report file.
 #'
 #' @export
-#' @examples
+#' @examplesIf have_data()
 #' v <- "Terrestrial and Semi-Aquatic SAR"
 #' a <- c("Shoreline / Bank stabilization", "Water extraction")
 #' m <- c("terrestrial_and_semi-aquatic_sar_relocate", "terrestrial_and_semi-aquatic_sar_create_habitat")
@@ -12,43 +28,22 @@
 #' create_report(v, a, m, m_df, lang = "fr")
 #'
 #' # No Mitigations
-#' create_report(
-#'   "Marine Birds",
-#'   "Aircraft overflights / runway activity",
-#'   lang = "en"
-#' )
-#'
-#' # Mitigations
-#' create_report(
-#'   vc = "Marine Birds",
-#'   a = "Aircraft overflights / runway activity",
-#'   m = "Mitigation",
-#'   m_df = data.frame(
-#'     start_node = NA,
-#'     end_node = NA,
-#'     edge = 67,
-#'     m_id = "vc_mitigation",
-#'     short = "Mitigation",
-#'     long = "Test"
-#'   ),
-#'   lang = "en"
-#' )
+#' v <- "Marine Birds"
+#' a <- "Aircraft overflights / runway activity"
+#' create_report(v, a, lang = "en")
+#' create_report(v, a, lang = "fr")
 
 create_report <- function(
   vc,
   a,
   m = NULL,
-  m_df = NULL,
+  m_df = read_mitigations(),
   notes = NULL,
-  project_name = NULL,
-  project_status = NULL,
+  project_name = "Project Placeholder",
+  project_status = "Status Placeholder",
   lang = lang,
   path = paste0("report_", Sys.Date(), ".html")
 ) {
-  if (!is.null(m) && is.null(m_df)) {
-    m_df <- read_mitigations()
-  }
-
   if (!is.null(m_df)) {
     m_df <- unique(m_df)
     m_df <- lapply(m_df, \(col) {
@@ -83,12 +78,16 @@ create_report <- function(
 
 #' Create list of tables for reports
 #'
-#' @param tbl Data frame.
-#' @param cols Named character vector. Columns to keep in table, names become
-#'   pretty column names.
-#' @param lang Character. 'en' or 'fr' language to translate values to.
+#' Creates list of reactable tables from data frame, split by first column and
+#' with translated labels.
 #'
-#' @returns List of reactable tables
+#' @param tbl Data frame. Table data to format.
+#' @param cols Named character vector. Columns to keep in table. Names become
+#'   column headers.
+#' @param lang Character. Language code ("en" or "fr") for translations.
+#'
+#' @returns Named list of reactable tables, one per unique value in first
+#'   column.
 #'
 #' @export
 #' @examples
@@ -105,12 +104,14 @@ report_tables <- function(tbl, cols, lang) {
   r <- lapply(
     tbl,
     \(x) {
-      reactable(
+      reactable::reactable(
         x[, -1],
-        defaultColDef = colDef(header = \(h) translate_text(h, lang = lang)),
+        defaultColDef = reactable::colDef(header = \(h) {
+          translate_text(h, lang = lang)
+        }),
         searchable = TRUE,
         filterable = TRUE,
-        language = reactableLang(
+        language = reactable::reactableLang(
           searchPlaceholder = translate_text("Search", lang = lang),
           pageNext = translate_text("Next", lang = lang),
           pagePrevious = translate_text("Previous", lang = lang),
@@ -130,18 +131,22 @@ report_tables <- function(tbl, cols, lang) {
 
 #' Print a list of reactable tables in report
 #'
-#' @param tbls List of reactable tables created by `report_tables()`
+#' Prints reactable tables with headers for use in Quarto reports. This
+#' function is used internally by the report template and is not intended to be
+#' called directly by the user.
 #'
-#' @returns
+#' @param tbls Named list. List of reactable tables created by
+#'   [report_tables()].
+#'
+#' @returns NULL (invisibly). Prints tables to output.
 #'
 #' @export
-#' @examples
 report_tables_print <- function(tbls) {
-  for (i in seq_along(r)) {
-    cat("###", names(r)[i], "\n\n")
+  for (i in seq_along(tbls)) {
+    cat("###", names(tbls)[i], "\n\n")
     cat("\n\n```{=html}\n\n")
 
-    shiny::tagList(r[[i]]) |> print()
+    shiny::tagList(tbls[[i]]) |> print()
 
     cat("\n\n```\n\n")
   }
