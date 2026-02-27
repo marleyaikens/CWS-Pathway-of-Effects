@@ -15,7 +15,7 @@ Therefore:
 3. Open the project
 4. Install the Shiny app
     - First install the 'pak' package. Type `install.packages('pak')` in the console and hit enter. Wait until the installation is complete.
-    - Second install the testing version of the 'poe' package. Type `pak::pkg_install("marleyaikens/CWS-Pathway-of-Effects@dev-mitigations")` in the console and hit enter. Wait until the installation is complete. If you are asked to update any packages, please do so.
+    - Second install the testing version of the 'poe' package. Type `pak::pkg_install("marleyaikens/CWS-Pathway-of-Effects@dev-mitigations")` in the console and hit enter. Wait until the installation is complete. If you are asked to update any packages, or to install Rtools, please do so.
 4. Run the app by typing `poe::poe_app()` in the console and hit enter.
 
 To test creating custom pathways, read the following instructions, modify the files,
