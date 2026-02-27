@@ -53,11 +53,16 @@ create_report <- function(
   }
 
   # Write to temp dir, copy back to Shiny download handler file
-  #template <- file.path(tempdir(), "report_template.qmd")
-  #file.copy("report_template.qmd", template)
+  template <- file.path(tempdir(), "report_template.qmd")
+  report_out <- file.path(tempdir(), "report.html")
+
+  file.copy(
+    system.file("extdata", "report_template.qmd", package = "poe"),
+    template
+  )
 
   quarto::quarto_render(
-    system.file("extdata", "report_template.qmd", package = "poe"),
+    template,
     output_file = "report.html",
     execute_params = list(
       vc = vc,
@@ -70,8 +75,8 @@ create_report <- function(
       lang = lang
     )
   )
-  file.copy("report.html", path, overwrite = TRUE)
-  file.remove("report.html")
+  file.copy(report_out, path, overwrite = TRUE)
+  file.remove(report_out)
 
   path
 }
@@ -90,7 +95,6 @@ create_report <- function(
 #'   column.
 #'
 #' @export
-#' @examples
 report_tables <- function(tbl, cols, lang) {
   tbl <- tbl[, cols] |>
     unique() |> # Don't remove duplicated untranslated labels
