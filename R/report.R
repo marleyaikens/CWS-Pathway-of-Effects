@@ -60,10 +60,17 @@ create_report <- function(
   template <- file.path(tempdir(), "report_template.qmd")
   report_out <- file.path(tempdir(), "report.html")
 
-  file.copy(
-    data_location("translations.xlsx"),
-    file.path(tempdir(), "translations.xlsx")
-  )
+  # Copy over data files to create report
+  for (d in c(
+    "translations.xlsx",
+    "components.xlsx",
+    "mitigations.xlsx",
+    "pathways.xlsx" # Do not require sectors.xlsx
+  )) {
+    file.copy(data_location(d), file.path(tempdir(), d))
+  }
+
+  # Copy over report template
   file.copy(
     system.file("extdata", "report_template.qmd", package = "poe"),
     template
