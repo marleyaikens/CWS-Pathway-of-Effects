@@ -1,17 +1,23 @@
-This file details code design choices of the second iteration of this tool (v.0.2.0)
+# Developer Code Design Notes
 
-## General Notes
+This file contains a loose collection of code design choices of the second iteration of this tool (v.0.2.0).
 
-- This project is not an R package, but we use a DESCRIPTION file and a R folder
-  similar to in R packages to organize functions and track dependencies and versions.
+This is primarily meant for future *developers* of this app.
 
-## Run in terminal
-- This runs in terminal while standardizing the port so you can use the browser refresh as you go
--  `R -q -e "shiny::runApp(port = 8080)"`
+## Data Files
+- Currently, the app builds upon the files: 
+  - sectors.xlsx
+  - components.xlsx
+  - mitigations.xlsx
+  - pathways.xlsx
+  - translations.xlsx
+  - ui_labels.xlsx
+- In future, all could be bundled with the package in `inst/extdata`, but currently, to allow easier testing of changes, all but `ui_labels.xlsx` will be provided to users and the `read_sheets()` function will first look in `extdata` and will *then* look in the working directory.
+- Developers working on this app, may find it easier to store these files all
+  in the inst/extdata, but to add exclusions to .git/info/exclude to prevent them 
+  from being pushed to GitHub (just don't forget to remove these exclusions when 
+  ready to publish the data in the app!)
 
-## Locations
-- Functions to run this app can be found in the `R` folder.
-- The top-level `app.R` file contains configuration instructions and launches the Shiny App.
 
 ## visNetwork quirks
 - You can turn vis.js events into Shiny inputs using JS (this is how custom mitigations are added)
@@ -21,14 +27,21 @@ This file details code design choices of the second iteration of this tool (v.0.
   edge labels must start as " ". For what ever reason, `NA` and "" aren't updated when removing a mitigation edge label
     - possibly a bug in vis.js? https://github.com/visjs/vis-network/issues/1450
 
+# Other diagrams
+- The app only shows the interactive diagrams but code to create the flowchart and orthogonal views are still present
+- However, the orthogonal views need some work to ensure they work with more recent 
+  changes to the nodes structure
+- Further, either may depend on using data.table, a package which has been removed as a dependency (so to renable these diagrams, the code would need to be modified to not use data.table, OR data.table would need to be added as a dependency to the DESCRIPTION)
+
 ## Translations
 
 Translations need to be filled out in the `translations.xlsx` file. This file
 contains text that needs to be translated. It serves as both the dictionary used
 by the app as well as a list of text potentially requiring translation (pre-filled with 'FR' as a placeholder).
-This file is updated (without removing prior translations) automatically everytime 
-the app runs. It pulls text from the data (i.e., `mititgations.xlsx`, `components.xlsx`, and `pathways.xlsx`) as well as from `ui_labels.xlsx`.
 
+This file can be updated by running `dictionary_update()` which pulls text from the data (i.e., `mititgations.xlsx`, `components.xlsx`, and `pathways.xlsx`) as well as from `ui_labels.xlsx`.
+
+When the app is launched the dictionary option (`poe.dict`) is set to be the translations data frame.
 To ensure that translations are functioning, there are three files which need to be manually updated.
 
 1. `ui_labels.xlsx` - This is where all non-data translatable text needs to be listed. This includes lables on the Shiny App UI as well as UI text from the reports.

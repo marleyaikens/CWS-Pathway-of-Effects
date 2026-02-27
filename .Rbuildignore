@@ -5,3 +5,4 @@
 ^\_archive$
 ^\.vscode$
 ^air\.toml$
+^custom_data.md$
