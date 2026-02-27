@@ -51,6 +51,149 @@ check_mitigations <- function(
   invisible(list(TRUE, "")) # For capturing the message in the Shiny app
 }
 
+#' Check pathways file for problems
+#'
+#' Placeholder function to validate that valued components have paths to all
+#' listed stressors. Not yet implemented.
+#'
+#' @returns NULL.
+#'
+#' @noRd
+
+check_pathways <- function(pathways = read_pathways()) {
+  # Downstream nodes exist
+  p <- split(pathways, pathways$valued_component)
+  e <- get_edges(pathways)
+  e <- split(e, e$valued_component)
+
+  nodes_good <- sapply(e, \(x) {
+    ids <- p[[x$valued_component[1]]]$node_id
+    all(x$from %in% ids & x$to %in% ids)
+  })
+
+  msg <- ""
+  if (!all(nodes_good)) {
+    w <- names(nodes_good)[!nodes_good]
+    msg <- c(
+      msg,
+      "Some 'lead_to' include node ids which don't exist in that valued component: ",
+      paste0(w, collapse = ", ")
+    )
+  }
+
+  if (msg != "") {
+    stop(msg, call. = FALSE)
+  }
+}
+
+check_activities <- function(
+  components = read_components(),
+  sectors = read_sectors()
+) {
+  a_c <- unique(components$activities)
+  a_s <- unique(sectors$activities)
+
+  # All sector activities must be in components (but not vice versa)
+  if (!all(a_s %in% a_c)) {
+    stop(
+      "Some activities in sectors.xlsx are not in components.xlsx:",
+      paste0(a_s[!a_s %in% a_c], collapse = ", "),
+      call. = FALSE
+    )
+  }
+}
+
+check_stressors <- function(
+  pathways = read_pathways(),
+  components = read_components()
+) {
+  p <- split(
+    pathways[, c("valued_component", "label", "type")],
+    pathways$valued_component
+  )
+  c <- split(
+    components[, c("valued_component", "stressors")],
+    components$valued_component
+  )
+
+  s_good <- lapply(names(p), \(v) {
+    s_p <- p[[v]]$label[p[[v]]$type == "stressor"] |> unique()
+    s_c <- c[[v]]$stressors |> unique()
+
+    c(all(s_p %in% s_c), all(s_c %in% s_p))
+  })
+
+  # Tests
+  #s_good[[1]][2] <- FALSE
+  #s_good[[4]][1] <- FALSE
+
+  if (!all(unlist(s_good))) {
+    p1 <- names(p)[sapply(s_good, \(x) !x[1])]
+    p2 <- names(p)[sapply(s_good, \(x) !x[2])]
+    msg <- ""
+    if (length(p1) > 0) {
+      msg <- c(
+        msg,
+        "Some stressors in pathways.xlsx not in components.xlsx: ",
+        paste0(p1, collapse = ", "),
+        "\n"
+      )
+    }
+    if (length(p2) > 0) {
+      msg <- c(
+        msg,
+        "Some stressors in components.xlsx not in pathways.xlsx: ",
+        paste0(p2, collapse = ", "),
+        "\n"
+      )
+    }
+    stop(msg, call. = FALSE)
+  }
+}
+
+check_components <- function(
+  pathways = read_pathways(),
+  components = read_components(),
+  mitigations = check_mitigations()
+) {
+  v_p <- pathways$valued_component |> unique()
+  v_c <- components$valued_component |> unique()
+  v_m <- mitigations$valued_component |> unique()
+
+  # For testing
+  #v_p <- "other"
+
+  msg <- ""
+  if (!all(v_p %in% v_c)) {
+    msg <- c(
+      msg,
+      "Some components in pathways.xlsx not in components.xlsx: ",
+      paste0(v_p[!v_p %in% v_c], collapse = ", "),
+      "\n"
+    )
+  }
+  if (!all(v_c %in% v_p)) {
+    msg <- c(
+      msg,
+      "Some components in components.xlsx not in pathways.xlsx: ",
+      paste0(v_c[!v_c %in% v_p], collapse = ", "),
+      "\n"
+    )
+  }
+  if (!all(v_m %in% c(v_p, v_c))) {
+    msg <- c(
+      msg,
+      "Some components in mitigations.xlsx not in pathways.xlsx or components.xlsx: ",
+      paste0(v_pm[!v_m %in% c(v_c, v_p)], collapse = ", "),
+      "\n"
+    )
+  }
+
+  if (length(msg) > 1) {
+    stop(msg, call. = FALSE)
+  }
+}
+
 #' Get node color palette
 #'
 #' Returns a named vector of colors for different node types in the pathway
@@ -141,18 +284,6 @@ poe_theme <- function() {
     )
 }
 
-#' Check pathways file for problems
-#'
-#' Placeholder function to validate that valued components have paths to all
-#' listed stressors. Not yet implemented.
-#'
-#' @returns NULL.
-#'
-#' @noRd
-
-check_pathways <- function() {
-  # Expect that a Valued Component has a path to each stressor listed
-}
 
 #' Check if package data files are available
 #'
@@ -165,7 +296,7 @@ check_pathways <- function() {
 
 have_data <- function() {
   m <- try(read_mitigations(), silent = TRUE)
-  a <- try(read_activities(), silent = TRUE)
+  a <- try(read_sectors(), silent = TRUE)
   vc <- try(read_components(), silent = TRUE)
   p <- try(read_pathways(), silent = TRUE)
   t <- try(read_translations(), silent = TRUE)

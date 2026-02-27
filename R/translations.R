@@ -15,7 +15,7 @@ dictionary_update <- function() {
   names(labs)[names(labs) == "label"] <- "english"
   components <- read_components() |>
     extract_labels("components etc.")
-  sectors <- read_activities() |>
+  sectors <- read_sectors() |>
     extract_labels("sectors")
 
   pathways <- read_pathways() |>

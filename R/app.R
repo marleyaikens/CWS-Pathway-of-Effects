@@ -10,10 +10,13 @@
 #' poe_app()
 
 poe_app <- function() {
-  # Activities to Stressors/Pressures Crosswalk
-  # act2Pres <- readRDS("data/act2Pres.rds") |>
-  #   as.data.frame()
+  check_components()
+  check_pathways()
+  check_activities()
+  check_stressors()
+  check_mitigations()
 
+  # Activities to Stressors/Pressures
   act2Pres <- read_components()
 
   # Mitigations - Ensuring unique ids
@@ -23,7 +26,7 @@ poe_app <- function() {
   pathways <- read_pathways()
 
   # Activities by sector
-  activities <- read_activities()
+  activities <- read_sectors()
 
   # Translations -----------------------------------------------
   dict <- read_translations()

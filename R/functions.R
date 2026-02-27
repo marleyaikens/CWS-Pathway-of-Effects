@@ -33,7 +33,7 @@ read_pathways <- function(file_name = "pathways.xlsx", dir = NULL) {
 #' Used to create Sector drop down to pre-select activities.
 #'
 #' @param file_name Character. Name of Excel file to read. Defaults to
-#'   "activities.xlsx".
+#'   "sectors.xlsx".
 #' @param dir Character. Directory containing the file. Defaults to `NULL`
 #'   which uses package data or looks for the file in the current working
 #'   directory.
@@ -44,9 +44,9 @@ read_pathways <- function(file_name = "pathways.xlsx", dir = NULL) {
 #'
 #' @export
 #' @examplesIf have_data()
-#' read_activities()
+#' read_sectors()
 
-read_activities <- function(file_name = "activities.xlsx", dir = NULL) {
+read_sectors <- function(file_name = "sectors.xlsx", dir = NULL) {
   read_sheets(file_name, dir)
 }
 
