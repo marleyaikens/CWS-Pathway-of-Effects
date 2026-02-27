@@ -3,3 +3,6 @@
 ^DEVTESTS.R^
 ^CODE-DESIGN.md$
 ^LICENSE\.md$
+^\_archive$
+^\.vscode$
+^air\.toml$

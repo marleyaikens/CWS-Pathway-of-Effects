@@ -1,6 +1,7 @@
 # Test read functions --------------------------------------------------------
 
 test_that("read_pathways() reads pathway data", {
+  skip_if_no_data()
   expect_silent(pathways <- read_pathways())
 
   expect_s3_class(pathways, "data.frame")
@@ -9,6 +10,7 @@ test_that("read_pathways() reads pathway data", {
 })
 
 test_that("read_components() reads component data", {
+  skip_if_no_data()
   expect_silent(components <- read_components())
 
   expect_s3_class(components, "data.frame")
@@ -16,6 +18,7 @@ test_that("read_components() reads component data", {
 })
 
 test_that("read_mitigations() reads mitigation data", {
+  skip_if_no_data()
   expect_silent(mitigations <- read_mitigations())
 
   expect_s3_class(mitigations, "data.frame")
@@ -27,6 +30,7 @@ test_that("read_mitigations() reads mitigation data", {
 # Test prep functions --------------------------------------------------------
 
 test_that("prep_pathways()", {
+  skip_if_no_data()
   pathways <- read_pathways()
   components <- read_components()
 
@@ -48,6 +52,7 @@ test_that("prep_pathways()", {
 })
 
 test_that("prep_visnetwork()", {
+  skip_if_no_data()
   pathways <- read_pathways()
   pathway <- pathways[
     pathways$valued_component == "Terrestrial and Semi-Aquatic SAR",
@@ -65,6 +70,7 @@ test_that("prep_visnetwork()", {
 
 
 test_that("prep_pathways() translated", {
+  skip_if_no_data()
   pathways <- read_pathways()
   components <- read_components()
 
@@ -83,6 +89,7 @@ test_that("prep_pathways() translated", {
 # Test make functions --------------------------------------------------------
 
 test_that("make_visnetwork() creates visNetwork object", {
+  skip_if_no_data()
   pathways <- read_pathways()
   components <- read_components()
 
@@ -100,6 +107,7 @@ test_that("make_visnetwork() creates visNetwork object", {
 })
 
 test_that("make_flowchart() creates DiagrammeR object", {
+  skip_if_no_data()
   pathways <- read_pathways()
   components <- read_components()
 
@@ -117,6 +125,7 @@ test_that("make_flowchart() creates DiagrammeR object", {
 })
 
 test_that("make_orthogonal() creates graph object", {
+  skip_if_no_data()
   pathways <- read_pathways()
   components <- read_components()
 
@@ -136,6 +145,7 @@ test_that("make_orthogonal() creates graph object", {
 # Test helper functions ------------------------------------------------------
 
 test_that("get_edges() extracts edges from pathways", {
+  skip_if_no_data()
   pathways <- read_pathways()
 
   expect_silent(edges <- get_edges(pathways))
@@ -150,6 +160,7 @@ test_that("get_edges() extracts edges from pathways", {
 })
 
 test_that("add_mitigation() adds mitigations to pathway", {
+  skip_if_no_data()
   pathways <- read_pathways()
   components <- read_components()
   mitigations <- read_mitigations()
@@ -174,6 +185,7 @@ test_that("add_mitigation() adds mitigations to pathway", {
 })
 
 test_that("translate_text() translates to French", {
+  skip_if_no_data()
   dict <- data.frame(
     english = c("Hello", "World"),
     french = c("Bonjour", "Monde")
@@ -185,6 +197,7 @@ test_that("translate_text() translates to French", {
 })
 
 test_that("translate_text() returns English unchanged", {
+  skip_if_no_data()
   dict <- data.frame(
     english = c("Hello", "World"),
     french = c("Bonjour", "Monde")

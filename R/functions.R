@@ -28,6 +28,22 @@ read_sheets <- function(file_name, dir = NULL) {
   } else {
     path <- file.path(dir, file_name)
   }
+
+  if (!file.exists(path)) {
+    dir <- "."
+    path <- file.path(dir, file_name)
+    if (!file.exists(path)) {
+      stop(
+        "Cannot find ",
+        file_name,
+        " in ",
+        normalizePath(dir),
+        "\nEnsure that App Data files are in the working directory.",
+        call. = FALSE
+      )
+    }
+  }
+
   sheets <- readxl::excel_sheets(path)
   sheets <- sheets[tolower(sheets) != "notes"]
   s <- lapply(sheets, \(x) readxl::read_excel(path, sheet = x))
@@ -51,6 +67,7 @@ read_sheets <- function(file_name, dir = NULL) {
 #' @export
 #' @examples
 #' ref <- readRDS("inst/extdata/act2Pres.rds") |>  as.data.frame()
+#' ref <- read_components()
 #'
 #' prep_pathways(
 #'   read_pathways(),

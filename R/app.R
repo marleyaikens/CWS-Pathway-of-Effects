@@ -11,9 +11,6 @@ poe_app <- function() {
   # act2Pres <- readRDS("data/act2Pres.rds") |>
   #   as.data.frame()
 
-  # Check and update dictionary
-  dictionary_update()
-
   act2Pres <- read_components()
 
   # Mitigations - Ensuring unique ids

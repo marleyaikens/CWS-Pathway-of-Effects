@@ -123,6 +123,23 @@ check_pathways <- function() {
   # Expect that a Valued Component has a path to each stressor listed
 }
 
+skip_if_no_data <- function() {
+  m <- try(read_mitigations(), silent = TRUE)
+  a <- try(read_activities(), silent = TRUE)
+  vc <- try(read_components(), silent = TRUE)
+  p <- try(read_pathways(), silent = TRUE)
+  if (
+    inherits(m, "try-error") ||
+      inherits(a, "try-error") ||
+      inherits(vc, "try-error") ||
+      inherits(p, "try-error")
+  ) {
+    testthat::skip("No data")
+  } else {
+    invisible()
+  }
+}
+
 is_ready <- function(r) {
   tryCatch(!is.null(r()), error = \(e) FALSE)
 }

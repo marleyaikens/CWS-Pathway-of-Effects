@@ -46,7 +46,7 @@ create_report <- function(
   path = paste0("report_", Sys.Date(), ".html")
 ) {
   if (!is.null(m) && is.null(m_df)) {
-    m_df <- readxl::read_excel("data/mitigations.xlsx")
+    m_df <- read_mitigations()
   }
 
   if (!is.null(m_df)) {
@@ -57,15 +57,12 @@ create_report <- function(
     })
   }
 
-  # Check and update dictionary
-  dictionary_update()
-
   # Write to temp dir, copy back to Shiny download handler file
   #template <- file.path(tempdir(), "report_template.qmd")
   #file.copy("report_template.qmd", template)
 
   quarto::quarto_render(
-    "report_template.qmd",
+    system.file("extdata", "report_template.qmd", package = "poe"),
     output_file = "report.html",
     execute_params = list(
       vc = vc,
