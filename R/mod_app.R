@@ -79,19 +79,11 @@ poeUI <- function(
             selectInput(
               inputId = ns("valuedComponent"),
               label = NULL,
-              choices = unique(act2Pres$valued_component),
+              choices = c(" " = "", unique(act2Pres$valued_component)),
               selected = ""
             ),
             # Sector ------------------------------------------------
-            selectInput(
-              inputId = ns("sector"),
-              label = NULL, #span(
-              #id = ns("sectorLabel"),
-              # htmlLabels[["sectorLabel"]]
-              #),
-              choices = unique(activities$sector[!is.na(activities$sector)]),
-              selected = ""
-            ),
+            uiOutput(outputId = ns("sectorsUi")),
             # Activities ---------------------------------------------
             uiOutput(outputId = ns("activitiesUi"))
           ),
@@ -251,7 +243,7 @@ poeUI <- function(
       nav_item(radioButtons(
         inputId = ns("lang"),
         label = "",
-        choices = c("English" = "en", "Fran\\u00e7ais" = "fr"),
+        choices = c("English" = "en", "Fran\u00e7ais" = "fr"),
         inline = TRUE
       ))
     )
@@ -336,6 +328,19 @@ poeServer <- function(
         choices = named_choices(choices, lang = isolate(input$lang)),
         selected = activities$activities[activities$sector == input$sector],
         width = "100%"
+      )
+    })
+
+    ## Sectors ------------------------------------------
+    output$sectorsUi <- renderUI({
+      selectInput(
+        inputId = ns("sector"),
+        label = NULL,
+        choices = c(
+          stats::setNames("", translate_text("Sector", input$lang)),
+          unique(activities$sector[!is.na(activities$sector)])
+        ),
+        selected = translate_text("Sector", input$lang)
       )
     })
 
