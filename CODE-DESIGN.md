@@ -27,6 +27,9 @@ This is primarily meant for future *developers* of this package.
   edge labels must start as " ". For what ever reason, `NA` and "" aren't updated when removing a mitigation edge label
     - possibly a bug in vis.js? https://github.com/visjs/vis-network/issues/1450
 
+## Colour and things
+- The nodes and mitigation pathway colours are defined in `R/utils` in `node_colours()` and `mitigated_colours()`
+
 # Other diagrams
 - The UI only shows the interactive diagrams but code to create the flowchart and orthogonal views are still present
 - However, the orthogonal views need some work to ensure they work with more recent 

@@ -216,6 +216,14 @@ node_colours <- function() {
   )
 }
 
+mitigated_colours <- function() {
+  c(
+    edge = "#e3e3e3",
+    background = "#e3e3e3",
+    border = "#d5d5d5",
+    text = "#646464" # "#d5d5d5"  # Older, lighter version
+  )
+}
 
 #' Create PoE Shiny UI theme
 #'

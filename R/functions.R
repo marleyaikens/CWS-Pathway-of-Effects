@@ -787,12 +787,12 @@ add_mitigation <- function(pathway, mitigations, m, lang = "en") {
   e_disabled <- e$label != " " | e$from %in% n$id[n_disabled]
 
   # Visually disable edges
-  e$color[e_disabled] <- "#e3e3e3"
+  e$color[e_disabled] <- mitigated_colours()[["edge"]]
 
   # Visually disable nodes
-  n$color.background[n_disabled] <- "#e3e3e3"
-  n$color.border[n_disabled] <- "#d5d5d5"
-  n$font.color[n_disabled] <- "#d5d5d5"
+  n$color.background[n_disabled] <- mitigated_colours()[["background"]]
+  n$color.border[n_disabled] <- mitigated_colours()[["border"]]
+  n$font.color[n_disabled] <- mitigated_colours()[["text"]]
 
   list("edges" = e, "nodes" = n)
 }
