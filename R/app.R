@@ -1,15 +1,15 @@
 # Load Data ------------------------------------------------------------
 
-#' Launch the Pathways of Effect Shiny App
+#' Launch the Pathways of Effects Shiny UI
 #'
-#' Launches the app. Note that the App data must be in the current working
-#' directory for the app to work.
+#' Launches the tool. Note that the data must be in the current working
+#' directory for the tool to work.
 #'
 #' @export
 #' @examplesIf interactive()
-#' poe_app()
+#' poe_tool()
 
-poe_app <- function() {
+poe_tool <- function() {
   check_components()
   check_pathways()
   check_activities()
@@ -47,8 +47,8 @@ poe_app <- function() {
   # - The name refers to the element id, hence the two 'applies'
 
   htmlLabels <- list(
-    # App title
-    appTitle = "Pathways of Effect",
+    # Title
+    uiTitle = "Canadian Wildlife Service Pathways of Effects",
 
     # Accordion titles
     "valuedComponentLabel" = "Valued Component",
@@ -90,7 +90,7 @@ poe_app <- function() {
     leg3Text3 = legText[3]
   )
 
-  # App structure -------------------------------------------------------
+  # UI Structure -------------------------------------------------------
   ui <- #page_fillable(
     #title = "CWS",
     #theme = bs_theme(version = 5, bootswatch = "materia"),
@@ -117,6 +117,6 @@ poe_app <- function() {
     )
   }
 
-  # Run app -------------------------------------------------------------
+  # Run Tool -------------------------------------------------------------
   shinyApp(ui, server, options = list(host = "0.0.0.0", port = 8080), )
 }

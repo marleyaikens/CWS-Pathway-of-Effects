@@ -5,15 +5,29 @@
 
 ## Overview
 
-The `poe` package provides an interactive Shiny application for exploring Pathways of Effects (PoE) diagram models developed by the Canadian Wildlife Service (CWS).
+The `poe` package provides an interactive Shiny User Interface for exploring Pathways of Effects (PoE) diagram models developed by the Canadian Wildlife Service (CWS).
 
 ## Installation
 
-You can install the development version of poe from GitHub:
+You can install poe from GitHub.
 
 ``` r
 # install.packages("pak")
-pak::pak("marleyaikens/CWS-Pathway-of-Effects@dev-mitigations")
+pak::pak("marleyaikens/CWS-Pathway-of-Effects")
+```
+
+**On Windows**
+
+On Windows you may need to install RTools. If you try the above code but get a message to this
+effect download and install [RTools](https://cran.r-project.org/bin/windows/Rtools/) for your R version. You can find your R version by looking at the first line in the R Console when you start RStudio. 
+
+Close RStudio and restart. 
+
+Try installing again: 
+
+``` r
+# install.packages("pak")
+pak::pak("marleyaikens/CWS-Pathway-of-Effects")
 ```
 
 ## Requirements
@@ -25,11 +39,11 @@ pak::pak("marleyaikens/CWS-Pathway-of-Effects@dev-mitigations")
 
 Create an RStudio project and place the custom data files in this folder.
 
-Then launch the Shiny app with `poe_app()`:
+Then launch the Shiny UI with `poe_tool()`:
 
 ``` r
 library(poe)
-poe_app()
+poe_tool()
 ```
 
 ### Basic Workflow
@@ -47,9 +61,15 @@ poe_app()
 
 6. **Generate a Report** documenting your pathway
 
-## Customizing Data
+## Learning More
 
-To explore customizing the data, see [custom_data.md](custom_data.md)
+- To explore customizing the data, see [custom_data.md](custom_data.md)
+- To learn more about the coding and design choices, see [CODE-DESIGN.md](CODE-DESIGN.md)
+- To make a new release of this R package, follow instructions in [RELEASE.R](RELEASE.R)
+- To learn more about R package development and workflows, see: 
+    - [R Packages](https://r-pkgs.org/) - Excellent guide, standard used by many people
+    - [rOpenSci's developer Guide](https://devguide.ropensci.org/) - Good but detailed and meant for packages going to be submitted for Peer-Review
+- How to setup and use the R-Universe - https://docs.r-universe.dev/publish/set-up.html
 
 ## License
 

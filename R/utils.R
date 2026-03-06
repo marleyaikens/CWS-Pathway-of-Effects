@@ -48,7 +48,7 @@ check_mitigations <- function(
     )
   }
 
-  invisible(list(TRUE, "")) # For capturing the message in the Shiny app
+  invisible(list(TRUE, "")) # For capturing the message in the Shiny UI
 }
 
 #' Check pathways file for problems
@@ -217,10 +217,10 @@ node_colours <- function() {
 }
 
 
-#' Create PoE Shiny app theme
+#' Create PoE Shiny UI theme
 #'
-#' Creates a Bootstrap theme with custom styling for the Pathways of Effect
-#' Shiny app.
+#' Creates a Bootstrap theme with custom styling for the Pathways of Effects
+#' Shiny UI.
 #'
 #' @returns bslib theme object.
 #'

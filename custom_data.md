@@ -1,11 +1,29 @@
 # Customizing Background Data
 
-The `poe` package provides a Shiny app for exploring Pathways of Effect based
+The `poe` package provides a Shiny Web Interface for exploring Pathways of Effects based
 on data held in several Excel files. This document explains how to modify these
 files to customize pathways, activities, stressors, and mitigations.
 
+## Setup for users
+Once the data files are ready to be bundled into the package, they need to be
+added to the `inst/extdata` folder. 
+This can be done via Git (see [Happy Git and GitHub for the useR](https://happygitwithr.com/) to get started), 
+or via the GitHub webpage: 
+
+- Go to the [inst/extdata](https://github.com/marleyaikens/CWS-Pathway-of-Effects/tree/main/inst/extdata) folder
+- Click on "Add file" > "Upload Files" in the upper right corner
+- Choose/Drag files to the box at the top
+- Add a description to the "Commit" (i.e. a message explaining the change)
+- Click "Commit Changes" (it's oky to commit directly to the main branch here)
+
+That's it!
+
+
 ## Setup for testing
 During the testing phase, the data files are expected to be in the local working directory.
+
+**NOTE**: if the data files have been moved to the `inst/extdata` folder (above), then the package will ignore local files in the working directory!
+
 This is the location of the RStudio Project.
 
 Therefore:
@@ -13,18 +31,18 @@ Therefore:
 1. Create a New RStudio project 
 2. Save the 5 data files to this folder
 3. Open the project
-4. Install the Shiny app
+4. Install the poe R package
     - First install the 'pak' package. Type `install.packages('pak')` in the console and hit enter. Wait until the installation is complete.
     - Second install the testing version of the 'poe' package. Type `pak::pkg_install("marleyaikens/CWS-Pathway-of-Effects@dev-mitigations")` in the console and hit enter. Wait until the installation is complete. If you are asked to update any packages, or to install Rtools, please do so.
-4. Run the app by typing `poe::poe_app()` in the console and hit enter.
+4. Run the tool by typing `poe::poe_tool()` in the console and hit enter.
 
 To test creating custom pathways, read the following instructions, modify the files,
-run the app (`poe::poe_app()`) and see if things have changed as you expected.
+run the tool (`poe::poe_tool()`) and see if things have changed as you expected.
 
 
 ## File Overview
 
-The app uses four main data files:
+The tool uses four main data files:
 
 - **`pathways.xlsx`** - Defines pathway diagrams for each valued component
 - **`components.xlsx`** - Links valued components to activities and stressors
@@ -32,7 +50,7 @@ The app uses four main data files:
 - **`mitigations.xlsx`** - Defines mitigation measures which can interrupt pathways
 - **`translations.xlsx`** - French translations for all text (generally this file is not modified directly, except to add French translations).
 
-While testing the modification of these files, they will be kept in an RStudio Project folder so the app can locate them. Later, when the pathways and UI are finalized, these files will be included in the package directly so they are installed automatically.
+While testing the modification of these files, they will be kept in an RStudio Project folder so the package can locate them. Later, when the pathways and UI are finalized, these files will be included in the package directly so they are installed automatically.
 
 ## File Structure
 
@@ -88,7 +106,7 @@ This file links valued components to activities and their associated stressors. 
 ### `sectors.xlsx`
 
 Links Sectors to specific activities to be used by the Sector selection menu in 
-the app.
+the tool.
 
 **Required columns:**
 - `sector` - Sector name (e.g., "Transportation", "Energy")
@@ -113,11 +131,11 @@ Defines mitigation measures that can be applied to pathway edges.
 
 **To add a new mitigation:**
 1. Identify the edge (start and end nodes) where the mitigation applies
-  - In the app, if you hover the mouse over an edge/pathway, the start end nodes
+  - In the UI, if you hover the mouse over an edge/pathway, the start end nodes
     will appear in a tooltip, e.g., '1-2' (start node 1, end node 2)
 2. Add a row with the valued component, nodes, and descriptions
 3. Ensure node IDs match those in `pathways.xlsx`
-  - If you use the app to get the nodes, this should be the case
+  - If you use the UI to get the nodes, this should be the case
 
 ## Workflow for Adding New Data
 
@@ -139,7 +157,7 @@ Defines mitigation measures that can be applied to pathway edges.
    - Run `poe::dictionary_update()` to extract new English text
    - Add French translations to `translations.xlsx`
    - (Skipping this step will result in 'NA's in the French language version
-     of the app, rather than 'FR' placeholders, so it's safe to skip while testing).
+     of the UI, rather than 'FR' placeholders, so it's safe to skip while testing).
 
 ### Adding a New Activity or Stressor
 
@@ -177,7 +195,7 @@ Defines mitigation measures that can be applied to pathway edges.
 
 ## Data Validation
 
-After modifying data files if you run the app `poe::poe_app()`, several validation checks will run and let you know if there are mismatches among the files/components/etc. and where these occur.
+After modifying data files if you run the tool `poe::poe_tool()`, several validation checks will run and let you know if there are mismatches among the files/components/etc. and where these occur.
 
 ## Tips
 

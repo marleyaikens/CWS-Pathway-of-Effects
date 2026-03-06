@@ -1,6 +1,6 @@
 #' User Interface module for pathways of effects
 #'
-#' Creates the Shiny UI for the Pathways of Effect app.
+#' Creates the Shiny UI for the Pathways of Effects Tool.
 #'
 #' @param id Character. Shiny Module ID.
 #' @param act2Pres Data frame. Components and activity to stressors lookup table.
@@ -46,13 +46,13 @@ poeUI <- function(
     #   class = "card bslib-card card-header d-flex
     # justify-content-between align-items-center flex-row",
     #   tags$div(
-    #     "Pathways of Effect",
+    #     "Pathways of Effects",
     #     id = ns("dbTitle"),
     #     style = "font-size: 2rem; font-weight: bold;"
     #   ),
     # ),
     page_navbar(
-      title = span(id = ns("appTitle"), htmlLabels[["appTitle"]]),
+      title = span(id = ns("uiTitle"), htmlLabels[["uiTitle"]]),
       theme = poe_theme(),
       header = shinyjs::useShinyjs(),
       # Inputs -------------------------------------------
@@ -132,6 +132,12 @@ poeUI <- function(
             downloadButton(
               ns("report"),
               label = span(id = ns("reportLabel"), htmlLabels[["reportLabel"]])
+            ),
+            div(
+              style = "margin-top: 5px;",
+              tags$em(
+                "Errors in the download can arise if the VPN drops the connection. If this happens, try again. If the error persists, refresh the page."
+              )
             )
           ),
         )
@@ -252,7 +258,7 @@ poeUI <- function(
 
 #' Server module for pathways of effects
 #'
-#' Creates the Shiny server logic for the Pathways of Effect app.
+#' Creates the Shiny server logic for the Pathways of Effects tool.
 #'
 #' @param id Character. Shiny Module ID.
 #' @param act2Pres Data frame. Components and activity to stressors lookup table.
@@ -701,19 +707,23 @@ poeServer <- function(
     output$report <- downloadHandler(
       filename = paste0("report_", Sys.Date(), ".html"),
       content = \(file) {
-        withProgress(message = 'Creating report...', {
-          create_report(
-            vc = input$valuedComponent,
-            a = input$activities,
-            m = input$mitigations,
-            m_df = mitigations_all(),
-            notes = input$reportNotes,
-            project_name = input$reportName,
-            project_status = input$reportStatus,
-            lang = input$lang,
-            path = file
-          )
-        })
+        withProgress(
+          message = 'Creating report...',
+          detail = "This may take a minute",
+          {
+            create_report(
+              vc = input$valuedComponent,
+              a = input$activities,
+              m = input$mitigations,
+              m_df = mitigations_all(),
+              notes = input$reportNotes,
+              project_name = input$reportName,
+              project_status = input$reportStatus,
+              lang = input$lang,
+              path = file
+            )
+          }
+        )
       }
     )
   })
