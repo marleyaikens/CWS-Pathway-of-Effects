@@ -27,7 +27,7 @@ Try installing again:
 
 ``` r
 # install.packages("pak")
-pak::pak("marleyaikens/CWS-Pathway-of-Effects@dev-mitigations")
+pak::pak("marleyaikens/CWS-Pathway-of-Effects")
 ```
 
 ## Requirements
@@ -61,9 +61,15 @@ poe_tool()
 
 6. **Generate a Report** documenting your pathway
 
-## Customizing Data
+## Learning More
 
-To explore customizing the data, see [custom_data.md](custom_data.md)
+- To explore customizing the data, see [custom_data.md](custom_data.md)
+- To learn more about the coding and design choices, see [CODE-DESIGN.md](CODE-DESIGN.md)
+- To make a new release of this R package, follow instructions in [RELEASE.R](RELEASE.R)
+- To learn more about R package development and workflows, see: 
+    - [R Packages](https://r-pkgs.org/) - Excellent guide, standard used by many people
+    - [rOpenSci's developer Guide](https://devguide.ropensci.org/) - Good but detailed and meant for packages going to be submitted for Peer-Review
+- How to setup and use the R-Universe - https://docs.r-universe.dev/publish/set-up.html
 
 ## License
 

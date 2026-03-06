@@ -17,6 +17,12 @@ dictionary_update()
 # To do this: Put `sectors.xlsx`, `components.xlsx`, `mitigations.xlsx`,
 # `pathways.xlsx` and `translations.xlsx` in the `inst/extdata/` folder.
 
+# Bump version (i.e. increase the version number)
+file.edit("DESCRIPTION")
+
+# Add changes to NEWS
+file.edit("NEWS.md")
+
 # Check the package -----------------------------------------------------------
 
 # First build the package
@@ -34,7 +40,5 @@ devtools::run_examples()
 devtools::check()
 
 # Release a new version -------------------------------------------------------
-# - Bump the package version in DESCRIPTION
-# - Update NEWS.md
 # - Merge with the main branch (if not working on main)
 # - Make a GitHub Release
