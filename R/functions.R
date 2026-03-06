@@ -115,7 +115,7 @@ read_mitigations <- function(file_name = "mitigations.xlsx", dir = NULL) {
 #' Read translations data
 #'
 #' Reads translations Excel file containing English to French translations for
-#' all UI elements, labels, and content in the app.
+#' all UI elements, labels, and content in the UI
 #'
 #' @param file_name Character. Name of Excel file to read. Defaults to
 #'   "translations.xlsx".
@@ -175,7 +175,7 @@ data_location <- function(file_name, dir = NULL) {
         file_name,
         " in ",
         normalizePath(dir),
-        "\nEnsure that App Data files are in the working directory.",
+        "\nEnsure that Data files are in the working directory.",
         call. = FALSE
       )
     }
@@ -477,7 +477,7 @@ make_orthogonal <- function(pathway) {
     DiagrammeR::render_graph(layout = "tree", output = "graph")
 }
 
-#' Create pathway of effects legend
+#' Create pathways of effects legend
 #'
 #' Creates an HTML legend for the pathway diagram with color-coded squares and
 #' labels. IDs are structured to enable translation.

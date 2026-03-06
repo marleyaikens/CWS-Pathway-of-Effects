@@ -22,7 +22,7 @@ Data frame with columns:
 }
 \description{
 Reads translations Excel file containing English to French translations for
-all UI elements, labels, and content in the app.
+all UI elements, labels, and content in the UI
 }
 \examples{
 \dontshow{if (have_data()) withAutoprint(\{ # examplesIf}

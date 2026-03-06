@@ -27,7 +27,7 @@ devtools::build()
 devtools::test()
 devtools::run_examples()
 
-# Note, the final example will launch the Shiny app, so you'll have to exit out
+# Note, the final example will launch the Shiny UI, so you'll have to exit out
 # before proceeding.
 
 # Check that the package builds and installs

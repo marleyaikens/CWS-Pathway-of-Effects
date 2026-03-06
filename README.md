@@ -5,7 +5,7 @@
 
 ## Overview
 
-The `poe` package provides an interactive Shiny application for exploring Pathways of Effects (PoE) diagram models developed by the Canadian Wildlife Service (CWS).
+The `poe` package provides an interactive Shiny User Interface for exploring Pathways of Effects (PoE) diagram models developed by the Canadian Wildlife Service (CWS).
 
 ## Installation
 
@@ -25,11 +25,11 @@ pak::pak("marleyaikens/CWS-Pathway-of-Effects@dev-mitigations")
 
 Create an RStudio project and place the custom data files in this folder.
 
-Then launch the Shiny app with `poe_app()`:
+Then launch the Shiny UI with `poe_tool()`:
 
 ``` r
 library(poe)
-poe_app()
+poe_tool()
 ```
 
 ### Basic Workflow
