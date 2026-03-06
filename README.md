@@ -9,7 +9,21 @@ The `poe` package provides an interactive Shiny User Interface for exploring Pat
 
 ## Installation
 
-You can install the development version of poe from GitHub:
+You can install poe from GitHub.
+
+``` r
+# install.packages("pak")
+pak::pak("marleyaikens/CWS-Pathway-of-Effects")
+```
+
+**On Windows**
+
+On Windows you may need to install RTools. If you try the above code but get a message to this
+effect download and install [RTools](https://cran.r-project.org/bin/windows/Rtools/) for your R version. You can find your R version by looking at the first line in the R Console when you start RStudio. 
+
+Close RStudio and restart. 
+
+Try installing again: 
 
 ``` r
 # install.packages("pak")
