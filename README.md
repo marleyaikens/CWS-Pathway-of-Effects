@@ -63,7 +63,7 @@ poe_tool()
 
 ## Learning More
 
-- To explore customizing the data, see [custom_data.md](custom_data.md)
+- To explore customizing the data, see [CUSTOM-DATA.md](CUSTOM-DATA.md)
 - To learn more about the coding and design choices, see [CODE-DESIGN.md](CODE-DESIGN.md)
 - To make a new release of this R package, follow instructions in [RELEASE.R](RELEASE.R)
 - To learn more about R package development and workflows, see: 
