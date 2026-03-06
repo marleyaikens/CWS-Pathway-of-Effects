@@ -4,8 +4,26 @@ The `poe` package provides a Shiny Web Interface for exploring Pathways of Effec
 on data held in several Excel files. This document explains how to modify these
 files to customize pathways, activities, stressors, and mitigations.
 
+## Setup for users
+Once the data files are ready to be bundled into the package, they need to be
+added to the `inst/extdata` folder. 
+This can be done via Git (see [Happy Git and GitHub for the useR](https://happygitwithr.com/) to get started), 
+or via the GitHub webpage: 
+
+- Go to the [inst/extdata](https://github.com/marleyaikens/CWS-Pathway-of-Effects/tree/main/inst/extdata) folder
+- Click on "Add file" > "Upload Files" in the upper right corner
+- Choose/Drag files to the box at the top
+- Add a description to the "Commit" (i.e. a message explaining the change)
+- Click "Commit Changes" (it's oky to commit directly to the main branch here)
+
+That's it!
+
+
 ## Setup for testing
 During the testing phase, the data files are expected to be in the local working directory.
+
+**NOTE**: if the data files have been moved to the `inst/extdata` folder (above), then the package will ignore local files in the working directory!
+
 This is the location of the RStudio Project.
 
 Therefore:
