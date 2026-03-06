@@ -1,0 +1,297 @@
+---
+params: 
+  vc: "Terrestrial and Semi-Aquatic SAR"
+  a:
+    - "Shoreline / Bank stabilization"
+    - "Land and Vegetation clearing and vegetation maintenance"
+  m:
+    - "Relocate"
+    - "Create Habitat"
+  m_all: 
+    - "test"
+  notes:
+    - "All the notes I think I should include.\nAnd more!"
+  project_name: "Project"
+  project_status: "Status"
+  lang: "en"
+title: "`r params$project_name`"
+subtitle: "`r paste(poe::translate_text('Pathways of Effect', params$lang), '-', poe::translate_text(params$vc, lang = params$lang))`"
+date: today
+date-format: iso
+published-title: "Date"
+author: "`r packageVersion('poe')`"
+author-title: "Version"
+abstract: "`r params$project_status`"
+abstract-title: "`r poe::translate_text('Project status', params$lang)`"
+toc-title: "`r poe::translate_text('Table of Contents', params$lang)`"
+format: 
+  html:
+    embed-resources: true
+    toc: true
+    page-layout: full
+    theme: cosmo
+keep-md: false
+execute:
+  echo: false
+---
+
+```{css}
+/* This is where custom styles are defined */
+h4 {
+  font-weight: bold;
+  font-size: 100%;
+  margin-bottom: 0.25rem;
+}
+```
+
+
+```{r setup}
+#| include: false
+
+# DEVNOTES: Remember to rebuild package before testing!!
+
+library(poe)
+library(reactable)
+
+vc <- params$vc
+a <- params$a
+m <- params$m
+m_all <- lapply(params$m_all, \(col) {
+  col[col == ""] <- NA_character_
+  col
+})
+m_all <- as.data.frame(m_all)
+
+lang <- params$lang
+
+# Load data
+pathways <- read_pathways()
+ref <- read_components()
+
+dict <- read_translations()
+options("poe.dict" = dict)
+```
+
+```{r DEVTESTS}
+#| include: false
+#| eval: false
+
+# These are used for development tests only, not rendered when creating the report
+
+pathways <- read_pathways()
+ref <- read_components()
+
+vc <- "Terrestrial and Semi-Aquatic SAR"
+a <- "Shoreline / Bank stabilization"
+m <- c("terrestrial_and_semi-aquatic_sar_relocate", "terrestrial_and_semi-aquatic_sar_create_habitat")
+m_all <- data.frame(
+    start_node = "30",
+    end_node = "7",
+    short = "Mitigation EG",
+    long = "Test"
+  )
+m_all <- read_mitigations()
+
+m_all <- unique(m_all)
+m_all <- lapply(m_all, \(col) {
+  col[is.na(col)] <- ""
+  col
+})
+m_all <- lapply(m_all, \(col) {
+  col[col == ""] <- NA_character_
+  col
+})
+m_all <- as.data.frame(m_all)
+```
+
+```{r intro}
+#| results: asis
+
+if(lang == "en") {
+cat("This report presents a Pathway of Effects (PoE) diagram modelling the effects of development activities on terrestrial and semi-aquatic species at risk (SAR), including associated mitigation measures. It is based on the user’s selected inputs in the Canadian Wildlife Service (CWS) PoE Shiny R Tool (the `poe` R package), which include the following:")
+} else {
+  cat("Introduction en français")
+}
+```
+
+#### `r translate_text("Valued Component", lang)`:
+```{r}
+#| results: asis
+paste("-", paste(translate_text(vc, lang), collapse = "\n- ")) |> cat()
+```
+
+#### `r translate_text("Activities", lang)`:
+```{r}
+#| results: asis
+paste("-", paste(translate_text(a, lang), collapse = "\n- ")) |> cat()
+```
+
+#### `r translate_text("Mitigations", lang)`:
+```{r}
+#| results: asis
+if(length(m) > 0) {
+  m_txt <- m_all[["short"]][m_all$m_id %in% m] |> unique() |> translate_text(lang = lang)
+  paste("-", paste(m_txt, collapse = "\n - ")) |> cat()
+} else {
+  paste0("*", translate_text("None selected", lang), "*") |> cat()
+}
+
+cat("\n\n")
+
+if(lang == "en") {
+  cat("To recreate the diagram, the same inputs must be reselected in the tool.\n  \\* Indicates a user-created mitigation")
+} else {
+  cat("Pour recréer le diagramme, il faut sélectionner à nouveau les mêmes données dans l'outil.\n  \\* Indique une mesure d'atténuation personnalisée")
+}
+
+```
+
+
+
+## Notes
+
+```{r notes}
+#| results: asis
+if(!is.null(params$notes) && params$notes != "") {
+  cat(params$notes)
+} else {
+  paste0("*", translate_text("No user-supplied notes", lang), "*") |> cat()
+}
+```
+
+
+## `r translate_text("Interactive Diagram", lang)`
+```{r DEVTESTS-diagram}
+#| eval: false
+# Only used for testing (otherwise eval: false)
+write(
+  c(
+  "vc:", vc, "\n",
+  "m:", m, "\n",
+  "\n",
+  capture.output(print(m_all)), 
+  "\n\n",
+  capture.output(print(pathways))),
+  "~/Projects/Business/CWS/poe/LOG.txt")
+```
+
+```{r diagram}
+#| fig-height: 10
+
+p <- prep_pathways(pathways, ref, vc = vc, a = a, lang = lang)
+d <- add_mitigation(p, m_all, m, lang = lang)
+make_visnetwork(d)
+```
+
+## `r translate_text("Glossary/Details", lang)`
+
+### `r translate_text("Valued Components and Activities", lang)`
+
+```{r}
+#| results: asis
+if(lang == "en") {
+  cat("Table of *all* possible Valued Components and their corresponding activities and stressors (not only those in the diagram). This table can be searched (upper right corner) or individual columns can be filtered (boxes below column name).")
+} else {
+  cat("Version en français")
+}
+```
+
+
+```{r tbl_vc_a}
+r <- report_tables(
+  ref, 
+  c(
+    "Valued Component" = "valued_component", 
+    "Activities" = "activities", 
+    "Stressors" = "stressors"
+  ), 
+  lang = lang
+)
+```
+
+```{r}
+#| include: false
+# Required to 'initialize' the reactible (htmltools? htmlwidgets?) printing, even if not seen.
+r[[1]]
+```
+
+:::{.panel-tabset .nav-pills}
+
+```{r tbl_vc_print}
+#| results: asis
+# for (i in seq_along(r)) {
+#   cat("###", names(r)[i], "\n\n")
+#   cat("\n\n```{=html}\n\n")
+
+#   shiny::tagList(r[[i]]) |> print()
+  
+#   cat("\n\n```\n\n")
+# }
+report_tables_print(r)
+```
+
+:::  
+
+
+
+### `r translate_text("Mitigations", lang)`
+
+```{r}
+#| results: asis
+
+if(lang == "en") {
+  cat("Table of *all* possible Mitigations for each Valued Component (not only those in the diagram). This table can be searched (upper right corner) or individual columns can be filtered (boxes below column name).\n\n\\* Indicates a user-created mitigation")
+} else {
+  cat("Version en français. \n\n\\* Indique une mesure d'atténuation personnalisée")
+}
+```
+
+
+```{r tbl_m}
+#| results: asis
+
+if(!is.null(m_all) && length(m_all) > 0) {
+  r <- report_tables(
+    m_all, 
+    c(
+      "Valued Component" = "valued_component", 
+      "Name" = "short", 
+      "Description" = "long"
+    ), 
+    lang = lang
+  )
+} else cat(paste0("*", translate_text("No mitigations", lang = lang), "*"))
+```
+
+:::{.panel-tabset .nav-pills}
+
+```{r tbl_m_print}
+#| results: asis
+if(!is.null(m_all) && length(m_all) > 0) {
+  report_tables_print(r)
+}
+```
+
+:::  
+
+## `r translate_text("System information", lang)`
+
+
+```{r}
+#| results: asis
+
+if(lang == "en") {
+  cat("System information for tracking operating system and software versions used.
+Useful for troubleshooting, record keeping, and identifying in which versions
+potential bugs may have occurred.")
+} else {
+  cat("Version en français")
+}
+```
+
+<details>
+
+```{r system_info}
+sessionInfo()
+```
+</details>

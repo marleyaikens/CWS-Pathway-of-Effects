@@ -1,0 +1,7 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+data-raw/create_customizable_data.R
+.~lock*
+report_*.html

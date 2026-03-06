@@ -1,0 +1,8 @@
+^data-raw$
+^CODE-DESIGN.md$
+^RELEASE.R$
+^LICENSE\.md$
+^\_archive$
+^\.vscode$
+^air\.toml$
+^custom_data.md$
