@@ -707,23 +707,32 @@ poeServer <- function(
     output$report <- downloadHandler(
       filename = paste0("report_", Sys.Date(), ".html"),
       content = \(file) {
-        withProgress(
-          message = 'Creating report...',
-          detail = "This may take a minute",
-          {
-            create_report(
-              vc = input$valuedComponent,
-              a = input$activities,
-              m = input$mitigations,
-              m_df = mitigations_all(),
-              notes = input$reportNotes,
-              project_name = input$reportName,
-              project_status = input$reportStatus,
-              lang = input$lang,
-              path = file
+        id <- showNotification(
+          tagList(
+            "Compiling report, this may take a minute...",
+            br(),
+            span(
+              "Message will disappear when your report is ready",
+              style = "font-size:80%;"
             )
-          }
+          ),
+          type = "message",
+          duration = NULL,
+          closeButton = FALSE
         )
+        r <- create_report(
+          vc = input$valuedComponent,
+          a = input$activities,
+          m = input$mitigations,
+          m_df = mitigations_all(),
+          notes = input$reportNotes,
+          project_name = input$reportName,
+          project_status = input$reportStatus,
+          lang = input$lang,
+          path = file
+        )
+        removeNotification(id)
+        r
       }
     )
   })
