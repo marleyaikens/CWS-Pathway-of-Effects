@@ -57,7 +57,7 @@ poe_tool()
 4. **View the Pathway** showing how activities lead to stressors, effects, and outcomes
 
 5. **Apply Mitigations** to see how they alter pathway outcomes
-  - Option to create and apply custom mitigations
+    - Option to create and apply custom mitigations
 
 6. **Generate a Report** documenting your pathway
 
