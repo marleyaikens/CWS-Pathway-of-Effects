@@ -164,7 +164,17 @@ poeUI <- function(
               accordion_panel(
                 title = span(
                   id = ns("addMitigations"),
-                  htmlLabels[["addMitigations"]]
+                  htmlLabels[["addMitigations"]],
+                  tooltip(
+                    icon("info-circle"),
+                    "Mitigations can affect multiple pathways.",
+                    br(),
+                    "To create a multipathway mitigation use the same 'Name' but select a different pathway.",
+                    br(),
+                    "To create a completely new mitigation, ensure that you use a different 'Name'.",
+                    br(),
+                    "If more than one mitigation affects the same edge, only the most recently one will be shown on the diagram."
+                  )
                 ),
                 value = "",
                 textOutput(ns("currentEdge"), inline = TRUE),
