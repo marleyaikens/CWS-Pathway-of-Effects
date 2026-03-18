@@ -27,6 +27,10 @@ This is primarily meant for future *developers* of this package.
   edge labels must start as " ". For what ever reason, `NA` and "" aren't updated when removing a mitigation edge label
     - possibly a bug in vis.js? https://github.com/visjs/vis-network/issues/1450
 
+## Reports
+- The reports are created from the Quarto template in `inst/extdata/report_template.qmd`. 
+- You can change the main text there and the French translations (see below, **Translations**). Note that these blocks of text are stored in R code chunks so language can be used to determine which to show.
+
 ## Colour and things
 - The nodes and mitigation pathway colours are defined in `R/utils` in `node_colours()` and `mitigated_colours()`
 

@@ -108,7 +108,7 @@ m_all <- as.data.frame(m_all)
 #| results: asis
 
 if(lang == "en") {
-cat("This report presents a Pathways of Effects (PoE) diagram modelling the effects of development activities on terrestrial and semi-aquatic species at risk (SAR), including associated mitigation measures. It is based on the user’s selected inputs in the Canadian Wildlife Service (CWS) PoE Shiny R Tool (the `poe` R package), which include the following:")
+cat("This report presents a Pathway of Effects Analysis modelling the effects of development activities on CWS Valued Components, including any mitigation identified to manage the project’s predicted effects. It is based on the user’s selected inputs in the Canadian Wildlife Service (CWS) Pathways of Effects (PoE) Analysis Tool (the poe R package), which include the following parameters:")
 } else {
   cat("Introduction en français")
 }
