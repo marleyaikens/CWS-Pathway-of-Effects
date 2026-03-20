@@ -55,6 +55,7 @@ poe_tool <- function() {
     "mitigationMeasures" = "Mitigation Measures",
     "addMitigations" = "Add Mitigations",
     "removeMitigations" = "Remove Created Mitigations",
+    "helpMitigations" = "Help",
 
     # UI only Inputs
     "sectorLabel" = "Sector",

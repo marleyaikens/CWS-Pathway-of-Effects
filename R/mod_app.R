@@ -159,24 +159,22 @@ poeUI <- function(
               id = ns("sidebarMitigationsLabel")
             ),
             accordion(
-              open = TRUE,
+              open = "add",
               multiple = TRUE,
               accordion_panel(
                 title = span(
-                  id = ns("addMitigations"),
-                  htmlLabels[["addMitigations"]],
-                  tooltip(
-                    icon("info-circle"),
-                    "Mitigations can affect multiple pathways.",
-                    br(),
-                    "To create a multipathway mitigation use the same 'Name' but select a different pathway.",
-                    br(),
-                    "To create a completely new mitigation, ensure that you use a different 'Name'.",
-                    br(),
-                    "If more than one mitigation affects the same edge, only the most recently one will be shown on the diagram."
-                  )
+                  id = ns("helpMitigations"),
+                  htmlLabels[["helpMitigations"]]
                 ),
-                value = "",
+                value = "help",
+                uiOutput(ns("helpMitigations"))
+              ),
+              accordion_panel(
+                title = span(
+                  id = ns("addMitigations"),
+                  htmlLabels[["addMitigations"]]
+                ),
+                value = "add",
                 textOutput(ns("currentEdge"), inline = TRUE),
                 textInput(
                   ns("addMitigationName"),
@@ -295,6 +293,38 @@ poeServer <- function(
     ns <- session$ns
     htmlLabels <- stats::setNames(htmlLabels, ns(names(htmlLabels)))
     customMitigations <- reactiveVal(data.frame())
+
+    output$helpMitigations <- renderUI({
+      #TODO: Better way to handle help and translations
+      tagList(
+        translate_text(
+          "Mitigations can affect multiple pathways.",
+          input$lang
+        ),
+        tags$ul(
+          tags$li(translate_text(
+            "To create a multipathway mitigation use the same 'Name' but select a different pathway.",
+            input$lang
+          )),
+          tags$li(
+            translate_text(
+              "To create a completely new mitigation, ensure that you use a different 'Name'.",
+              input$lang
+            )
+          ),
+          tags$li(
+            translate_text(
+              "If more than one mitigation affects the same edge, only the most recently one will be shown on the diagram.",
+              input$lang
+            )
+          )
+        ),
+        translate_text(
+          "To activate a created mitigation, select in 'Mitigation Measures' sidebar.",
+          input$lang
+        )
+      )
+    })
 
     ###########################################################################
     #                                                                         #
@@ -589,6 +619,33 @@ poeServer <- function(
     }) |>
       bindEvent(customMitigations())
 
+    observe({
+      showNotification(
+        tagList(
+          translate_text("Mitigation created", input$lang),
+          br(),
+          span(
+            translate_text(
+              "To activate a created mitigation, select in 'Mitigation Measures' sidebar.",
+              input$lang
+            ),
+            style = "font-size:80%;"
+          ),
+          br(),
+          span(
+            translate_text(
+              "To create an additional mitigation, click on a new edge.",
+              lang = input$lang
+            ),
+            style = "font-size:80%;"
+          )
+        ),
+        type = "message",
+        duration = 10
+      )
+    }) |>
+      bindEvent(input$createMitigation)
+
     # Translations ------------------------------------------------------
     observe({
       # Update non-dynamic UI elements with JS
@@ -719,10 +776,16 @@ poeServer <- function(
       content = \(file) {
         id <- showNotification(
           tagList(
-            "Compiling report, this may take a minute...",
+            translate_text(
+              "Compiling report, this may take a minute...",
+              lang = input$lang
+            ),
             br(),
             span(
-              "Message will disappear when your report is ready",
+              translate_text(
+                "Message will disappear when your report is ready",
+                lang = input$lang
+              ),
               style = "font-size:80%;"
             )
           ),
