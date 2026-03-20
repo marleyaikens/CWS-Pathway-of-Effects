@@ -48,7 +48,7 @@ poe_tool <- function() {
 
   htmlLabels <- list(
     # Title
-    uiTitle = "Canadian Wildlife Service Pathways of Effects",
+    uiTitle = "Canadian Wildlife Service Pathways of Effects Assessment Tool (PEAT) ",
 
     # Accordion titles
     "valuedComponentLabel" = "Valued Component",
